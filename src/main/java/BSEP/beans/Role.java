@@ -1,7 +1,7 @@
 package BSEP.beans;
 
-public class Role {
+public enum Role {
 
-	private int id;
-	private String name;
+	GUEST, ADMIN, TEAM_LEADER, TEAM_MEMBER, REGISTRED_USER
+	
 }
