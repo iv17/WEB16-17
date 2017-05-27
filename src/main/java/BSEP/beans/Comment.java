@@ -37,12 +37,12 @@ public class Comment implements Serializable {
 	private Date date;
 	
 	@ManyToOne @JsonIgnore
-	@JoinColumn(name = "snippet_id", referencedColumnName = "id", nullable = true) 
-	private Snippet snippet;
-	
-	@ManyToOne @JsonIgnore
 	@JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true) 
 	private User user;
+	
+	@ManyToOne @JsonIgnore
+	@JoinColumn(name = "snippet_id", referencedColumnName = "id", nullable = true) 
+	private Snippet snippet;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "comment") @JsonIgnore
 	private Set<Rating> ratings;

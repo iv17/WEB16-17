@@ -25,4 +25,5 @@ public class TeamConversation extends Conversation {
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "team_conversation") @JsonIgnore
 	private Set<TeamMessage> messages;
+
 }

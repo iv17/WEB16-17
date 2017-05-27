@@ -37,9 +37,6 @@ public class Message implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "message") @JsonIgnore
 	private Set<Attachment> attachments;
 	
-	
-	
-	
-	
+		
 
 }
