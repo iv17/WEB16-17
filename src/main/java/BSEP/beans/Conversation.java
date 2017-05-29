@@ -33,7 +33,59 @@ public class Conversation implements Serializable {
 	
 	@Column(name = "date_created", unique = false, nullable = false)
 	private Date dateCreated;
+
 	
+	
+	public Conversation() {
+
+	}
+
+	public Conversation(String name, String description, String purpose, Date dateCreated) {
+		this.name = name;
+		this.description = description;
+		this.purpose = purpose;
+		this.dateCreated = dateCreated;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getPurpose() {
+		return purpose;
+	}
+
+	public void setPurpose(String purpose) {
+		this.purpose = purpose;
+	}
+
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
 	
 	
 }

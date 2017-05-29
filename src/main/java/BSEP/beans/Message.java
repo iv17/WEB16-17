@@ -11,10 +11,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "message")
@@ -25,7 +25,7 @@ public class Message implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false , unique = true)
+	@Column(name = "message_id", nullable = false , unique = true)
 	private int id;
 	
 	@Column(name = "text", unique = false, nullable = false)
@@ -34,9 +34,46 @@ public class Message implements Serializable {
 	@Column(name = "date", unique = false, nullable = false)
 	private Date date;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "message") @JsonIgnore
+	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+	@JoinTable(name = "attachments_messages", 
+		joinColumns = {@JoinColumn(name = "message_id")}, 
+		inverseJoinColumns = {@JoinColumn(name = "id")})
 	private Set<Attachment> attachments;
+
 	
+	public Message() {
 		
+	}
+
+	public Message(String text, Date date, Set<Attachment> attachments) {
+		this.text = text;
+		this.date = date;
+		this.attachments = attachments;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Set<Attachment> getAttachments() {
+		return attachments;
+	}
+
+	public void setAttachments(Set<Attachment> attachments) {
+		this.attachments = attachments;
+	}
+	
 
 }

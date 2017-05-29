@@ -32,4 +32,39 @@ public class Language implements Serializable {
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "snippet") @JsonIgnore
 	Set<Snippet> snippets;
+
+	public Language() {
+		
+	}
+
+	public Language(String name) {
+		this.name = name;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Set<Snippet> getSnippets() {
+		return snippets;
+	}
+
+	public void setSnippets(Set<Snippet> snippets) {
+		this.snippets = snippets;
+	}
+	
+	
+	
 }

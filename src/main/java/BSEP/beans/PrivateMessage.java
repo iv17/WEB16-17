@@ -21,4 +21,44 @@ public class PrivateMessage extends Message {
 	@ManyToOne @JsonIgnore
 	@JoinColumn(name = "receiver_id", referencedColumnName = "id", nullable = true) 
 	private User receiver;
+
+	@ManyToOne @JsonIgnore
+	@JoinColumn(name = "conversation_id", referencedColumnName = "id", nullable = true) 
+	private PrivateConversation privateConversation;
+	
+	public PrivateMessage() {
+		super();
+	}
+	
+	public PrivateMessage(User sender, User receiver, PrivateConversation privateConversation) {
+		this.sender = sender;
+		this.receiver = receiver;
+		this.privateConversation = privateConversation;
+	}
+
+	public User getSender() {
+		return sender;
+	}
+
+	public void setSender(User sender) {
+		this.sender = sender;
+	}
+
+	public User getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(User receiver) {
+		this.receiver = receiver;
+	}
+
+	public PrivateConversation getPrivateConversation() {
+		return privateConversation;
+	}
+
+	public void setPrivateConversation(PrivateConversation privateConversation) {
+		this.privateConversation = privateConversation;
+	}
+	
+	
 }

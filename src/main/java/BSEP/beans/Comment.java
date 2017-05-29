@@ -46,4 +46,66 @@ public class Comment implements Serializable {
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "comment") @JsonIgnore
 	private Set<Rating> ratings;
+
+	
+	public Comment() {
+
+	}
+
+	public Comment(String text, Date date, User user, Snippet snippet) {
+		this.text = text;
+		this.date = date;
+		this.user = user;
+		this.snippet = snippet;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Snippet getSnippet() {
+		return snippet;
+	}
+
+	public void setSnippet(Snippet snippet) {
+		this.snippet = snippet;
+	}
+
+	public Set<Rating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(Set<Rating> ratings) {
+		this.ratings = ratings;
+	}
+		
+	
 }

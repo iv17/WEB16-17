@@ -40,4 +40,58 @@ public class Team implements Serializable {
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "team") @JsonIgnore
 	private Set<User> members;
+
+	
+	public Team() {
+	
+	}
+
+	public Team(String name, String description, User teamLeader, Set<User> members) {
+		this.name = name;
+		this.description = description;
+		this.teamLeader = teamLeader;
+		this.members = members;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public User getTeamLeader() {
+		return teamLeader;
+	}
+
+	public void setTeamLeader(User teamLeader) {
+		this.teamLeader = teamLeader;
+	}
+
+	public Set<User> getMembers() {
+		return members;
+	}
+
+	public void setMembers(Set<User> members) {
+		this.members = members;
+	}
+	
+	
 }

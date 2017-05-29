@@ -62,6 +62,28 @@ public class Snippet implements Serializable {
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "snippet") @JsonIgnore
 	private Set<Comment> comments;
+
+	
+	public Snippet() {
+		
+	}
+
+
+	public Snippet(String description, byte[] data, Language language, String url, int duration,
+			Boolean blocked, Access access, Visibility visibility, User creator) {
+		this.description = description;
+		this.data = data;
+		this.language = language;
+		this.url = url;
+		this.duration = duration;
+		this.blocked = blocked;
+		this.access = access;
+		this.visibility = visibility;
+		this.creator = creator;
+	}
+	
+	
+	
 	
 	
 }

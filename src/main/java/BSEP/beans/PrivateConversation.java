@@ -1,6 +1,6 @@
 package BSEP.beans;
 
-import java.util.ArrayList;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -16,7 +16,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "private_conversation")
 public class PrivateConversation extends Conversation {
 	
-	
 	private static final long serialVersionUID = -8774784542639048042L;
 
 	@ManyToOne @JsonIgnore
@@ -28,6 +27,42 @@ public class PrivateConversation extends Conversation {
 	private User member;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "private_conversation") @JsonIgnore
-	ArrayList<PrivateMessage> messages;
+	Set<PrivateMessage> messages;
+
+	public PrivateConversation() {
+		super();
+	}
+
+	public PrivateConversation(User creator, User member, Set<PrivateMessage> messages) {
+		this.creator = creator;
+		this.member = member;
+		this.messages = messages;
+	}
+
+	public User getCreator() {
+		return creator;
+	}
+
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
+
+	public User getMember() {
+		return member;
+	}
+
+	public void setMember(User member) {
+		this.member = member;
+	}
+
+	public Set<PrivateMessage> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(Set<PrivateMessage> messages) {
+		this.messages = messages;
+	}
+	
+	
 	
 }
