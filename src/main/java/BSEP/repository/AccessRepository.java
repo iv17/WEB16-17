@@ -6,4 +6,6 @@ import BSEP.beans.Access;
 
 public interface AccessRepository extends JpaRepository<Access, Integer> {
 
+	Access findById(int id);
+
 }

@@ -6,4 +6,6 @@ import BSEP.beans.Message;
 
 public interface MessageRepository extends JpaRepository<Message, Integer> {
 
+	Message findById(int id);
+
 }

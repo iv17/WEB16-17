@@ -6,4 +6,6 @@ import BSEP.beans.Image;
 
 public interface ImageRepository extends JpaRepository<Image, Integer> {
 
+	Image findById(int id);
+
 }

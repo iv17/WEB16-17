@@ -6,4 +6,6 @@ import BSEP.beans.Attachment;
 
 public interface AttachmentRepository extends JpaRepository<Attachment, Integer> {
 
+	Attachment findById(int id);
+
 }

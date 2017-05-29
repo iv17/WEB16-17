@@ -6,4 +6,6 @@ import BSEP.beans.Comment;
 
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
+	Comment findById(int id);
+
 }

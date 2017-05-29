@@ -6,4 +6,6 @@ import BSEP.beans.Conversation;
 
 public interface ConversationRepository extends JpaRepository<Conversation, Integer> {
 
+	Conversation findById(int id);
+
 }
