@@ -30,7 +30,7 @@ public class Language implements Serializable {
 	@Column(name = "name", unique = false, nullable = false)
 	private String name;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "snippet") @JsonIgnore
+	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "language") @JsonIgnore
 	Set<Snippet> snippets;
 
 	public Language() {

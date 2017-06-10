@@ -31,10 +31,10 @@ public class Visibility implements Serializable { //PUBLIC, TEAM, LINKED, PRIVAT
 	@Column(name = "name", unique = false, nullable = false)
 	private String name;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "snippet") @JsonIgnore
+	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "visibility") @JsonIgnore
 	Set<Snippet> snippets;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "attachment") @JsonIgnore
+	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "visibility") @JsonIgnore
 	Set<Attachment> attachments;
 	
 	public Visibility() {

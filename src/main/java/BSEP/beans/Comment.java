@@ -44,7 +44,7 @@ public class Comment implements Serializable {
 	@JoinColumn(name = "snippet_id", referencedColumnName = "id", nullable = true) 
 	private Snippet snippet;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "comment") @JsonIgnore
+	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "comment") @JsonIgnore
 	private Set<Rating> ratings;
 
 	

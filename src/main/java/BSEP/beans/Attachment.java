@@ -29,13 +29,13 @@ public class Attachment implements Serializable {
 	@Column(name = "id", nullable = false , unique = true)
 	private int id;
 	
-	@Column(name = "name", unique = false, nullable = false)
+	@Column(name = "name", unique = false, nullable = true)
 	private String name;
 	
-	@Column(name = "description", unique = false, nullable = false)
+	@Column(name = "description", unique = false, nullable = true)
 	private String description;
 	
-	@Column(name = "data", unique = false, nullable = false)
+	@Column(name = "data", unique = false, nullable = true)
 	private byte [] data;
 	
 	@ManyToOne @JsonIgnore

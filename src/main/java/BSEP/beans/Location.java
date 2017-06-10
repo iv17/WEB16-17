@@ -27,22 +27,22 @@ public class Location implements Serializable {
 	@Column(name = "id", nullable = false , unique = true)
 	private int id;
 	
-	@Column(name = "lat", unique = false, nullable = false)
+	@Column(name = "lat", unique = false, nullable = true)
 	private double lat;
 	
-	@Column(name = "lng", unique = false, nullable = false)
+	@Column(name = "lng", unique = false, nullable = true)
 	private double lng;
 	
-	@Column(name = "country", unique = false, nullable = false)
+	@Column(name = "country", unique = false, nullable = true)
 	private String country;
 	
-	@Column(name = "city", unique = false, nullable = false)
+	@Column(name = "city", unique = false, nullable = true)
 	private String city;
 	
-	@Column(name = "street", unique = false, nullable = false)
+	@Column(name = "street", unique = false, nullable = true)
 	private String street;
 	
-	@Column(name = "number", unique = false, nullable = false)
+	@Column(name = "number", unique = false, nullable = true)
 	private String number;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "location") @JsonIgnore

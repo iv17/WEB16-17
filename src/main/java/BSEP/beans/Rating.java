@@ -26,10 +26,10 @@ public class Rating implements Serializable {
 	@Column(name = "id", nullable = false , unique = true)
 	private int id;
 	
-	@Column(name = "rate", unique = false, nullable = false)
+	@Column(name = "rate", unique = false, nullable = true)
 	private int rate;
 	
-	@Column(name = "date", unique = false, nullable = false)
+	@Column(name = "date", unique = false, nullable = true)
 	private Date date;
 	
 	@ManyToOne @JsonIgnore

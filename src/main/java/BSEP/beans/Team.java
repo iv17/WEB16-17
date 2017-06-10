@@ -28,17 +28,17 @@ public class Team implements Serializable {
 	@Column(name = "id", nullable = false , unique = true)
 	private int id;
 	
-	@Column(name = "name", unique = false, nullable = false)
+	@Column(name = "name", unique = false, nullable = true)
 	private String name;
 	
-	@Column(name = "description", unique = false, nullable = false)
+	@Column(name = "description", unique = false, nullable = true)
 	private String description;
 	
 	@ManyToOne @JsonIgnore
 	@JoinColumn(name = "team_leader", referencedColumnName = "id", nullable = true) 
 	private User teamLeader;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "team") @JsonIgnore
+	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "team") @JsonIgnore
 	private Set<User> members;
 
 	

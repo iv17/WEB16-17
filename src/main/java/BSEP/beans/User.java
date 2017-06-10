@@ -29,22 +29,22 @@ public class User implements Serializable {
 	@Column(name = "id", nullable = false , unique = true)
 	private int id;
 	
-	@Column(name = "username", unique = false, nullable = false)
+	@Column(name = "username", unique = false, nullable = true)
 	private String username;
 	
-	@Column(name = "password", unique = false, nullable = false)
+	@Column(name = "password", unique = false, nullable = true)
 	private String password;
 	
-	@Column(name = "name", unique = false, nullable = false)
+	@Column(name = "name", unique = false, nullable = true)
 	private String name;
 	
-	@Column(name = "surname", unique = false, nullable = false)
+	@Column(name = "surname", unique = false, nullable = true)
 	private String surname;
 	
-	@Column(name = "phone_number", unique = false, nullable = false)
+	@Column(name = "phone_number", unique = false, nullable = true)
 	private String phoneNumber;
 	
-	@Column(name = "email", unique = false, nullable = false)
+	@Column(name = "email", unique = false, nullable = true)
 	private String email;
 	
 	@ManyToOne @JsonIgnore
@@ -66,15 +66,18 @@ public class User implements Serializable {
 	@Column(name = "blocked", unique = false, nullable = false)
 	private Boolean blocked;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "snippet") @JsonIgnore
+	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "creator") @JsonIgnore
 	Set<Snippet> snippets;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "comment") @JsonIgnore
+	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "user") @JsonIgnore
 	Set<Comment> comments;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "rating") @JsonIgnore
+	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "user") @JsonIgnore
 	Set<Rating> ratings;
 
+	@ManyToOne @JsonIgnore
+	@JoinColumn(name = "team_id", referencedColumnName = "id", nullable = true) 
+	private Team team;
 	
 	public User() {
 		

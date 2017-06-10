@@ -26,7 +26,7 @@ public class PrivateConversation extends Conversation {
 	@JoinColumn(name = "member_id", referencedColumnName = "id", nullable = true) 
 	private User member;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "private_conversation") @JsonIgnore
+	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "privateConversation") @JsonIgnore
 	Set<PrivateMessage> messages;
 
 	public PrivateConversation() {

@@ -27,7 +27,7 @@ public class Role implements Serializable { //GUEST, ADMIN, TEAM_LEADER, TEAM_ME
 	@Column(name = "id", nullable = false , unique = true)
 	private int id;
 	
-	@Column(name = "name", unique = false, nullable = false)
+	@Column(name = "name", unique = false, nullable = true)
 	private String name;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "role") @JsonIgnore

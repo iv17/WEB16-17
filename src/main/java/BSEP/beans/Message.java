@@ -28,10 +28,10 @@ public class Message implements Serializable {
 	@Column(name = "message_id", nullable = false , unique = true)
 	private int id;
 	
-	@Column(name = "text", unique = false, nullable = false)
+	@Column(name = "text", unique = false, nullable = true)
 	private String text;
 	
-	@Column(name = "date", unique = false, nullable = false)
+	@Column(name = "date", unique = false, nullable = true)
 	private Date date;
 	
 	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)

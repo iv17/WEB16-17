@@ -29,10 +29,10 @@ public class Snippet implements Serializable {
 	@Column(name = "id", nullable = false , unique = true)
 	private int id;
 	
-	@Column(name = "description", unique = false, nullable = false)
+	@Column(name = "description", unique = false, nullable = true)
 	private String description;
 	
-	@Column(name = "data", unique = false, nullable = false)
+	@Column(name = "data", unique = false, nullable = true)
 	private byte [] data;
 	
 	@ManyToOne @JsonIgnore
@@ -42,10 +42,10 @@ public class Snippet implements Serializable {
 	@Column(name = "url", unique = false, nullable = true)
 	private String url;
 	
-	@Column(name = "duration", unique = false, nullable = false)
+	@Column(name = "duration", unique = false, nullable = true)
 	private int duration;
 	
-	@Column(name = "blocked", unique = false, nullable = false)
+	@Column(name = "blocked", unique = false, nullable = true)
 	private Boolean blocked;
 	
 	@ManyToOne @JsonIgnore
