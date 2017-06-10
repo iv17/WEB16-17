@@ -41,8 +41,7 @@ public class Visibility implements Serializable { //PUBLIC, TEAM, LINKED, PRIVAT
 	
 	}
 
-	public Visibility(int id, String name) {
-		this.id = id;
+	public Visibility(String name) {
 		this.name = name;
 	}
 

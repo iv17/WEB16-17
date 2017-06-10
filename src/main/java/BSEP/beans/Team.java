@@ -1,18 +1,14 @@
 package BSEP.beans;
 
 import java.io.Serializable;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -38,19 +34,15 @@ public class Team implements Serializable {
 	@JoinColumn(name = "team_leader", referencedColumnName = "id", nullable = true) 
 	private User teamLeader;
 	
-	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "team") @JsonIgnore
-	private Set<User> members;
-
 	
 	public Team() {
 	
 	}
 
-	public Team(String name, String description, User teamLeader, Set<User> members) {
+	public Team(String name, String description, User teamLeader) {
 		this.name = name;
 		this.description = description;
 		this.teamLeader = teamLeader;
-		this.members = members;
 	}
 
 	public int getId() {
@@ -85,13 +77,6 @@ public class Team implements Serializable {
 		this.teamLeader = teamLeader;
 	}
 
-	public Set<User> getMembers() {
-		return members;
-	}
 
-	public void setMembers(Set<User> members) {
-		this.members = members;
-	}
-	
 	
 }

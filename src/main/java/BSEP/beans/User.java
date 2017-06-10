@@ -79,6 +79,10 @@ public class User implements Serializable {
 	@JoinColumn(name = "team_id", referencedColumnName = "id", nullable = true) 
 	private Team team;
 	
+	
+	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "teamLeader") @JsonIgnore
+	private Set<Team> teams;
+	
 	public User() {
 		
 	}
@@ -217,6 +221,14 @@ public class User implements Serializable {
 
 	public void setRatings(Set<Rating> ratings) {
 		this.ratings = ratings;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 	
 

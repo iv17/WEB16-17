@@ -26,25 +26,30 @@ public class Message implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "message_id", nullable = false , unique = true)
-	private int id;
+	protected int id;
 	
 	@Column(name = "text", unique = false, nullable = true)
-	private String text;
+	protected String text;
 	
 	@Column(name = "date", unique = false, nullable = true)
-	private Date date;
+	protected Date date;
 	
 	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	@JoinTable(name = "attachments_messages", 
 		joinColumns = {@JoinColumn(name = "message_id")}, 
 		inverseJoinColumns = {@JoinColumn(name = "id")})
-	private Set<Attachment> attachments;
+	protected Set<Attachment> attachments;
 
 	
 	public Message() {
 		
 	}
 
+	public Message(String text, Date date) {
+		this.text = text;
+		this.date = date;
+	}
+	
 	public Message(String text, Date date, Set<Attachment> attachments) {
 		this.text = text;
 		this.date = date;

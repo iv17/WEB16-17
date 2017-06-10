@@ -32,6 +32,11 @@ public class PrivateConversation extends Conversation {
 	public PrivateConversation() {
 		super();
 	}
+	
+	public PrivateConversation(User creator, User member) {
+		this.creator = creator;
+		this.member = member;
+	}
 
 	public PrivateConversation(User creator, User member, Set<PrivateMessage> messages) {
 		this.creator = creator;

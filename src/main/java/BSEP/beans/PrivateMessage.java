@@ -30,6 +30,14 @@ public class PrivateMessage extends Message {
 		super();
 	}
 	
+	public PrivateMessage(Message message, User sender, User receiver) {
+		super();
+		this.text = message.getText();
+		this.date = message.getDate();
+		this.sender = sender;
+		this.receiver = receiver;
+	}
+	
 	public PrivateMessage(User sender, User receiver, PrivateConversation privateConversation) {
 		this.sender = sender;
 		this.receiver = receiver;

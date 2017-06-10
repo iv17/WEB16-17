@@ -52,7 +52,12 @@ public class Comment implements Serializable {
 
 	}
 
-	public Comment(String text, Date date, User user, Snippet snippet) {
+	public Comment(String text, Date date) {
+		this.text = text;
+		this.date = date;
+	}
+	
+	public Comment(String text, Date date, Snippet snippet, User user) {
 		this.text = text;
 		this.date = date;
 		this.user = user;
