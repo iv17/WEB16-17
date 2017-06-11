@@ -6,8 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import BSEP.beans.User;
@@ -22,7 +25,6 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping(
-			value    = "/api/users",
 			method   = RequestMethod.GET
 			)
 	public ResponseEntity<List<UserDTO>> getUsers() {
@@ -31,6 +33,64 @@ public class UserController {
 		return new ResponseEntity<List<UserDTO>>(userDTOs, HttpStatus.OK);
 	}
 	
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<UserDTO> getUser(@PathVariable Integer id) {
+
+		User user = userService.findById(id);
+		if(user == null) {
+			return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
+		}
+
+		UserDTO userDTO = new UserDTO(user);
+
+		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
+	}
+
+	
+	@RequestMapping(
+            value    = "/registration",
+            method   = RequestMethod.POST,
+            consumes = "application/json"
+    )
+	public ResponseEntity<UserDTO> registration(@RequestBody UserDTO userDTO) {
+
+		User user = new User();
+
+		if(userService.findByUsername(userDTO.getUsername()) == null || userService.findByEmail(userDTO.getEmail()) == null) {
+			user.setEmail(userDTO.getEmail());
+			user.setUsername(userDTO.getUsername());
+			user.setPassword(userDTO.getPassword());
+			
+			UserDTO newUserDTO = new UserDTO(user);
+
+			userService.save(user);
+			
+			return new ResponseEntity<UserDTO>(newUserDTO, HttpStatus.CREATED);
+		} else {
+			
+			return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
+		}
+		
+
+	}
+	
+	@RequestMapping(
+            value    = "/login",
+            method   = RequestMethod.POST,
+            consumes = "application/json"
+    )
+	public ResponseEntity<UserDTO> login(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
+
+		User user = userService.findByUsernameAndPassword(username, password);
+
+		UserDTO userDTO = new UserDTO(user);
+
+		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
+
+	}
+	
+	//POMOCNA FUNKCIJA
 	private List<UserDTO> toDTO(List<User> users) {
 		
 		List<UserDTO> userDTOs = new ArrayList<UserDTO>();

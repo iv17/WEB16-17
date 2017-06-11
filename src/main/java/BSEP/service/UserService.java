@@ -21,6 +21,18 @@ public class UserService {
 		return userRepository.findOne(id);
 	}
 	
+	public User findByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
+	
+	public User findByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+	
+	public User findByUsernameAndPassword(String username, String password) {
+		return userRepository.findByUsernameAndPassword(username, password);
+	}
+	
 	public List<User> findAll() {
 		return  userRepository.findAll();
 	}
