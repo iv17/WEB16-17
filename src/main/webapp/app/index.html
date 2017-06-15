@@ -1,49 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="description" content="Neon Admin Panel" />
-		<meta name="author" content="" />
-		<title>Neon </title>
-		<link rel="stylesheet" href="assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
-		<link rel="stylesheet" href="assets/css/font-icons/entypo/css/entypo.css">
-		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">
-		<link rel="stylesheet" href="assets/css/bootstrap.css">
-		<link rel="stylesheet" href="assets/css/neon-core.css">
-		<link rel="stylesheet" href="assets/css/neon-theme.css">
-		<link rel="stylesheet" href="assets/css/neon-forms.css">
-		<link rel="stylesheet" href="assets/css/custom.css">
-		<script src="assets/js/jquery-1.11.0.min.js"></script>
-	</head>
-	<body class="page-body login-page login-form-fall" data-url="http://neon.dev">
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="utf-8">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<meta name="description" content="Neon Admin Panel" />
+			<meta name="author" content="" />
+			<title>Neon </title>
+			<link rel="stylesheet" href="assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
+			<link rel="stylesheet" href="assets/css/font-icons/entypo/css/entypo.css">
+			<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">
+			<link rel="stylesheet" href="assets/css/bootstrap.css">
+			<link rel="stylesheet" href="assets/css/neon-core.css">
+			<link rel="stylesheet" href="assets/css/neon-theme.css">
+			<link rel="stylesheet" href="assets/css/neon-forms.css">
+			<link rel="stylesheet" href="assets/css/custom.css">
+			<script src="assets/js/jquery-1.11.0.min.js"></script>
+		</head>
+		<body ng-app="bsepApp" class="page-body login-page login-form-fall" >
 
-  
-
-		<link rel="stylesheet" href="assets/js/jvectormap/jquery-jvectormap-1.2.2.css">
-		<link rel="stylesheet" href="assets/js/rickshaw/rickshaw.min.css">
-		<!-- Bottom Scripts -->
-		<script src="assets/js/gsap/main-gsap.js"></script>
-		<script src="assets/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
-		<script src="assets/js/bootstrap.js"></script>
-		<script src="assets/js/joinable.js"></script>
-		<script src="assets/js/resizeable.js"></script>
-		<script src="assets/js/neon-api.js"></script>
-		<script src="assets/js/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-		<script src="assets/js/jvectormap/jquery-jvectormap-europe-merc-en.js"></script>
-		<script src="assets/js/jquery.sparkline.min.js"></script>
-		<script src="assets/js/rickshaw/vendor/d3.v3.js"></script>
-		<script src="assets/js/rickshaw/rickshaw.min.js"></script>
+			<div ui-view = "content"></div>
 
 
-		<script src="assets/js/raphael-min.js"></script>
-		<script src="assets/js/morris.min.js"></script>
-		<script src="assets/js/toastr.js"></script>
-		<script src="assets/js/neon-chat.js"></script>
-    <script src="assets/js/jquery.validate.min.js"></script>
-    <script src="assets/js/neon-login.js"></script>
-		<script src="assets/js/neon-custom.js"></script>
-		<script src="assets/js/neon-demo.js"></script>
-	</body>
-</html>
+
+
+			<script src = "app/js/kts/jquery/dist/jquery.js"></script>
+					<script src = "app/js/kts/angular/angular.js"></script>
+					<script src = "app/js/kts/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+					<script src = "app/js/angular-ui-router/angular-ui-router.js"></script>
+					<script src = "app/js/kts/angular-resource/angular-resource.js"></script>
+					<script src = "app/js/kts/angular-route/angular-route.js"></script>
+					<script src = "app/js/kts/lodash/lodash.js"></script>
+					<script src = "app/js/kts/restangular/dist/restangular.js"></script>
+					<script src = "app/js/kts/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+					<script src = "app/js/kts/angular-lodash-module/angular-lodash-module.js"></script>
+
+			<link rel="stylesheet" href="assets/js/jvectormap/jquery-jvectormap-1.2.2.css">
+			<link rel="stylesheet" href="assets/js/rickshaw/rickshaw.min.css">
+			<!-- Bottom Scripts -->
+			<script src="assets/js/gsap/main-gsap.js"></script>
+			<script src="assets/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
+			<script src="assets/js/bootstrap.js"></script>
+			<script src="assets/js/joinable.js"></script>
+			<script src="assets/js/resizeable.js"></script>
+			<script src="assets/js/neon-api.js"></script>
+			<script src="assets/js/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+			<script src="assets/js/jvectormap/jquery-jvectormap-europe-merc-en.js"></script>
+			<script src="assets/js/jquery.sparkline.min.js"></script>
+			<script src="assets/js/rickshaw/vendor/d3.v3.js"></script>
+			<script src="assets/js/rickshaw/rickshaw.min.js"></script>
+
+
+			<script src="assets/js/raphael-min.js"></script>
+			<script src="assets/js/morris.min.js"></script>
+			<script src="assets/js/toastr.js"></script>
+			<script src="assets/js/neon-chat.js"></script>
+	    <script src="assets/js/jquery.validate.min.js"></script>
+	    <script src="assets/js/neon-login.js"></script>
+			<script src="assets/js/neon-custom.js"></script>
+			<script src="assets/js/neon-demo.js"></script>
+
+
+			<!-- bsep scripts-->
+			<script src = "app/scripts/app.module.js"></script>
+			<script></script>
+		</body>
+	</html>
