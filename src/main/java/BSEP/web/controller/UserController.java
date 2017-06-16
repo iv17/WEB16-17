@@ -18,7 +18,7 @@ import BSEP.service.UserService;
 import BSEP.web.dto.UserDTO;
 
 @RestController
-@RequestMapping(value = "api/users")
+@RequestMapping(value = "/api/users")
 public class UserController {
 
 	@Autowired
@@ -77,15 +77,15 @@ public class UserController {
 	
 	@RequestMapping(
             value    = "/login",
-            method   = RequestMethod.POST,
-            consumes = "application/json"
+            method   = RequestMethod.POST
     )
 	public ResponseEntity<UserDTO> login(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
 
+		System.out.println("AAA");
 		User user = userService.findByUsernameAndPassword(username, password);
-
+		System.out.println(user.getUsername());
 		UserDTO userDTO = new UserDTO(user);
-
+		System.out.println("DTO");
 		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
 
 	}
