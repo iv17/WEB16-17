@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import BSEP.beans.User;
@@ -71,7 +70,6 @@ public class UserController {
 			
 			return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
 		}
-		
 
 	}
 	
@@ -79,14 +77,11 @@ public class UserController {
             value    = "/login",
             method   = RequestMethod.POST
     )
-	public ResponseEntity<UserDTO> login(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
+	public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
 
-		System.out.println("AAA");
-		User user = userService.findByUsernameAndPassword(username, password);
-		System.out.println(user.getUsername());
-		UserDTO userDTO = new UserDTO(user);
-		System.out.println("DTO");
-		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
+		User user = userService.findByUsernameAndPassword(userDTO.getUsername(), userDTO.getPassword());
+		UserDTO loggedUserDTO = new UserDTO(user);
+		return new ResponseEntity<UserDTO>(loggedUserDTO, HttpStatus.OK);
 
 	}
 	
