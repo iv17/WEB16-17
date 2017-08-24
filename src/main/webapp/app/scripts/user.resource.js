@@ -5,12 +5,16 @@
 			function(Restangular, _, $log) {
 			'use strict';
 
-			var users = [];
-
 			var retVal = {};	//JSON objekat koji prosledjujemo controller-u
 
 			retVal.login = function(user)	{
 				return Restangular.all("users/login").post(user).then(function(response) {
+					return response;
+				});
+			};
+
+			retVal.register = function(user)	{
+				return Restangular.all("users/registration").post(user).then(function(response) {
 					return response;
 				});
 			};

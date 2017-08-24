@@ -19,7 +19,7 @@
         url: "/",
         views: {
           'content@': {
-            templateUrl: 'app/views/login.html'
+            templateUrl: 'app/views/sign_in.html'
 
           }
         }
@@ -29,7 +29,16 @@
         views: {
           'content@': {
             templateUrl: 'app/home.html',
-            controller: 'UserController'
+            controller: 'LoginController'
+          }
+        }
+      })
+      .state('register', {
+        url: "/register/:name/:lastname/:email/:username/:password/:password_confirmation",
+        views: {
+          'content@': {
+            templateUrl: 'app/views/login.html',
+            controller: 'RegistrationController'
           }
         }
       });

@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <div class="brand-logo">
+    <i class="fa fa-pencil"></i>
+  </div>
+  <div class="row">
+    <h1>Create a new account</h1>
+    <div class="col-sm-4 col-sm-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+
+          <form role="form">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="First Name" ng-model = "name">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Last Name" ng-model = "lastname">
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" placeholder="Email" ng-model = "email">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Username" ng-model = "username">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" placeholder="Password" ng-model = "password">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" placeholder="Password Confirmation" ng-model = "password_confirmation">
+            </div>
+            <div class="form-group text-center">
+              <div class="checkbox">
+                <input type="checkbox" id="agree" />
+                <label for="agree">* I Agree with <a href="#">Terms &amp; Conditions!</a></label>
+              </div>
+            </div>
+            <div class="text-center">
+              <!--ui-sref = 'stateName({param:value, param:value})' -->
+              <a ui-sref = "register({name: name, lastname: lastname, email: email,
+                username: username, password: password,
+              password_confirmation: password_confirmation})"
+               class="btn btn-primary"> Create an Account</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

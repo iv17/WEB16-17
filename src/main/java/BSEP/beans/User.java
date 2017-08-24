@@ -63,7 +63,7 @@ public class User implements Serializable {
 	@JoinColumn(name = "status_id", referencedColumnName = "id", nullable = true) 
 	private Status status;
 	
-	@Column(name = "blocked", unique = false, nullable = false)
+	@Column(name = "blocked", unique = false, nullable = true)
 	private Boolean blocked;
 	
 	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "creator") @JsonIgnore

@@ -27,13 +27,10 @@ public class UserDTO {
 		password = user.getPassword();
 		name = user.getName();
 		surname = user.getSurname();
-		phoneNumber = user.getPhoneNumber();
 		email = user.getEmail();
-		locationDTO = new LocationDTO(user.getLocation());
-		roleDTO = new RoleDTO(user.getRole());
-		imageDTO = new ImageDTO(user.getImage());
-		blocked = user.getBlocked();
 	}
+	
+	
 	
 	public int getId() {
 		return id;

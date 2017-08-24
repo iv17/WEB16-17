@@ -3,7 +3,7 @@
 
 	angular
 		.module('bsepApp')
-		.controller('UserController', ['$scope', '$state', '_', 'UserResource', '$log', '$stateParams',
+		.controller('LoginController', ['$scope', '$state', '_', 'UserResource', '$log', '$stateParams',
 			function($scope, $state, _, UserResource, $log, $stateParams) {
 
 				var username = $stateParams.username;

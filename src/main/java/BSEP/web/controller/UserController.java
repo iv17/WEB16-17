@@ -57,6 +57,8 @@ public class UserController {
 		User user = new User();
 
 		if(userService.findByUsername(userDTO.getUsername()) == null || userService.findByEmail(userDTO.getEmail()) == null) {
+			user.setName(userDTO.getName());
+			user.setSurname(userDTO.getSurname());
 			user.setEmail(userDTO.getEmail());
 			user.setUsername(userDTO.getUsername());
 			user.setPassword(userDTO.getPassword());
@@ -66,6 +68,7 @@ public class UserController {
 			userService.save(user);
 			
 			return new ResponseEntity<UserDTO>(newUserDTO, HttpStatus.CREATED);
+			
 		} else {
 			
 			return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
