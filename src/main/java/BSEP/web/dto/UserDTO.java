@@ -119,6 +119,13 @@ public class UserDTO {
 	public void setBlocked(Boolean blocked) {
 		this.blocked = blocked;
 	}
+
+	@Override
+	public String toString() {
+		return "UserDTO [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name
+				+ ", surname=" + surname + ", phoneNumber=" + phoneNumber + ", email=" + email + ", locationDTO="
+				+ locationDTO.toString() + ", roleDTO=" + roleDTO.getName() + ", imageDTO=" + imageDTO + ", blocked=" + blocked + "]";
+	}
 	
 	
 }

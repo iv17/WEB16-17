@@ -82,8 +82,23 @@ public class UserController {
     )
 	public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
 
-		User user = userService.findByUsernameAndPassword(userDTO.getUsername(), userDTO.getPassword());
+		String email = userDTO.getEmail();
+		String username = userDTO.getUsername();
+		String password = userDTO.getPassword();
+		
+		if(userService.findByEmail(email) == null && userService.findByUsername(username) == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		User user = null;
+		if(userService.findByEmail(email) != null) {
+			user = userService.findByEmailAndPassword(email, password);
+		}
+		if(userService.findByUsername(username) != null) {
+			user = userService.findByUsernameAndPassword(username, password);
+		}
 		UserDTO loggedUserDTO = new UserDTO(user);
+		
 		return new ResponseEntity<UserDTO>(loggedUserDTO, HttpStatus.OK);
 
 	}

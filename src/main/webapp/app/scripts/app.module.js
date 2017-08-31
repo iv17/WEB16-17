@@ -16,11 +16,19 @@
       $locationProvider.hashPrefix('');
       $urlRouterProvider.otherwise('/');
       $stateProvider
-      .state('start', {
+      .state('start_login', {
         url: "/",
         views: {
           'content@': {
             templateUrl: 'app/views/login.html'
+          }
+        }
+      })
+      .state('start_register', {
+        url: "/start_register",
+        views: {
+          'content@': {
+            templateUrl: 'app/views/sign_in.html'
           }
         }
       })
@@ -37,8 +45,6 @@
         views: {
           'content@': {
             controller: 'LoginController'
-            //templateUrl: 'app/home.html'
-
           }
         }
       })
@@ -46,11 +52,11 @@
         url: "/register/:name/:lastname/:email/:username/:password/:password_confirmation",
         views: {
           'content@': {
-            templateUrl: 'app/views/login.html',
             controller: 'RegistrationController'
           }
         }
       });
+
     }])
       // run se izvrsava pre svega ostalog
     .run(['Restangular', '$log', function(Restangular, $log) {

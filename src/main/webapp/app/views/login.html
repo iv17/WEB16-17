@@ -19,12 +19,13 @@
             </div>
             <div class="text-center">
               <!--ui-sref = 'stateName({param:value, param:value})' -->
-              <a ui-sref = "login({username: username, password:password})" class="btn btn-success">Login  <i class="fa fa-fw fa-unlock-alt"></i></a>
+              <a ui-sref = "login({username: username, password: password})" class="btn btn-success">Login  <i class="fa fa-fw fa-unlock-alt"></i></a>
             </div>
           </form>
         </div>
       </div>
-      <a href="#" class="forgot-pass"> Forgot your Password? <i class="fa fa-question-circle"></i></a>
+      <a ui-sref = "start_register()"  class="forgot-pass"> Nemate jos nalog? <i class="fa fa-question-circle"></i></a><br>
+      <a ui-sref = "forgot_password()"  class="forgot-pass"> Forgot your Password? <i class="fa fa-question-circle"></i></a>
     </div>
   </div>
 </div>

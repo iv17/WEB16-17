@@ -81,6 +81,12 @@ public class LocationDTO {
 	public void setNumber(String number) {
 		this.number = number;
 	}
+
+	@Override
+	public String toString() {
+		return "LocationDTO [id=" + id + ", lat=" + lat + ", lng=" + lng + ", country=" + country + ", city=" + city
+				+ ", street=" + street + ", number=" + number + "]";
+	}
 	
 	
 }

@@ -33,6 +33,10 @@ public class UserService {
 		return userRepository.findByUsernameAndPassword(username, password);
 	}
 	
+	public User findByEmailAndPassword(String email, String password) {
+		return userRepository.findByEmailAndPassword(email, password);
+	}
+	
 	public List<User> findAll() {
 		return  userRepository.findAll();
 	}
