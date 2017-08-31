@@ -31,6 +31,18 @@
 				});
 			};
 
+			retVal.request_to_change_password = function(user)	{
+				return Restangular.all("users/request_to_change_password").post(user).then(function(response) {
+					return response;
+				});
+			};
+
+			retVal.change_password = function(user)	{
+				return Restangular.all("users/change_password").post(user).then(function(response) {
+					return response;
+				});
+			};
+
 			return retVal;
 		}]);
 

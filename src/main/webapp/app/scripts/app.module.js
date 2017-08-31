@@ -55,7 +55,51 @@
             controller: 'RegistrationController'
           }
         }
+      })
+      .state('forgot_password', {
+        url: "/forgot_password",
+        views: {
+          'content@': {
+            templateUrl: 'app/views/request_to_change_password.html'
+          }
+        }
+      })
+      .state('request_to_change_password', {
+        url: "/request_to_change_password/:email",
+        views: {
+          'content@': {
+            controller: 'RequestToChangePasswordController'
+          }
+        }
+      })
+      .state('proverite_mail', {
+        url: "/proverite_mail",
+        views: {
+          'content@': {
+            templateUrl: 'app/views/check_mail.html'
+          }
+        }
+      })
+      .state('start_change_password', {
+        url: "/start_change_password/:email",
+        views: {
+          'content@': {
+              templateUrl: 'app/views/change_password.html',
+              controller: function($rootScope){
+                $rootScope.email = email;
+              }
+          }
+        }
+      })
+      .state('change_password', {
+        url: "/change_password/:new_password/:new_password2",
+        views: {
+          'content@': {
+            controller: 'ChangePasswordController'
+          }
+        }
       });
+
 
     }])
       // run se izvrsava pre svega ostalog

@@ -2,6 +2,14 @@ package BSEP.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,8 +39,8 @@ public class UserController {
 		List<UserDTO> userDTOs = toDTO(users);
 		return new ResponseEntity<List<UserDTO>>(userDTOs, HttpStatus.OK);
 	}
-	
-	
+
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<UserDTO> getUser(@PathVariable Integer id) {
 
@@ -46,18 +54,18 @@ public class UserController {
 		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
 	}
 
-	
+
 	@RequestMapping(
-            value    = "/registration",
-            method   = RequestMethod.POST,
-            consumes = "application/json"
-    )
+			value    = "/registration",
+			method   = RequestMethod.POST,
+			consumes = "application/json"
+			)
 	public ResponseEntity<UserDTO> registration(@RequestBody UserDTO userDTO) {
 
 		User user = new User();
 
 		if(userService.findByUsername(userDTO.getUsername()) == null || userService.findByEmail(userDTO.getEmail()) == null) {
-			
+
 			System.out.println(userDTO.getPassword());
 			System.out.println(userDTO.getRepeated_password());
 			if(userDTO.getPassword().equals(userDTO.getRepeated_password())) {
@@ -67,36 +75,37 @@ public class UserController {
 				user.setEmail(userDTO.getEmail());
 				user.setUsername(userDTO.getUsername());
 				user.setPassword(userDTO.getPassword());
-				
+
 				UserDTO newUserDTO = new UserDTO(user);
 
 				userService.save(user);
-				
+
 				return new ResponseEntity<UserDTO>(newUserDTO, HttpStatus.CREATED);
 			}
 			return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
-			
+
 		} else {
-			
+
 			return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
 		}
 
 	}
-	
+
 	@RequestMapping(
-            value    = "/login",
-            method   = RequestMethod.POST
-    )
+			value    = "/login",
+			method   = RequestMethod.POST,
+			consumes = "application/json"
+			)
 	public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
 
 		String email = userDTO.getEmail();
 		String username = userDTO.getUsername();
 		String password = userDTO.getPassword();
-		
+
 		if(userService.findByEmail(email) == null && userService.findByUsername(username) == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
+
 		User user = null;
 		if(userService.findByEmail(email) != null) {
 			user = userService.findByEmailAndPassword(email, password);
@@ -105,16 +114,86 @@ public class UserController {
 			user = userService.findByUsernameAndPassword(username, password);
 		}
 		UserDTO loggedUserDTO = new UserDTO(user);
-		
+
 		return new ResponseEntity<UserDTO>(loggedUserDTO, HttpStatus.OK);
 
+	}
+
+	@RequestMapping(
+			value    = "/request_to_change_password",
+			method   = RequestMethod.POST,
+			consumes = "application/json"
+			)
+	public ResponseEntity<UserDTO> requestToChangePassword(@PathVariable String email) {
+
+		User user = userService.findByEmail(email);
+		if(userService.findByEmail(email) != null) {
+
+			user.setPassword("");
+			userService.save(user);
+			
+			String mailFrom = "ivana17.ostalo@gmail.com";
+			String usernameMail = "ivana17.ostalo";
+			String passwordMail = "lozinkazaprojekat2017";
+			Properties properties = System.getProperties();
+			properties.put("mail.smtp.starttls.enable", "true"); 
+			properties.put("mail.smtp.host", "smtp.gmail.com");
+			properties.put("mail.smtp.user", usernameMail); // User name
+			properties.put("mail.smtp.password", passwordMail); // password
+			properties.put("mail.smtp.port", "587");
+			properties.put("mail.smtp.auth", "true");
+
+
+			Session session = Session.getInstance(properties, new MyAuthenticator(usernameMail, passwordMail));
+			try{
+				// Create a default MimeMessage object.
+				MimeMessage message = new MimeMessage(session);
+				// Set From: header field of the header.
+				message.setFrom(new InternetAddress(mailFrom));
+				// Set To: header field of the header.
+				message.addRecipient(Message.RecipientType.TO,
+						new InternetAddress(email));
+				// Set Subject: header field
+				message.setSubject("Snipp - Confirm registration!");
+				// Now set the actual message
+				String mess = "Please, confirm your registration by clicking on link: ";
+				String mail_html = "<html>\n" +
+						"<head></head>\n" +
+						"<body>\n" +
+						"<p align=\"center\">" + mess + "<a href=\"http://localhost:8080/#/start_change_password/:" + email + "\">Confirm</a></p>\n" +
+						"</body></html>";
+
+				message.setContent(mail_html,"text/html");
+				// Send message
+				Transport.send(message);
+
+			}catch (MessagingException mex) {
+				mex.printStackTrace();
+			}
+
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(HttpStatus.OK);
+
+	}
+
+	@RequestMapping(
+			value    = "/change_password",
+			method   = RequestMethod.POST,
+			consumes = "application/json"
+			)
+	public ResponseEntity<UserDTO> changePassword(@RequestBody UserDTO userDTO) {
+		
+		return null;
+		
 	}
 	
 	//POMOCNA FUNKCIJA
 	private List<UserDTO> toDTO(List<User> users) {
-		
+
 		List<UserDTO> userDTOs = new ArrayList<UserDTO>();
-		
+
 		for (User user : users) {
 			UserDTO userDTO = new UserDTO(user);
 			userDTOs.add(userDTO);
