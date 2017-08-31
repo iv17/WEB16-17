@@ -57,17 +57,24 @@ public class UserController {
 		User user = new User();
 
 		if(userService.findByUsername(userDTO.getUsername()) == null || userService.findByEmail(userDTO.getEmail()) == null) {
-			user.setName(userDTO.getName());
-			user.setSurname(userDTO.getSurname());
-			user.setEmail(userDTO.getEmail());
-			user.setUsername(userDTO.getUsername());
-			user.setPassword(userDTO.getPassword());
 			
-			UserDTO newUserDTO = new UserDTO(user);
+			System.out.println(userDTO.getPassword());
+			System.out.println(userDTO.getRepeated_password());
+			if(userDTO.getPassword().equals(userDTO.getRepeated_password())) {
 
-			userService.save(user);
-			
-			return new ResponseEntity<UserDTO>(newUserDTO, HttpStatus.CREATED);
+				user.setName(userDTO.getName());
+				user.setSurname(userDTO.getSurname());
+				user.setEmail(userDTO.getEmail());
+				user.setUsername(userDTO.getUsername());
+				user.setPassword(userDTO.getPassword());
+				
+				UserDTO newUserDTO = new UserDTO(user);
+
+				userService.save(user);
+				
+				return new ResponseEntity<UserDTO>(newUserDTO, HttpStatus.CREATED);
+			}
+			return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
 			
 		} else {
 			

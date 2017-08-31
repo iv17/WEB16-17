@@ -3,8 +3,8 @@
 
 	angular
 		.module('bsepApp')
-		.controller('LoginController', ['$scope', '$rootScope', '$state', '_', 'UserResource', '$log', '$stateParams', '$window','toastr',
-			function($scope, $rootScope, $state, _, UserResource, $log, $stateParams, $window, toastr) {
+		.controller('LoginController', ['$scope', '$rootScope', '$state', '_', 'UserResource', '$stateParams', '$log', '$window','toastr', 
+			function($scope, $rootScope, $state, _, UserResource, $stateParams, $log, $window, toastr) {
 
 				var username = $stateParams.username;
 				var password = $stateParams.password;
@@ -23,7 +23,7 @@
 					toastr.success('Ulogovali ste se kao: ' + $rootScope.loggedUser.username);
 				})
 				.catch(function(error){
-						$window.location.href = '/#/login';
+						$window.location.href = '/#/start_login';
 						toastr.error("Greska!\nPokusajte ponovo!");
 				});
 

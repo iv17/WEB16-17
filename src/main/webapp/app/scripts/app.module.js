@@ -49,7 +49,7 @@
         }
       })
       .state('register', {
-        url: "/register/:name/:lastname/:email/:username/:password/:password_confirmation",
+        url: "/register/:name/:lastname/:email/:username/:password/:repeated_password",
         views: {
           'content@': {
             controller: 'RegistrationController'

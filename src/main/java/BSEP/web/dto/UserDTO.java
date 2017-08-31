@@ -7,6 +7,7 @@ public class UserDTO {
 	private int id;
 	private String username;
 	private String password;
+	private String repeated_password;
 	private String name;
 	private String surname;
 	private String phoneNumber;
@@ -118,6 +119,15 @@ public class UserDTO {
 
 	public void setBlocked(Boolean blocked) {
 		this.blocked = blocked;
+	}
+
+	
+	public String getRepeated_password() {
+		return repeated_password;
+	}
+
+	public void setRepeated_password(String repeated_password) {
+		this.repeated_password = repeated_password;
 	}
 
 	@Override

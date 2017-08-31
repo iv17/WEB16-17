@@ -3,15 +3,15 @@
 
 	angular
 		.module('bsepApp')
-		.controller('RegistrationController', ['$scope', '$state', '_', 'UserResource', '$log', '$stateParams', "toastr",
-			function($scope, $state, _, UserResource, $log, $stateParams, toastr) {
+		.controller('RegistrationController', ['$scope', '$state', '_', 'UserResource', '$stateParams', '$log', '$window','toastr',
+			function($scope, $state, _, UserResource, $stateParams, $log, $window, toastr) {
 
 				var name = $stateParams.name;
 				var lastname = $stateParams.lastName;
 				var email = $stateParams.email;
 				var username = $stateParams.username;
 				var password = $stateParams.password;
-				var password_confirmation = $stateParams.password_confirmation;
+				var repeated_password = $stateParams.repeated_password;
 
 				var user = {
 					name: name,
@@ -19,12 +19,19 @@
 					email: email,
 					username: username,
 					password: password,
-					password_confirmation: password_confirmation
+					repeated_password: repeated_password
 				 };
 
-				UserResource.register(user).then(function(item) {
-					$scope.registredUser = item;
-					$log.log($scope.registredUser);
+				UserResource.register(user)
+				.then(function(item) {
+					$scope.registratedUser = item;
+
+					$window.location.href = '/#/start_login';
+					toastr.success('Uspesno ste se registrovali! Molimo Vas da se sada prijavite!');
+				})
+				.catch(function(error){
+						$window.location.href = '/#/start_register';
+						toastr.error("Greska!\nPokusajte ponovo!");
 				});
 
 			}
