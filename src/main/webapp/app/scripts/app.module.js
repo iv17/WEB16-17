@@ -85,9 +85,7 @@
         views: {
           'content@': {
               templateUrl: 'app/views/change_password.html',
-              controller: function($rootScope){
-                $rootScope.email = email;
-              }
+              controller: 'StartChangePasswordController'
           }
         }
       })

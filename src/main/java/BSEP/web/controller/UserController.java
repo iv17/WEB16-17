@@ -124,57 +124,59 @@ public class UserController {
 			method   = RequestMethod.POST,
 			consumes = "application/json"
 			)
-	public ResponseEntity<UserDTO> requestToChangePassword(@PathVariable String email) {
+	public ResponseEntity<UserDTO> requestToChangePassword(@RequestBody UserDTO userDTO) {
 
+		String email = userDTO.getEmail();
+		System.out.println(email);
 		User user = userService.findByEmail(email);
-		if(userService.findByEmail(email) != null) {
+		if(userService.findByEmail(email) == null) {
 
-			user.setPassword("");
-			userService.save(user);
-			
-			String mailFrom = "ivana17.ostalo@gmail.com";
-			String usernameMail = "ivana17.ostalo";
-			String passwordMail = "lozinkazaprojekat2017";
-			Properties properties = System.getProperties();
-			properties.put("mail.smtp.starttls.enable", "true"); 
-			properties.put("mail.smtp.host", "smtp.gmail.com");
-			properties.put("mail.smtp.user", usernameMail); // User name
-			properties.put("mail.smtp.password", passwordMail); // password
-			properties.put("mail.smtp.port", "587");
-			properties.put("mail.smtp.auth", "true");
+			return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
+		} 
+		user.setPassword("");
+		userService.save(user);
+		
+		UserDTO newUserDTO = new UserDTO(user);
+		
+		String mailFrom = "ivana17.ostalo@gmail.com";
+		String usernameMail = "ivana17.ostalo";
+		String passwordMail = "lozinkazaprojekat2017";
+		Properties properties = System.getProperties();
+		properties.put("mail.smtp.starttls.enable", "true"); 
+		properties.put("mail.smtp.host", "smtp.gmail.com");
+		properties.put("mail.smtp.user", usernameMail); // User name
+		properties.put("mail.smtp.password", passwordMail); // password
+		properties.put("mail.smtp.port", "587");
+		properties.put("mail.smtp.auth", "true");
 
 
-			Session session = Session.getInstance(properties, new MyAuthenticator(usernameMail, passwordMail));
-			try{
-				// Create a default MimeMessage object.
-				MimeMessage message = new MimeMessage(session);
-				// Set From: header field of the header.
-				message.setFrom(new InternetAddress(mailFrom));
-				// Set To: header field of the header.
-				message.addRecipient(Message.RecipientType.TO,
-						new InternetAddress(email));
-				// Set Subject: header field
-				message.setSubject("Snipp - Confirm registration!");
-				// Now set the actual message
-				String mess = "Please, confirm your registration by clicking on link: ";
-				String mail_html = "<html>\n" +
-						"<head></head>\n" +
-						"<body>\n" +
-						"<p align=\"center\">" + mess + "<a href=\"http://localhost:8080/#/start_change_password/:" + email + "\">Confirm</a></p>\n" +
-						"</body></html>";
+		Session session = Session.getInstance(properties, new MyAuthenticator(usernameMail, passwordMail));
+		try{
+			// Create a default MimeMessage object.
+			MimeMessage message = new MimeMessage(session);
+			// Set From: header field of the header.
+			message.setFrom(new InternetAddress(mailFrom));
+			// Set To: header field of the header.
+			message.addRecipient(Message.RecipientType.TO,
+					new InternetAddress(email));
+			// Set Subject: header field
+			message.setSubject("Snipp - Confirm registration!");
+			// Now set the actual message
+			String mess = "Please, confirm your registration by clicking on link: ";
+			String mail_html = "<html>\n" +
+					"<head></head>\n" +
+					"<body>\n" +
+					"<p align=\"center\">" + mess + "<a href=\"http://localhost:8080/#/start_change_password/" + email + "\">Confirm</a></p>\n" +
+					"</body></html>";
 
-				message.setContent(mail_html,"text/html");
-				// Send message
-				Transport.send(message);
+			message.setContent(mail_html,"text/html");
+			// Send message
+			Transport.send(message);
 
-			}catch (MessagingException mex) {
-				mex.printStackTrace();
-			}
-
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}catch (MessagingException mex) {
+			mex.printStackTrace();
 		}
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<UserDTO>(newUserDTO, HttpStatus.CREATED);
 
 	}
 
@@ -185,7 +187,22 @@ public class UserController {
 			)
 	public ResponseEntity<UserDTO> changePassword(@RequestBody UserDTO userDTO) {
 		
-		return null;
+		String email = userDTO.getEmail();
+		System.out.println(email);
+		String new_password = userDTO.getPassword();
+		System.out.println(new_password);
+		String repeated_new_password = userDTO.getRepeated_password();
+		System.out.println(repeated_new_password);
+		
+		if(userService.findByEmail(email) != null && new_password.equals(repeated_new_password)) {
+			User user = userService.findByEmail(email);
+			user.setPassword(new_password);
+			userService.save(user);
+			UserDTO newUserDTO = new UserDTO(user);
+			
+			return new ResponseEntity<UserDTO>(newUserDTO, HttpStatus.CREATED);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
 	}
 	
