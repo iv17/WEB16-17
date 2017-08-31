@@ -3,8 +3,8 @@
 
 	angular
 		.module('bsepApp')
-		.controller('RegistrationController', ['$scope', '$state', '_', 'UserResource', '$log', '$stateParams',
-			function($scope, $state, _, UserResource, $log, $stateParams) {
+		.controller('RegistrationController', ['$scope', '$state', '_', 'UserResource', '$log', '$stateParams', "toastr",
+			function($scope, $state, _, UserResource, $log, $stateParams, toastr) {
 
 				var name = $stateParams.name;
 				var lastname = $stateParams.lastName;

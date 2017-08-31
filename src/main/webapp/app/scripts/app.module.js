@@ -3,6 +3,7 @@
 
   angular
     .module('bsepApp', [
+      'toastr',
       'ui.router',
       'ngRoute',
       'ngResource',
@@ -15,12 +16,19 @@
       $locationProvider.hashPrefix('');
       $urlRouterProvider.otherwise('/');
       $stateProvider
-      .state('home', {
+      .state('start', {
         url: "/",
         views: {
           'content@': {
-            templateUrl: 'app/views/sign_in.html'
-
+            templateUrl: 'app/views/login.html'
+          }
+        }
+      })
+      .state('home', {
+        url: "/home",
+        views: {
+          'content@': {
+            templateUrl: 'app/home.html'
           }
         }
       })
@@ -28,8 +36,9 @@
         url: "/login/:username/:password",
         views: {
           'content@': {
-            templateUrl: 'app/home.html',
             controller: 'LoginController'
+            //templateUrl: 'app/home.html'
+
           }
         }
       })

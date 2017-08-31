@@ -3,8 +3,8 @@
 
 	angular
 		.module('bsepApp')
-		.controller('LoginController', ['$scope', '$state', '_', 'UserResource', '$log', '$stateParams',
-			function($scope, $state, _, UserResource, $log, $stateParams) {
+		.controller('LoginController', ['$scope', '$state', '_', 'UserResource', '$log', '$stateParams', '$window','toastr',
+			function($scope, $state, _, UserResource, $log, $stateParams, $window, toastr) {
 
 				var username = $stateParams.username;
 				var password = $stateParams.password;
@@ -14,9 +14,17 @@
 					password: password
 				 };
 
-				UserResource.login(user).then(function(item) {
+				UserResource.login(user)
+				.then(function(item) {
 					$scope.loggedUser = item;
-					$log.log($scope.loggedUser);
+					
+					$window.location.href = '/#/home';
+					toastr.success('Uspesno ste se ulogovali!');
+				})
+				.catch(function(error){
+						$window.location.href = '/#/login';
+						toastr.error("Pogresni kredencijali!");
+
 				});
 
 			}
