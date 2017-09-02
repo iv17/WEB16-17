@@ -154,7 +154,7 @@ public class UserController {
 		properties.put("mail.smtp.port", "587");
 		properties.put("mail.smtp.auth", "true");
 
-		Session session = Session.getInstance(properties, new MyAuthenticator(usernameMail, passwordMail));
+		Session session = Session.getInstance(properties, new MailAuthenticator(usernameMail, passwordMail));
 		try {
 			// Create a default MimeMessage object.
 			MimeMessage message = new MimeMessage(session);
