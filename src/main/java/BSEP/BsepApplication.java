@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import BSEP.beans.Access;
 import BSEP.beans.Attachment;
@@ -122,6 +123,8 @@ public class BsepApplication implements CommandLineRunner {
 	@Override
 	public void run(String... arg0) throws Exception {
 
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
 		Access access1 = new Access("READ");
 		accessRepository.save(access1);
 		Access access2 = new Access("WRITE");
@@ -206,37 +209,37 @@ public class BsepApplication implements CommandLineRunner {
 		statusRepository.save(status3);
 		
 		
-		User user1 = new User("iv17", "nikola99", "Ivana", "Savin", "068476018", "ivana.unitedforce@gmail.com",
+		User user1 = new User("iv17", encoder.encode("nikola99"), "Ivana", "Savin", "068476018", "ivana.unitedforce@gmail.com",
 				location1, image1, role1, status1, false);
 		userRepository.save(user1);
 		UserAuthority userAuthority1 = new UserAuthority(user1, authority2);
 		userAuthorityRepository.save(userAuthority1);
 		
-		User user2 = new User("matthew", "123", "Matthew", "McConaughey", "065-456-789", "iva17.igodina@gmail.com",
+		User user2 = new User("matthew", encoder.encode("123"), "Matthew", "McConaughey", "065-456-789", "iva17.igodina@gmail.com",
 				location1, image1, role1, status1, false);
 		userRepository.save(user2);
-		User user3 = new User("bradley", "123", "Bradley", "Cooper", "065-789-123", "iva17.iigodina@gmail.com",
+		User user3 = new User("bradley", encoder.encode("123"), "Bradley", "Cooper", "065-789-123", "iva17.iigodina@gmail.com",
 				location1, image1, role1, status1, false);
 		userRepository.save(user3);
-		User user4 = new User("leonardo", "123", "Leonardo", "DiCaprio", "063-123-456", "iva17.iiigodina@gmail.com",
+		User user4 = new User("leonardo", encoder.encode("123"), "Leonardo", "DiCaprio", "063-123-456", "iva17.iiigodina@gmail.com",
 				location1, image1, role1, status1, false);
 		userRepository.save(user4);
-		User user5 = new User("blake", "123", "Blake", "Lively", "063-456-789", "blake.lively@gmail.com", location1,
+		User user5 = new User("blake", encoder.encode("123"), "Blake", "Lively", "063-456-789", "blake.lively@gmail.com", location1,
 				image1, role1, status1, false);
 		userRepository.save(user5);
-		User user6 = new User("ryan", "123", "Ryan", "Reynolds", "063-789-123", "ryan.reynolds@gmail.com", location1,
+		User user6 = new User("ryan", encoder.encode("123"), "Ryan", "Reynolds", "063-789-123", "ryan.reynolds@gmail.com", location1,
 				image1, role1, status1, false);
 		userRepository.save(user6);
-		User user7 = new User("jessica", "123", "Jessica", "Alba", "062-123-456", "jessica.alba@gmail.com", location1,
+		User user7 = new User("jessica", encoder.encode("123"), "Jessica", "Alba", "062-123-456", "jessica.alba@gmail.com", location1,
 				image1, role1, status1, false);
 		userRepository.save(user7);
-		User user8 = new User("eva", "123", "Eva", "Mendes", "062-456-789", "eva.mendes@gmail.com", location1, image1,
+		User user8 = new User("eva", encoder.encode("123"), "Eva", "Mendes", "062-456-789", "eva.mendes@gmail.com", location1, image1,
 				role1, status1, false);
 		userRepository.save(user8);
-		User user9 = new User("jessica", "123", "Jessica", "Alba", "062-123-456", "jessica.alba@gmail.com", location1,
+		User user9 = new User("jessica", encoder.encode("123"), "Jessica", "Alba", "062-123-456", "jessica.alba@gmail.com", location1,
 				image1, role4, status1, false);
 		userRepository.save(user9);
-		User user10 = new User("natalie", "123", "Natalie", "Portman", "062-456-789", "natalie.portman@gmail.com",
+		User user10 = new User("natalie", encoder.encode("123"), "Natalie", "Portman", "062-456-789", "natalie.portman@gmail.com",
 				location1, image1, role4, status1, false);
 		userRepository.save(user10);
 		

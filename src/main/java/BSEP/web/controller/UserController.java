@@ -15,6 +15,12 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +30,10 @@ import org.springframework.web.bind.annotation.RestController;
 import BSEP.beans.Role;
 import BSEP.beans.Snippet;
 import BSEP.beans.User;
+import BSEP.security.TokenUtils;
 import BSEP.service.RoleService;
 import BSEP.service.UserService;
+import BSEP.web.dto.LoginResponseDTO;
 import BSEP.web.dto.SnippetDTO;
 import BSEP.web.dto.UserDTO;
 
@@ -38,6 +46,19 @@ public class UserController {
 
 	@Autowired
 	private RoleService roleService;
+
+
+	//====================Security====================
+	@Autowired
+	AuthenticationManager authenticationManager;
+
+	@Autowired
+	private UserDetailsService userDetailsService;
+
+	@Autowired
+	TokenUtils tokenUtils;
+	//====================Security====================
+
 
 	@RequestMapping(
 			method = RequestMethod.GET
@@ -102,8 +123,9 @@ public class UserController {
 		}
 
 	}
-	
-	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
+
+	/*
+	 * @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
 
 		System.out.println(userDTO.toString());
@@ -127,7 +149,36 @@ public class UserController {
 		return new ResponseEntity<UserDTO>(loggedUserDTO, HttpStatus.OK);
 
 	}
-	 
+	 */
+
+
+	@RequestMapping(
+			value = "/login", 
+			method = RequestMethod.POST,
+			consumes = "application/json")
+	public ResponseEntity<LoginResponseDTO> login(@RequestBody UserDTO userDTO) {
+
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+				userDTO.getUsername(), userDTO.getPassword());
+
+		Authentication authentication = authenticationManager.authenticate(token);
+
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		UserDetails details = userDetailsService.loadUserByUsername(userDTO.getUsername());
+		System.out.println("userdetails: " + details.getUsername());
+
+		String userToken = tokenUtils.generateToken(details);
+		System.out.println("userToken: " + userToken);
+
+		User user = userService.findByToken(userToken);
+		System.out.println("user = " + user.getUsername());
+		
+		LoginResponseDTO loginResponseDTO = new LoginResponseDTO(new UserDTO(user), userToken);
+		
+		return new ResponseEntity<LoginResponseDTO>(loginResponseDTO, HttpStatus.OK);
+
+	}
+
 	@RequestMapping(value = "/request_to_change_password", method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<UserDTO> requestToChangePassword(@RequestBody UserDTO userDTO) {
 
@@ -221,26 +272,26 @@ public class UserController {
 			}
 		}
 		List<UserDTO> usersDTO = toDTO(notBlocked); //samo one koji nisu blokirani ce prikazati
-	
+
 		return new ResponseEntity<List<UserDTO>>(usersDTO, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(
 			value = "/{id}/block_user", // id - id admina koji ce blokirati user-a
 			method = RequestMethod.POST, 
 			consumes = "application/json"
 			)
 	public ResponseEntity<List<UserDTO>> blockUser(@PathVariable int id, @RequestBody UserDTO userDTO) {
-		
+
 		User admin = userService.findById(id);
 		if(admin.getRole() == roleService.findByName("ADMIN")) {
-			
+
 			User user = userService.findById(userDTO.getId());
 			if(user != null && !user.getBlocked().equals(true)) {
-				
+
 				user.setBlocked(true);
 				userService.save(user);
-				
+
 				List<User> users = userService.findAll();
 				List<User> notBlocked = new ArrayList<User>();
 				for (User u : users) {
@@ -249,9 +300,9 @@ public class UserController {
 					}
 				}
 				List<UserDTO> usersDTO = toDTO(notBlocked); //samo one koji nisu blokirani ce prikazati
-				
+
 				return new ResponseEntity<List<UserDTO>>(usersDTO, HttpStatus.CREATED);
-				
+
 			} else {
 				return new ResponseEntity<List<UserDTO>>(HttpStatus.BAD_REQUEST);
 			}
@@ -260,17 +311,17 @@ public class UserController {
 		}
 
 	}
-	
-	
+
+
 	@RequestMapping(
 			value = "/{id}/snippets", // id - id user-a ciji su snippeti
 			method = RequestMethod.POST, 
 			consumes = "application/json"
 			)
 	public ResponseEntity<List<SnippetDTO>> getSnippets(@PathVariable int id) {
-		
+
 		if(userService.findById(id) != null) {
-		
+
 			User user = userService.findById(id);
 			Set<Snippet> snippetsSet = user.getSnippets();
 			List<SnippetDTO> snippetsDTO = new ArrayList<SnippetDTO>();
@@ -278,15 +329,15 @@ public class UserController {
 				SnippetDTO newSnippetDTO = new SnippetDTO(snippet);
 				snippetsDTO.add(newSnippetDTO);
 			}
-			
+
 			return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.OK);
-			
+
 		}
 		return new ResponseEntity<List<SnippetDTO>>(HttpStatus.NOT_FOUND);
-		
+
 	}
-	
-	
+
+
 	// POMOCNA FUNKCIJA
 	private List<UserDTO> toDTO(List<User> users) {
 
@@ -298,5 +349,5 @@ public class UserController {
 		}
 		return userDTOs;
 	}
-	
+
 }

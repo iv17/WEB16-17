@@ -1,9 +1,7 @@
 package BSEP.web.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import BSEP.beans.User;
-@JsonIgnoreProperties(ignoreUnknown=true)
+
 public class UserDTO {
 
 	private int id;

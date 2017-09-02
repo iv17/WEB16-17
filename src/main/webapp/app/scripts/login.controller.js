@@ -28,10 +28,12 @@
 
 				UserResource.login(user)
 				.then(function(item) {
-					$rootScope.loggedUser = item;
+					$rootScope.loggedUser = item.user;
+					$log.log($rootScope.loggedUser);
+
 
 					$window.location.href = '/#/home';
-					toastr.success('Ulogovali ste se kao: ' + $rootScope.loggedUser.username);
+					toastr.success('Ulogovali ste se kao: ' + $rootScope.loggedUser);
 				})
 				.catch(function(error){
 						$window.location.href = '/#/start_login';
