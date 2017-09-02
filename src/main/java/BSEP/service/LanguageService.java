@@ -21,6 +21,10 @@ public class LanguageService {
 		return languageRepository.findById(id);
 	}
 	
+	public Language findByName(String name) {
+		return languageRepository.findByName(name);
+	}
+	
 	public List<Language> findAll() {
 		return languageRepository.findAll();
 	}

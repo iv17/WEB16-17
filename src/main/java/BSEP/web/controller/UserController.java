@@ -3,6 +3,7 @@ package BSEP.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -21,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import BSEP.beans.Role;
+import BSEP.beans.Snippet;
 import BSEP.beans.User;
 import BSEP.service.RoleService;
 import BSEP.service.UserService;
+import BSEP.web.dto.SnippetDTO;
 import BSEP.web.dto.UserDTO;
 
 @RestController
@@ -258,6 +261,32 @@ public class UserController {
 
 	}
 	
+	
+	@RequestMapping(
+			value = "/{id}/snippets", // id - id user-a ciji su snippeti
+			method = RequestMethod.POST, 
+			consumes = "application/json"
+			)
+	public ResponseEntity<List<SnippetDTO>> getSnippets(@PathVariable int id) {
+		
+		if(userService.findById(id) != null) {
+		
+			User user = userService.findById(id);
+			Set<Snippet> snippetsSet = user.getSnippets();
+			List<SnippetDTO> snippetsDTO = new ArrayList<SnippetDTO>();
+			for (Snippet snippet : snippetsSet) {
+				SnippetDTO newSnippetDTO = new SnippetDTO(snippet);
+				snippetsDTO.add(newSnippetDTO);
+			}
+			
+			return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.OK);
+			
+		}
+		return new ResponseEntity<List<SnippetDTO>>(HttpStatus.NOT_FOUND);
+		
+	}
+	
+	
 	// POMOCNA FUNKCIJA
 	private List<UserDTO> toDTO(List<User> users) {
 
@@ -269,4 +298,5 @@ public class UserController {
 		}
 		return userDTOs;
 	}
+	
 }

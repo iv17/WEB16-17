@@ -7,5 +7,6 @@ import BSEP.beans.Language;
 public interface LanguageRepository extends JpaRepository<Language, Integer> {
 
 	Language findById(int id);
+	Language findByName(String name);
 
 }

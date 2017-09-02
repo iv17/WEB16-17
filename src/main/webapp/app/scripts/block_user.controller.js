@@ -13,15 +13,11 @@
 					id: userId
 				};
 
-				$log.log(loggedAdminId);
-				$log.log(user);
-
 				UserResource.block_user(loggedAdminId, user)
 				.then(function(item) {
           //vraca sve user-e
 					$scope.users = item;
 
-					$log.log($scope.users);
 					$window.location.href = '/#/home';
 					toastr.success('Uspesno ste blokirali korisnika!');
 				})

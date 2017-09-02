@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import BSEP.beans.Comment;
+import BSEP.beans.Snippet;
 import BSEP.repository.CommentRepository;
 
 @Service
@@ -19,6 +20,10 @@ public class CommentService {
 	
 	public Comment findById(int id) {
 		return commentRepository.findById(id);
+	}
+	
+	public List<Comment> findBySnippet(Snippet snippet) {
+		return commentRepository.findBySnippet(snippet);
 	}
 		
 	public List<Comment> findAll() {
