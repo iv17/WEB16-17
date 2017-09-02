@@ -1,17 +1,19 @@
 package BSEP.web.dto;
 
-import BSEP.beans.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import BSEP.beans.User;
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class UserDTO {
 
 	private int id;
-	private String username;
-	private String password;
+	public String username;
+	public String password;
 	private String repeated_password;
 	private String name;
 	private String surname;
 	private String phoneNumber;
-	private String email;
+	public String email;
 	private LocationDTO locationDTO; 
 	private RoleDTO roleDTO;
 	private ImageDTO imageDTO;
@@ -32,9 +34,7 @@ public class UserDTO {
 		roleDTO = new RoleDTO(user.getRole());
 		blocked = user.getBlocked();
 	}
-	
-	
-	
+
 	public int getId() {
 		return id;
 	}
@@ -57,6 +57,14 @@ public class UserDTO {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRepeated_password() {
+		return repeated_password;
+	}
+
+	public void setRepeated_password(String repeated_password) {
+		this.repeated_password = repeated_password;
 	}
 
 	public String getName() {
@@ -123,21 +131,14 @@ public class UserDTO {
 		this.blocked = blocked;
 	}
 
-	
-	public String getRepeated_password() {
-		return repeated_password;
-	}
-
-	public void setRepeated_password(String repeated_password) {
-		this.repeated_password = repeated_password;
-	}
-
 	@Override
 	public String toString() {
-		return "UserDTO [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name
-				+ ", surname=" + surname + ", phoneNumber=" + phoneNumber + ", email=" + email + ", locationDTO="
-				+ locationDTO.toString() + ", roleDTO=" + roleDTO.getName() + ", imageDTO=" + imageDTO + ", blocked=" + blocked + "]";
+		return "UserDTO [id=" + id + ", username=" + username + ", password=" + password + ", repeated_password="
+				+ repeated_password + ", name=" + name + ", surname=" + surname + ", phoneNumber=" + phoneNumber
+				+ ", email=" + email + ", locationDTO=" + locationDTO + ", roleDTO=" + roleDTO + ", imageDTO="
+				+ imageDTO + ", blocked=" + blocked + "]";
 	}
 	
 	
+
 }

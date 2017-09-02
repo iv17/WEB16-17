@@ -31,7 +31,7 @@
 				})
 				.catch(function(error){
 						$window.location.href = '/#/start_register';
-						toastr.error("Greska!\nPokusajte ponovo!");
+						toastr.error("Greska!");
 				});
 
 			}

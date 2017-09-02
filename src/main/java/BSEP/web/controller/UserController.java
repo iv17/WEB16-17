@@ -99,10 +99,11 @@ public class UserController {
 		}
 
 	}
-
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
 
+		System.out.println(userDTO.toString());
 		String email = userDTO.getEmail();
 		String username = userDTO.getUsername();
 		String password = userDTO.getPassword();
@@ -123,7 +124,7 @@ public class UserController {
 		return new ResponseEntity<UserDTO>(loggedUserDTO, HttpStatus.OK);
 
 	}
-
+	 
 	@RequestMapping(value = "/request_to_change_password", method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<UserDTO> requestToChangePassword(@RequestBody UserDTO userDTO) {
 

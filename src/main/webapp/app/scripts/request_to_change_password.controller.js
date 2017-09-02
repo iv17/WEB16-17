@@ -20,7 +20,7 @@
 					toastr.info('Proverite mail!');
 				})
 				.catch(function(error){
-						toastr.error("Greska!\nPokusajte ponovo!");
+						toastr.error("Greska!");
 				});
 
 			}

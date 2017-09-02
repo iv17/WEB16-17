@@ -27,7 +27,7 @@
 				})
 				.catch(function(error){
 						//$window.location.href = '/#/home';
-						toastr.error("Greska!\nPokusajte ponovo!");
+						toastr.error("Greska!");
 				});
 
 			}
