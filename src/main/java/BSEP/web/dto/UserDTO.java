@@ -29,6 +29,8 @@ public class UserDTO {
 		name = user.getName();
 		surname = user.getSurname();
 		email = user.getEmail();
+		roleDTO = new RoleDTO(user.getRole());
+		blocked = user.getBlocked();
 	}
 	
 	

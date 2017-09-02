@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import BSEP.beans.Role;
 import BSEP.beans.User;
 import BSEP.repository.UserRepository;
 
@@ -35,6 +36,10 @@ public class UserService {
 	
 	public User findByEmailAndPassword(String email, String password) {
 		return userRepository.findByEmailAndPassword(email, password);
+	}
+	
+	public List<User> findByRole(Role role) {
+		return userRepository.findByRole(role);
 	}
 	
 	public List<User> findAll() {

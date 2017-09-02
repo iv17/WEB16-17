@@ -1,1 +1,3 @@
-<p> homee </p>
+<div ng-repeat = "user in notBlockedUsers">
+  <div> {{ user.username }} , {{ user.blocked }} <a ui-sref = "block_user({userId : user.id})">Blokiraj korisnika </a> </div><br>
+</div>

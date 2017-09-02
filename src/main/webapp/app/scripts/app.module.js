@@ -36,7 +36,8 @@
         url: "/home",
         views: {
           'content@': {
-            templateUrl: 'app/home.html'
+            templateUrl: 'app/home.html',
+            controller: 'HomeController'
           }
         }
       })
@@ -96,8 +97,16 @@
             controller: 'ChangePasswordController'
           }
         }
-      });
+      })
+      .state('block_user', {
+        url: "/block_user/:userId",
+        views: {
+          'content@': {
 
+            controller: 'BlockUserController'
+          }
+        }
+      });
 
     }])
       // run se izvrsava pre svega ostalog

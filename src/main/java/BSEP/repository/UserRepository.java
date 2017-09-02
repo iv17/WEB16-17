@@ -1,7 +1,10 @@
 package BSEP.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import BSEP.beans.Role;
 import BSEP.beans.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
@@ -11,5 +14,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	User findByUsername(String username);
 	User findByEmail(String email);
+	
+	List<User> findByRole(Role role);
 
 }

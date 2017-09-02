@@ -19,8 +19,20 @@
 				});
 			};
 
-			retVal.users = function() {
+			retVal.getUsers = function() {
 				return Restangular.all("users").getList().then(function(responses) {
+					return responses;
+				});
+			};
+
+			retVal.getAdmins = function() {
+				return Restangular.all("users/admins").getList().then(function(responses) {
+					return responses;
+				});
+			};
+
+			retVal.getNotBlockedUsers = function() {
+				return Restangular.all("users/not_blocked_users").getList().then(function(responses) {
 					return responses;
 				});
 			};
@@ -39,6 +51,13 @@
 
 			retVal.change_password = function(user)	{
 				return Restangular.all("users/change_password").post(user).then(function(response) {
+					return response;
+				});
+			};
+			// id - id admina koji blokira
+			// user - user koji se blokira
+			retVal.block_user = function(id, user)	{
+				return Restangular.one("users", id).all('block_user').post(user).then(function(response) {
 					return response;
 				});
 			};
