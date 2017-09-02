@@ -2,55 +2,59 @@
 <html class="login" lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <title>ThemeKit</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>ThemeKit</title>
 
-  <link href="app/css/vendor/bootstrap.css" rel="stylesheet">
-  <link href="app/css/vendor/font-awesome.css" rel="stylesheet">
-  <link href="app/css/vendor/picto.css" rel="stylesheet">
-  <link href="app/css/vendor/material-design-iconic-font.css" rel="stylesheet">
-  <link href="app/css/vendor/datepicker3.css" rel="stylesheet">
-  <link href="app/css/vendor/jquery.minicolors.css" rel="stylesheet">
-  <link href="app/css/vendor/bootstrap-slider.css" rel="stylesheet">
-  <link href="app/css/vendor/railscasts.css" rel="stylesheet">
-  <link href="app/css/vendor/jquery-jvectormap.css" rel="stylesheet">
-  <link href="app/css/vendor/owl.carousel.css" rel="stylesheet">
-  <link href="app/css/vendor/slick.css" rel="stylesheet">
-  <link href="app/css/vendor/morris.css" rel="stylesheet">
-  <link href="app/css/vendor/ui.fancytree.css" rel="stylesheet">
-  <link href="app/css/vendor/daterangepicker-bs3.css" rel="stylesheet">
-  <link href="app/css/vendor/jquery.bootstrap-touchspin.css" rel="stylesheet">
-  <link href="app/css/vendor/select2.css" rel="stylesheet">
+<link href="app/css/vendor/bootstrap.css" rel="stylesheet">
 
-  <link href="app/css/app/essentials.css" rel="stylesheet" />
-  <link href="app/css/app/layout.css" rel="stylesheet" />
-  <link href="app/css/app/sidebar.css" rel="stylesheet" />
-  <link href="app/css/app/sidebar-skins.css" rel="stylesheet" />
-  <link href="app/css/app/navbar.css" rel="stylesheet" />
-  <link href="app/css/app/media.css" rel="stylesheet" />
-  <link href="app/css/app/timeline.css" rel="stylesheet" />
-  <link href="app/css/app/cover.css" rel="stylesheet" />
-  <link href="app/css/app/chat.css" rel="stylesheet" />
-  <link href="app/css/app/charts.css" rel="stylesheet" />
-  <link href="app/css/app/colors-alerts.css" rel="stylesheet" />
-  <link href="app/css/app/colors-background.css" rel="stylesheet" />
-  <link href="app/css/app/colors-buttons.css" rel="stylesheet" />
-  <link href="app/css/app/colors-calendar.css" rel="stylesheet" />
-  <link href="app/css/app/colors-progress-bars.css" rel="stylesheet" />
-  <link href="app/css/app/colors-text.css" rel="stylesheet" />
-  <link href="app/css/app/ui.css" rel="stylesheet" />
+<link href="app/css/vendor/font-awesome.css" rel="stylesheet">
+<link href="app/css/vendor/picto.css" rel="stylesheet">
+<link href="app/css/vendor/material-design-iconic-font.css"
+	rel="stylesheet">
+<link href="app/css/vendor/datepicker3.css" rel="stylesheet">
+<link href="app/css/vendor/jquery.minicolors.css" rel="stylesheet">
+<link href="app/css/vendor/bootstrap-slider.css" rel="stylesheet">
+<link href="app/css/vendor/railscasts.css" rel="stylesheet">
+<link href="app/css/vendor/jquery-jvectormap.css" rel="stylesheet">
+<link href="app/css/vendor/owl.carousel.css" rel="stylesheet">
+<link href="app/css/vendor/slick.css" rel="stylesheet">
+<link href="app/css/vendor/morris.css" rel="stylesheet">
+<link href="app/css/vendor/ui.fancytree.css" rel="stylesheet">
+<link href="app/css/vendor/daterangepicker-bs3.css" rel="stylesheet">
+<link href="app/css/vendor/jquery.bootstrap-touchspin.css"
+	rel="stylesheet">
+<link href="app/css/vendor/select2.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://unpkg.com/angular-toastr/dist/angular-toastr.css" />
+<link href="app/css/app/essentials.css" rel="stylesheet" />
+<link href="app/css/app/layout.css" rel="stylesheet" />
+<link href="app/css/app/sidebar.css" rel="stylesheet" />
+<link href="app/css/app/sidebar-skins.css" rel="stylesheet" />
+<link href="app/css/app/navbar.css" rel="stylesheet" />
+<link href="app/css/app/media.css" rel="stylesheet" />
+<link href="app/css/app/timeline.css" rel="stylesheet" />
+<link href="app/css/app/cover.css" rel="stylesheet" />
+<link href="app/css/app/chat.css" rel="stylesheet" />
+<link href="app/css/app/charts.css" rel="stylesheet" />
+<link href="app/css/app/colors-alerts.css" rel="stylesheet" />
+<link href="app/css/app/colors-background.css" rel="stylesheet" />
+<link href="app/css/app/colors-buttons.css" rel="stylesheet" />
+<link href="app/css/app/colors-calendar.css" rel="stylesheet" />
+<link href="app/css/app/colors-progress-bars.css" rel="stylesheet" />
+<link href="app/css/app/colors-text.css" rel="stylesheet" />
+<link href="app/css/app/ui.css" rel="stylesheet" />
+
+<link rel="stylesheet"
+	href="https://unpkg.com/angular-toastr/dist/angular-toastr.css" />
 </head>
-<body ng-app = "bsepApp">
+<body ng-app="bsepApp">
 
-  <div ui-view = "content"></div>
+	<div ui-view="content"></div>
 
-  <script>
+	<script>
     var colors = {
       "danger-color": "#e74c3c",
       "success-color": "#81b53e",
@@ -74,69 +78,72 @@
     };
   </script>
 
-  <script src="app/js/vendor/core/jquery.js"></script>
-  <script src="app/js/vendor/core/bootstrap.js"></script>
-  <script src="app/js/vendor/core/breakpoints.js"></script>
-  <script src="app/js/vendor/core/jquery.nicescroll.js"></script>
-  <script src="app/js/vendor/core/isotope.pkgd.js"></script>
-  <script src="app/js/vendor/core/packery-mode.pkgd.js"></script>
-  <script src="app/js/vendor/core/jquery.grid-a-licious.js"></script>
-  <script src="app/js/vendor/core/jquery.cookie.js"></script>
-  <script src="app/js/vendor/core/jquery-ui.custom.js"></script>
-  <script src="app/js/vendor/core/jquery.hotkeys.js"></script>
-  <script src="app/js/vendor/core/handlebars.js"></script>
-  <script src="app/js/vendor/core/jquery.hotkeys.js"></script>
-  <script src="app/js/vendor/core/load_image.js"></script>
-  <script src="app/js/vendor/core/jquery.debouncedresize.js"></script>
-  <script src="app/js/vendor/tables/all.js"></script>
-  <script src="app/js/vendor/forms/all.js"></script>
-  <script src="app/js/vendor/media/all.js"></script>
-  <script src="app/js/vendor/charts/all.js"></script>
-  <script src="app/js/vendor/charts/flot/all.js"></script>
-  <script src="app/js/vendor/charts/easy-pie/jquery.easypiechart.js"></script>
-  <script src="app/js/vendor/charts/morris/all.js"></script>
-  <script src="app/js/vendor/charts/sparkline/all.js"></script>
-  <script src="app/js/vendor/tree/jquery.fancytree-all.js"></script>
-  <script src="app/js/vendor/nestable/jquery.nestable.js"></script>
 
-  <script src="app/js/app/essentials.js"></script>
-  <script src="app/js/app/layout.js"></script>
-  <script src="app/js/app/sidebar.js"></script>
-  <script src="app/js/app/media.js"></script>
-  <script src="app/js/app/timeline.js"></script>
-  <script src="app/js/app/chat.js"></script>
-  <script src="app/js/app/charts/all.js"></script>
-  <script src="app/js/app/charts/flot.js"></script>
-  <script src="app/js/app/charts/easy-pie.js"></script>
-  <script src="app/js/app/charts/morris.js"></script>
-  <script src="app/js/app/charts/sparkline.js"></script>
+	<script src="app/js/vendor/core/jquery.js"></script>
+	<script src="app/js/vendor/core/bootstrap.js"></script>
+	<script src="app/js/vendor/core/breakpoints.js"></script>
+	<script src="app/js/vendor/core/jquery.nicescroll.js"></script>
+	<script src="app/js/vendor/core/isotope.pkgd.js"></script>
+	<script src="app/js/vendor/core/packery-mode.pkgd.js"></script>
+	<script src="app/js/vendor/core/jquery.grid-a-licious.js"></script>
+	<script src="app/js/vendor/core/jquery.cookie.js"></script>
+	<script src="app/js/vendor/core/jquery-ui.custom.js"></script>
+	<script src="app/js/vendor/core/jquery.hotkeys.js"></script>
+	<script src="app/js/vendor/core/handlebars.js"></script>
+	<script src="app/js/vendor/core/jquery.hotkeys.js"></script>
+	<script src="app/js/vendor/core/load_image.js"></script>
+	<script src="app/js/vendor/core/jquery.debouncedresize.js"></script>
+	<script src="app/js/vendor/tables/all.js"></script>
+	<script src="app/js/vendor/forms/all.js"></script>
+	<script src="app/js/vendor/media/all.js"></script>
+	<script src="app/js/vendor/charts/all.js"></script>
+	<script src="app/js/vendor/charts/flot/all.js"></script>
+	<script src="app/js/vendor/charts/easy-pie/jquery.easypiechart.js"></script>
+	<script src="app/js/vendor/charts/morris/all.js"></script>
+	<script src="app/js/vendor/charts/sparkline/all.js"></script>
+	<script src="app/js/vendor/tree/jquery.fancytree-all.js"></script>
+	<script src="app/js/vendor/nestable/jquery.nestable.js"></script>
 
-
-  <script src = "app/js/kts/jquery/dist/jquery.js"></script>
-	<script src = "app/js/kts/angular/angular.js"></script>
-  <script src = "app/js/kts/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
-	<script src = "app/js/angular-ui-router/angular-ui-router.js"></script>
-  <script src = "app/js/kts/angular-resource/angular-resource.js"></script>
-	<script src = "app/js/kts/angular-route/angular-route.js"></script>
-  <script src = "app/js/kts/lodash/lodash.js"></script>
-	<script src = "app/js/kts/restangular/dist/restangular.js"></script>
-	<script src = "app/js/kts/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-	<script src = "app/js/kts/angular-lodash-module/angular-lodash-module.js"></script>
+	<script src="app/js/app/essentials.js"></script>
+	<script src="app/js/app/layout.js"></script>
+	<script src="app/js/app/sidebar.js"></script>
+	<script src="app/js/app/media.js"></script>
+	<script src="app/js/app/timeline.js"></script>
+	<script src="app/js/app/chat.js"></script>
+	<script src="app/js/app/charts/all.js"></script>
+	<script src="app/js/app/charts/flot.js"></script>
+	<script src="app/js/app/charts/easy-pie.js"></script>
+	<script src="app/js/app/charts/morris.js"></script>
+	<script src="app/js/app/charts/sparkline.js"></script>
 
 
+	<script src="app/js/kts/jquery/dist/jquery.js"></script>
+	<script src="app/js/kts/angular/angular.js"></script>
+	<script
+		src="app/js/kts/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+	<script src="app/js/angular-ui-router/angular-ui-router.js"></script>
+	<script src="app/js/kts/angular-resource/angular-resource.js"></script>
+	<script src="app/js/kts/angular-route/angular-route.js"></script>
+	<script src="app/js/kts/lodash/lodash.js"></script>
+	<script src="app/js/kts/restangular/dist/restangular.js"></script>
+	<script src="app/js/kts/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="app/js/kts/angular-lodash-module/angular-lodash-module.js"></script>
 
-  <script src="https://unpkg.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
 
-  <script src = "app/scripts/app.module.js"></script>
-	<script src = "app/scripts/home.controller.js"></script>
-	<script src = "app/scripts/login.controller.js"></script>
-  <script src = "app/scripts/registration.controller.js"></script>
-  <script src = "app/scripts/request_to_change_password.controller.js"></script>
-  <script src = "app/scripts/start_change_password.controller.js"></script>
-  <script src = "app/scripts/change_password.controller.js"></script>
-  <script src = "app/scripts/load_admins.controller.js"></script>
-  <script src = "app/scripts/block_user.controller.js"></script>
-	<script src = "app/scripts/user.resource.js"></script>
+
+	<script
+		src="https://unpkg.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+
+	<script src="app/scripts/app.module.js"></script>
+	<script src="app/scripts/home.controller.js"></script>
+	<script src="app/scripts/login.controller.js"></script>
+	<script src="app/scripts/registration.controller.js"></script>
+	<script src="app/scripts/request_to_change_password.controller.js"></script>
+	<script src="app/scripts/start_change_password.controller.js"></script>
+	<script src="app/scripts/change_password.controller.js"></script>
+	<script src="app/scripts/load_admins.controller.js"></script>
+	<script src="app/scripts/block_user.controller.js"></script>
+	<script src="app/scripts/user.resource.js"></script>
 
 </body>
 </html>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import BSEP.beans.Comment;
 import BSEP.beans.Snippet;
@@ -20,6 +21,8 @@ import BSEP.service.CommentService;
 import BSEP.service.SnippetService;
 import BSEP.web.dto.CommentDTO;
 
+@RestController
+@RequestMapping(value = "/api/comments")
 public class CommentController {
 
 	@Autowired

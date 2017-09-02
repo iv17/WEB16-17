@@ -1,6 +1,7 @@
 package BSEP.beans;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -77,12 +78,14 @@ public class User implements Serializable {
 
 	@ManyToOne @JsonIgnore
 	@JoinColumn(name = "team_id", referencedColumnName = "id", nullable = true) 
-	private Team team;
-	
+	private Team team;	
 	
 	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "teamLeader") @JsonIgnore
 	private Set<Team> teams;
 	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	private Set<UserAuthority> userAuthorities = new HashSet<UserAuthority>();
+
 	public User() {
 		
 	}
@@ -229,6 +232,22 @@ public class User implements Serializable {
 
 	public void setTeam(Team team) {
 		this.team = team;
+	}
+
+	public Set<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(Set<Team> teams) {
+		this.teams = teams;
+	}
+
+	public Set<UserAuthority> getUserAuthorities() {
+		return userAuthorities;
+	}
+
+	public void setUserAuthorities(Set<UserAuthority> userAuthorities) {
+		this.userAuthorities = userAuthorities;
 	}
 	
 

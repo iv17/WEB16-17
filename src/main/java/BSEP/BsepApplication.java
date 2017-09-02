@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import BSEP.beans.Access;
 import BSEP.beans.Attachment;
 import BSEP.beans.AttachmentType;
+import BSEP.beans.Authority;
 import BSEP.beans.Comment;
 import BSEP.beans.Image;
 import BSEP.beans.Language;
@@ -23,10 +24,12 @@ import BSEP.beans.Role;
 import BSEP.beans.Snippet;
 import BSEP.beans.Status;
 import BSEP.beans.User;
+import BSEP.beans.UserAuthority;
 import BSEP.beans.Visibility;
 import BSEP.repository.AccessRepository;
 import BSEP.repository.AttachmentRepository;
 import BSEP.repository.AttachmentTypeRepository;
+import BSEP.repository.AuthorityRepository;
 import BSEP.repository.CommentRepository;
 import BSEP.repository.ConversationRepository;
 import BSEP.repository.ImageRepository;
@@ -39,6 +42,7 @@ import BSEP.repository.RoleRepository;
 import BSEP.repository.SnippetRepository;
 import BSEP.repository.StatusRepository;
 import BSEP.repository.TeamRepository;
+import BSEP.repository.UserAuthorityRepository;
 import BSEP.repository.UserRepository;
 import BSEP.repository.VisibilityRepository;
 
@@ -54,6 +58,9 @@ public class BsepApplication implements CommandLineRunner {
 	@Autowired
 	AttachmentTypeRepository attachmentTypeRepository;
 
+	@Autowired
+	AuthorityRepository authorityRepository;
+	
 	@Autowired
 	CommentRepository commentRepository;
 
@@ -99,12 +106,16 @@ public class BsepApplication implements CommandLineRunner {
 	UserRepository userRepository;
 
 	@Autowired
+	UserAuthorityRepository userAuthorityRepository;
+	
+	@Autowired
 	VisibilityRepository visibilityRepository;
 
+	
 	public static void main(String[] args) {
 
 		SpringApplication.run(BsepApplication.class, args);
-
+		
 		System.out.println("\n\n\n\t\t\t\t\t***BSEP***");
 	}
 
@@ -180,16 +191,27 @@ public class BsepApplication implements CommandLineRunner {
 		Role role4 = new Role("ADMIN");
 		roleRepository.save(role4);
 
+		Authority authority1 = new Authority("ROLE_ADMIN");
+		authorityRepository.save(authority1);
+		Authority authority2 = new Authority("ROLE_REG_USER");
+		authorityRepository.save(authority2);
+		Authority authority3 = new Authority("ROLE_GUEST");
+		authorityRepository.save(authority3);
+		
 		Status status1 = new Status("ONLINE");
 		statusRepository.save(status1);
 		Status status2 = new Status("OFFLINE");
 		statusRepository.save(status2);
 		Status status3 = new Status("AT A MEETING");
 		statusRepository.save(status3);
-
+		
+		
 		User user1 = new User("iv17", "nikola99", "Ivana", "Savin", "068476018", "ivana.unitedforce@gmail.com",
 				location1, image1, role1, status1, false);
 		userRepository.save(user1);
+		UserAuthority userAuthority1 = new UserAuthority(user1, authority2);
+		userAuthorityRepository.save(userAuthority1);
+		
 		User user2 = new User("matthew", "123", "Matthew", "McConaughey", "065-456-789", "iva17.igodina@gmail.com",
 				location1, image1, role1, status1, false);
 		userRepository.save(user2);
@@ -217,6 +239,9 @@ public class BsepApplication implements CommandLineRunner {
 		User user10 = new User("natalie", "123", "Natalie", "Portman", "062-456-789", "natalie.portman@gmail.com",
 				location1, image1, role4, status1, false);
 		userRepository.save(user10);
+		
+		UserAuthority userAuthority10 = new UserAuthority(user10, authority1);
+		userAuthorityRepository.save(userAuthority10);
 
 		Snippet snippet1 = new Snippet("...", "...".getBytes(), language1, "...", 1, false, access1, visibility1,
 				user1);
