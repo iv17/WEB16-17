@@ -30,17 +30,13 @@
 
 				UserResource.login(user)
 				.then(function(item) {
-					$rootScope.loggedUser = item.user;
 
 					//==========================================
 					$localStorage.token = item.token;
-					$log.log($localStorage.token);
-					//$window.localStorage.setItem("token", item.token);
-					//$window.localStorage['token'] = item.token;
 					//==========================================
 
 					$window.location.href = '/#/home';
-					toastr.success('Ulogovali ste se kao: ' + $rootScope.loggedUser.username);
+					toastr.success('Ulogovali ste se kao: ' + item.user.username);
 				})
 				.catch(function(error){
 						$window.location.href = '/#/start_login';

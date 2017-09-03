@@ -21,6 +21,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 import BSEP.beans.Role;
 import BSEP.beans.Snippet;
 import BSEP.beans.User;
+import BSEP.security.MailAuthenticator;
 import BSEP.security.TokenUtils;
 import BSEP.service.RoleService;
 import BSEP.service.UserService;
@@ -95,6 +97,8 @@ public class UserController {
 	@RequestMapping(value = "/registration", method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<UserDTO> registration(@RequestBody UserDTO userDTO) {
 
+		 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
 		User user = new User();
 
 		if (userService.findByUsername(userDTO.getUsername()) == null
@@ -108,8 +112,10 @@ public class UserController {
 				user.setSurname(userDTO.getSurname());
 				user.setEmail(userDTO.getEmail());
 				user.setUsername(userDTO.getUsername());
-				user.setPassword(userDTO.getPassword());
-
+				user.setPassword(encoder.encode(userDTO.getPassword()));
+				
+				user.setRole(roleService.findByName("REGISTRED_USER"));
+				user.setBlocked(false);
 				UserDTO newUserDTO = new UserDTO(user);
 
 				userService.save(user);
@@ -124,34 +130,6 @@ public class UserController {
 		}
 
 	}
-
-	/*
-	 * @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
-	public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
-
-		System.out.println(userDTO.toString());
-		String email = userDTO.getEmail();
-		String username = userDTO.getUsername();
-		String password = userDTO.getPassword();
-
-		if (userService.findByEmail(email) == null && userService.findByUsername(username) == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		User user = null;
-		if (userService.findByEmail(email) != null) {
-			user = userService.findByEmailAndPassword(email, password);
-		}
-		if (userService.findByUsername(username) != null) {
-			user = userService.findByUsernameAndPassword(username, password);
-		}
-		UserDTO loggedUserDTO = new UserDTO(user);
-
-		return new ResponseEntity<UserDTO>(loggedUserDTO, HttpStatus.OK);
-
-	}
-	 */
-
 
 	@RequestMapping(
 			value = "/login", 
@@ -177,7 +155,11 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/request_to_change_password", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(
+			value = "/request_to_change_password",
+			method = RequestMethod.POST,
+			consumes = "application/json"
+			)
 	public ResponseEntity<UserDTO> requestToChangePassword(@RequestBody UserDTO userDTO) {
 
 		String email = userDTO.getEmail();
@@ -230,7 +212,10 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/change_password", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(
+			value = "/change_password",
+			method = RequestMethod.POST, 
+			consumes = "application/json")
 	public ResponseEntity<UserDTO> changePassword(@RequestBody UserDTO userDTO) {
 
 		String email = userDTO.getEmail();
@@ -252,7 +237,10 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/admins", method = RequestMethod.GET)
+	@RequestMapping(
+			value = "/admins",
+			method = RequestMethod.GET
+			)
 	public ResponseEntity<List<UserDTO>> getAdmins() {
 		Role role = roleService.findByName("ADMIN");
 		List<User> users = userService.findByRole(role);
@@ -260,7 +248,10 @@ public class UserController {
 		return new ResponseEntity<List<UserDTO>>(userDTOs, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/not_blocked_users", method = RequestMethod.GET)
+	@RequestMapping(
+			value = "/not_blocked_users", 
+			method = RequestMethod.GET
+			)
 	public ResponseEntity<List<UserDTO>> getNotBlockedUsers() {
 		List<User> users = userService.findAll();
 		List<User> notBlocked = new ArrayList<User>();
@@ -274,54 +265,17 @@ public class UserController {
 		return new ResponseEntity<List<UserDTO>>(usersDTO, HttpStatus.OK);
 	}
 
-	/*
-	@RequestMapping(
-			value = "/{id}/block_user", // id - id admina koji ce blokirati user-a
-			method = RequestMethod.POST, 
-			consumes = "application/json"
-			)
-	public ResponseEntity<List<UserDTO>> blockUser(@PathVariable int id, @RequestBody UserDTO userDTO) {
-
-		User admin = userService.findById(id);
-		if(admin.getRole() == roleService.findByName("ADMIN")) {
-
-			User user = userService.findById(userDTO.getId());
-			if(user != null && !user.getBlocked().equals(true)) {
-
-				user.setBlocked(true);
-				userService.save(user);
-
-				List<User> users = userService.findAll();
-				List<User> notBlocked = new ArrayList<User>();
-				for (User u : users) {
-					if(!u.getBlocked()) {
-						notBlocked.add(u);
-					}
-				}
-				List<UserDTO> usersDTO = toDTO(notBlocked); //samo one koji nisu blokirani ce prikazati
-
-				return new ResponseEntity<List<UserDTO>>(usersDTO, HttpStatus.CREATED);
-
-			} else {
-				return new ResponseEntity<List<UserDTO>>(HttpStatus.BAD_REQUEST);
-			}
-		} else {
-			return new ResponseEntity<List<UserDTO>>(HttpStatus.BAD_REQUEST);
-		}
-
-	}*/
 	
-
 	@RequestMapping(
 			value = "/block_user", // id - id admina koji ce blokirati user-a
 			method = RequestMethod.POST, 
 			consumes = "application/json"
 			)
-	public ResponseEntity<List<UserDTO>> blockUser(@RequestHeader("X-Auth-Token") String token, @RequestBody UserDTO userDTO) {
+	public ResponseEntity<List<UserDTO>> blockUser(@RequestBody UserDTO userDTO, @RequestHeader("X-Auth-Token") String token) {
 
-		System.out.println("tooken:   " + token);
+		
 		User admin = userService.findByToken(token);
-		System.out.println(admin.toString());
+		
 		if(admin.getRole() == roleService.findByName("ADMIN")) {
 
 			User user = userService.findById(userDTO.getId());
@@ -350,15 +304,16 @@ public class UserController {
 
 	}
 	@RequestMapping(
-			value = "/{id}/snippets", // id - id user-a ciji su snippeti
+			value = "/snippets", // id - id user-a ciji su snippeti
 			method = RequestMethod.POST, 
 			consumes = "application/json"
 			)
-	public ResponseEntity<List<SnippetDTO>> getSnippets(@PathVariable int id) {
+	public ResponseEntity<List<SnippetDTO>> getSnippets(@RequestHeader("X-Auth-Token") String token) {
 
-		if(userService.findById(id) != null) {
+		if(userService.findByToken(token) != null) {
 
-			User user = userService.findById(id);
+			User user = userService.findByToken(token);
+			
 			Set<Snippet> snippetsSet = user.getSnippets();
 			List<SnippetDTO> snippetsDTO = new ArrayList<SnippetDTO>();
 			for (Snippet snippet : snippetsSet) {

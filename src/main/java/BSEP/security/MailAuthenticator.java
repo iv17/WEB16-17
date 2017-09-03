@@ -1,4 +1,4 @@
-package BSEP.web.controller;
+package BSEP.security;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;

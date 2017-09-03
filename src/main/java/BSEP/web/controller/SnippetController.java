@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,15 +67,15 @@ public class SnippetController {
 	
 
 	@RequestMapping(
-			value = "/{id}/add_snippet", // id - id user-a koji kreira snippet
+			value = "/add", // id - id user-a koji kreira snippet
 			method = RequestMethod.POST, 
 			consumes = "application/json"
 			)
-	public ResponseEntity<List<SnippetDTO>> addSnippet(@PathVariable int id, @RequestBody SnippetDTO snippetDTO) {
+	public ResponseEntity<List<SnippetDTO>> addSnippet(@RequestBody SnippetDTO snippetDTO, @RequestHeader("X-Auth-Token") String token) {
 		
-		if(userService.findById(id) != null) {
-			
-			User user = userService.findById(id);
+		if(userService.findByToken(token) != null) {
+		
+			User user = userService.findByToken(token);
 			if(user.getBlocked() == true) {
 				return new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
 			}

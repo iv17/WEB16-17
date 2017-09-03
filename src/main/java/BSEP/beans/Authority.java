@@ -24,7 +24,7 @@ public class Authority implements Serializable {
 	@GeneratedValue
 	private Long id;
 	
-	@Column(name = "name", unique = false, nullable = true)
+	@Column(name = "name", unique = true, nullable = true)
 	private String name;
 	
 	@OneToMany(mappedBy = "authority", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)

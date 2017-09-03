@@ -27,7 +27,7 @@ public class Status implements Serializable {
 	@Column(name = "id", nullable = false , unique = true)
 	private int id;
 	
-	@Column(name = "name", unique = false, nullable = true)
+	@Column(name = "name", unique = true, nullable = false)
 	private String name;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "status") @JsonIgnore

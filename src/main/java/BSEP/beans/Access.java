@@ -27,7 +27,7 @@ public class Access implements Serializable {
 	@Column(name = "id", nullable = false , unique = true)
 	private int id;
 	
-	@Column(name = "name", unique = false, nullable = true)
+	@Column(name = "name", unique = true, nullable = true)
 	private String name;
 	
 	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "access") @JsonIgnore
