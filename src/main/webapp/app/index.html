@@ -51,7 +51,15 @@
 </head>
 <body ng-app="bsepApp">
 
-	<div ui-view="content"></div>
+	<div class="st-container">
+
+		<div ui-view="navbar"></div>
+
+		<div ui-view="sidebar"></div>
+
+		<div ui-view="content"></div>
+
+	</div>
 
 	<script>
     var colors = {
@@ -144,6 +152,7 @@
 
 	<script src="app/scripts/snippet/snippets.controller.js"></script>
 	<script src="app/scripts/snippet/snippet.resource.js"></script>
+	<script src="app/scripts/snippet/language/languages.controller.js"></script>
 	<script src="app/scripts/snippet/language/add_language.controller.js"></script>
 	<script src="app/scripts/snippet/language/language.resource.js"></script>
 

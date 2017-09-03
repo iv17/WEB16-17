@@ -102,9 +102,32 @@
       .state('home', {
         url: "/home",
         views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'sidebar@': {
+            templateUrl: 'app/views/sidebar.html',
+            controller: 'LanguagesController'
+          },
           'content@': {
             templateUrl: 'app/views/snippets.html',
             controller: 'SnippetsController'
+          }
+        }
+      })
+      .state('start_create_snippet', {
+        url: "/start_create_snippet",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'sidebar@': {
+            templateUrl: 'app/views/create_snippet_sidebar.html'
+          },
+          'content@': {
+            templateUrl: 'app/views/create_snippet.html'
           }
         }
       })

@@ -1,0 +1,39 @@
+<div class="sidebar left sidebar-size-3 st-effect-3 sidebar-skin-white sidebar-visible-desktop" id=sidebar-tickets>
+  <div class="split-vertical">
+    <div class="sidebar-block equal-padding"></div>
+    <div class="sidebar-block equal-padding"></div>
+    <div class="sidebar-block equal-padding">
+      <a ui-sref = "start_create_snippet()" class="btn btn-block btn-primary"> <i class="fa fa-pencil"></i> Create snippet </a>
+    </div>
+    <div class="sidebar-block equal-padding">
+      <div class="input-group">
+        <input type="text" class="form-control" ng-model="description"placeholder="description..">
+        <span class="input-group-btn">
+          <a ui-sref = "search_description({description: description})"
+           class="btn btn-primary"><i class="fa fa-search"></i></a>
+        </span>
+      </div>
+    </div>
+    <div class="split-vertical-body">
+      <div class="split-vertical-cell">
+        <div data-scrollable>
+          <ul class="sidebar-menu sm-bordered">
+            <li class="active"><a ><i class="fa fa-ticket"></i> <span>New</span></a></li>
+            <li><a><i class="fa fa-exclamation-circle"></i> <span>Unread</span></a></li>
+            <li><a ><i class="fa fa-pencil"></i> <span>Draft</span></a></li>
+          </ul>
+          <div class="sidebar-block equal-padding">
+            <div class="input-group">
+              <span class="input-group-btn">
+              <select class="form-control"  ng-model="selectedLanguage" ng-options="item.name for item in languages" data-live-search="true" >
+
+              </select>
+            </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
