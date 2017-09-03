@@ -9,10 +9,12 @@
       'ngResource',
       'restangular',
       'ui.bootstrap',
-      'lodash'
+      'lodash',
+      'ngStorage'
     ])
-    .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
-      function($stateProvider, $urlRouterProvider, $locationProvider) {
+    .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'RestangularProvider',
+
+      function($stateProvider, $urlRouterProvider, $locationProvider, RestangularProvider) {
       $locationProvider.hashPrefix('');
       $urlRouterProvider.otherwise('/');
       $stateProvider
@@ -110,8 +112,24 @@
 
     }])
       // run se izvrsava pre svega ostalog
-    .run(['Restangular', '$log', function(Restangular, $log) {
+    .run(['Restangular', '$log', '$localStorage',
+    function(Restangular, $log, $localStorage) {
       Restangular.setBaseUrl("api");
+    //  $log.log($window.localStorage.token);
+
+      Restangular.addFullRequestInterceptor(
+        function (element, operation, route, url, headers, params, httpConfig) {
+
+            headers = {'X-Auth-Token':  $localStorage.token };
+
+            return {
+                element: element,
+                params: params,
+                headers: headers,
+                httpConfig: httpConfig
+            };
+
+        });
       $log.info("started");
       Restangular.setErrorInterceptor(function(response) {
         if (response.status === 500) {

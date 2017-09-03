@@ -56,8 +56,13 @@
 			};
 			// id - id admina koji blokira
 			// user - user koji se blokira
-			retVal.block_user = function(id, user)	{
+			/*retVal.block_user = function(id, user)	{
 				return Restangular.one("users", id).all('block_user').post(user).then(function(response) {
+					return response;
+				});
+			};*/
+			retVal.block_user = function(user)	{
+				return Restangular.all('users/block_user').post(user).then(function(response) {
 					return response;
 				});
 			};

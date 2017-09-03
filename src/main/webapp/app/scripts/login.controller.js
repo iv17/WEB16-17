@@ -3,8 +3,10 @@
 
 	angular
 		.module('bsepApp')
-		.controller('LoginController', ['$scope', '$rootScope', '$state', '_', 'UserResource', '$stateParams', '$log', '$window','toastr',
-			function($scope, $rootScope, $state, _, UserResource, $stateParams, $log, $window, toastr) {
+		.controller('LoginController', ['$scope', '$rootScope', '$state', '_', 'UserResource',
+		 '$stateParams', '$log', '$window','toastr',  '$localStorage',
+			function($scope, $rootScope, $state, _, UserResource, $stateParams, $log, $window,
+				toastr, $localStorage) {
 
 				var username = $stateParams.username;
 				var password = $stateParams.password;
@@ -29,11 +31,16 @@
 				UserResource.login(user)
 				.then(function(item) {
 					$rootScope.loggedUser = item.user;
-					$log.log($rootScope.loggedUser);
 
+					//==========================================
+					$localStorage.token = item.token;
+					$log.log($localStorage.token);
+					//$window.localStorage.setItem("token", item.token);
+					//$window.localStorage['token'] = item.token;
+					//==========================================
 
 					$window.location.href = '/#/home';
-					toastr.success('Ulogovali ste se kao: ' + $rootScope.loggedUser);
+					toastr.success('Ulogovali ste se kao: ' + $rootScope.loggedUser.username);
 				})
 				.catch(function(error){
 						$window.location.href = '/#/start_login';

@@ -23,6 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -165,13 +166,10 @@ public class UserController {
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		UserDetails details = userDetailsService.loadUserByUsername(userDTO.getUsername());
-		System.out.println("userdetails: " + details.getUsername());
-
+		
 		String userToken = tokenUtils.generateToken(details);
-		System.out.println("userToken: " + userToken);
-
+		
 		User user = userService.findByToken(userToken);
-		System.out.println("user = " + user.getUsername());
 		
 		LoginResponseDTO loginResponseDTO = new LoginResponseDTO(new UserDTO(user), userToken);
 		
@@ -276,6 +274,7 @@ public class UserController {
 		return new ResponseEntity<List<UserDTO>>(usersDTO, HttpStatus.OK);
 	}
 
+	/*
 	@RequestMapping(
 			value = "/{id}/block_user", // id - id admina koji ce blokirati user-a
 			method = RequestMethod.POST, 
@@ -310,9 +309,46 @@ public class UserController {
 			return new ResponseEntity<List<UserDTO>>(HttpStatus.BAD_REQUEST);
 		}
 
+	}*/
+	
+
+	@RequestMapping(
+			value = "/block_user", // id - id admina koji ce blokirati user-a
+			method = RequestMethod.POST, 
+			consumes = "application/json"
+			)
+	public ResponseEntity<List<UserDTO>> blockUser(@RequestHeader("X-Auth-Token") String token, @RequestBody UserDTO userDTO) {
+
+		System.out.println("tooken:   " + token);
+		User admin = userService.findByToken(token);
+		System.out.println(admin.toString());
+		if(admin.getRole() == roleService.findByName("ADMIN")) {
+
+			User user = userService.findById(userDTO.getId());
+			if(user != null && !user.getBlocked().equals(true)) {
+
+				user.setBlocked(true);
+				userService.save(user);
+
+				List<User> users = userService.findAll();
+				List<User> notBlocked = new ArrayList<User>();
+				for (User u : users) {
+					if(!u.getBlocked()) {
+						notBlocked.add(u);
+					}
+				}
+				List<UserDTO> usersDTO = toDTO(notBlocked); //samo one koji nisu blokirani ce prikazati
+
+				return new ResponseEntity<List<UserDTO>>(usersDTO, HttpStatus.CREATED);
+
+			} else {
+				return new ResponseEntity<List<UserDTO>>(HttpStatus.BAD_REQUEST);
+			}
+		} else {
+			return new ResponseEntity<List<UserDTO>>(HttpStatus.BAD_REQUEST);
+		}
+
 	}
-
-
 	@RequestMapping(
 			value = "/{id}/snippets", // id - id user-a ciji su snippeti
 			method = RequestMethod.POST, 
