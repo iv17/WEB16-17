@@ -3,12 +3,12 @@
 
 	angular
 		.module('bsepApp')
-		.controller('LoginController', ['$scope', '$rootScope', '$state', '_', 'UserResource',
+		.controller('LogoutController', ['$scope', '$rootScope', '$state', '_', 'UserResource',
 		 '$stateParams', '$log', '$window','toastr',  '$localStorage',
 			function($scope, $rootScope, $state, _, UserResource, $stateParams, $log, $window,
 				toastr, $localStorage) {
 
-				$localStorage.removeItem("token");
+				$localStorage.token = null;
         $rootScope.loggedUser = null;
         $window.location.href = '/#/start_login';
 

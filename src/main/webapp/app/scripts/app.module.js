@@ -34,15 +34,6 @@
           }
         }
       })
-      .state('home', {
-        url: "/home",
-        views: {
-          'content@': {
-            templateUrl: 'app/views/snippets.html',
-            controller: 'HomeController'
-          }
-        }
-      })
       .state('login', {
         url: "/login/:username/:password",
         views: {
@@ -105,6 +96,15 @@
         views: {
           'content@': {
             controller: 'ChangePasswordController'
+          }
+        }
+      })
+      .state('home', {
+        url: "/home",
+        views: {
+          'content@': {
+            templateUrl: 'app/views/snippets.html',
+            controller: 'SnippetsController'
           }
         }
       })

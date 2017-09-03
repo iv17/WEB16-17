@@ -12,7 +12,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				</button>
-				<a href="index.html" class="navbar-brand hidden-xs navbar-brand-primary">Snipp</a>
+				<a class="navbar-brand hidden-xs navbar-brand-primary">Snipp</a>
 			</div>
 			<div class="navbar-collapse collapse" id="collapse">
 				<ul class="nav navbar-nav navbar-right">
@@ -79,7 +79,7 @@
 				<div class="container-fluid">
 					<h2>Snippets</h2>
 
-					<!--<div ng-repeat = "snippet in snippets">-->
+					<div ng-repeat = "snippet in snippets">
 
 					<div class="panel panel-default">
 						<div class="panel-body">
@@ -95,7 +95,7 @@
 									</p>
 									<div class="expandable expandable-indicator-white expandable-trigger">
 										<div class="expandable-content">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+											<p>
                         {{ snippet.data }}
 											</p>
 										</div>
@@ -107,7 +107,7 @@
 							</div>
 						</div>
 					</div>
-          <!-- </div> -->
+          </div>
 					<ul class="pagination margin-top-none">
 						<li class="disabled"><a href="#">&laquo;</a></li>
 						<li class="active"><a href="#">1</a></li>
