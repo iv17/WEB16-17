@@ -51,9 +51,7 @@ public class UserService {
 
 	public User findByToken(String token) {
 		String username = tokenUtils.getUsernameFromToken(token);
-		System.out.println(username);
 		UserDetails details = userDetailsService.loadUserByUsername(username);
-		System.out.println(details.getUsername());
 
 		User user = findByUsername(details.getUsername());
 		return user;

@@ -7,6 +7,7 @@
       'VisibilityResource', '$log',
 			function($scope, $state, _, LanguageResource, AccessResource, VisibilityResource, $log) {
 
+				
 				LanguageResource.getLanguages()
         .then(function(items) {
 						$scope.languages = items;

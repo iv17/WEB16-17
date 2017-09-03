@@ -2,6 +2,7 @@ package BSEP.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,6 +55,47 @@ public class SnippetController {
 	}
 
 	@RequestMapping(
+			value = "/user_snippets",
+			method = RequestMethod.GET
+			)
+	public ResponseEntity<List<SnippetDTO>> getUserSnippets(@RequestHeader("X-Auth-Token") String token) {
+		if(userService.findByToken(token) != null) {
+			
+			User user = userService.findByToken(token);
+			Set<Snippet> userSnippets = user.getSnippets();
+			List<Snippet> snippets = new ArrayList<>();
+			for (Snippet snippet : userSnippets) {
+				snippets.add(snippet);
+			}
+			List<SnippetDTO> snippetsDTO = toDTO(snippets);
+			return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.OK);
+		}
+		return new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
+		
+	}
+	
+	@RequestMapping(
+			value = "/not_user_snippets",
+			method = RequestMethod.GET
+			)
+	public ResponseEntity<List<SnippetDTO>> getNotUserSnippets(@RequestHeader("X-Auth-Token") String token) {
+		if(userService.findByToken(token) != null) {
+			
+			User user = userService.findByToken(token);
+			List<Snippet> allSnippets = snippetService.findAll();
+			List<Snippet> snippets = new ArrayList<>();
+			for (Snippet snippet : allSnippets) {
+				if(!snippet.getCreator().equals(user)) {
+					snippets.add(snippet);
+				}
+			}
+			List<SnippetDTO> snippetsDTO = toDTO(snippets);
+			return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.OK);
+		}
+		return new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
+		
+	}
+	@RequestMapping(
 			value = "/{id}",
 			method = RequestMethod.GET
 			)
@@ -97,8 +139,9 @@ public class SnippetController {
 			
 			snippetService.save(snippet);
 			
-			List<Snippet> snippets = snippetService.findAll();
-			List<SnippetDTO> snippetsDTO = toDTO(snippets);
+			SnippetDTO newSnippetDTO = new SnippetDTO(snippet);
+			List<SnippetDTO> snippetsDTO = new ArrayList<SnippetDTO>();
+			snippetsDTO.add(newSnippetDTO);
 			
 			return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.CREATED);
 		}

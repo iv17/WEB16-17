@@ -9,17 +9,11 @@
 				toastr, $localStorage) {
 
 				var selectedLanguage = $stateParams.selectedLanguage;
-				$log.log('selectedLanguage: ' + selectedLanguage);
 				var selectedAccess = $stateParams.selectedAccess;
-				$log.log('selectedAccess: ' + selectedAccess);
 				var selectedVisibility = $stateParams.selectedVisibility;
-				$log.log('selectedVisibility: ' + selectedVisibility);
 				var description = $stateParams.description;
-				$log.log(description);
 				var data = $stateParams.code;
-				$log.log(data);
 				var duration = $stateParams.duration;
-				$log.log(duration);
 
 				var snippet = {
 					description: description,

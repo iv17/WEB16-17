@@ -263,7 +263,7 @@ public class BsepApplication implements CommandLineRunner {
 				"\n" + 
 				"	<div ui-view=\"content\"></div>" +
 				"</body>",
-				language6, "...", 1, false, access1, visibility1, user1);
+				language6, "...", 1, false, access1, visibility1, user2);
 		snippetRepository.save(snippet2);
 		Snippet snippet3 = new Snippet("JavaScript objekat", 
 				"var config = {\n" + 
@@ -274,7 +274,7 @@ public class BsepApplication implements CommandLineRunner {
 				"        }\n" + 
 				"      }\n" + 
 				"    };",
-				language5, "...", 1, false, access1, visibility1, user1);
+				language5, "...", 1, false, access1, visibility1, user3);
 		snippetRepository.save(snippet3);
 
 		Comment comment1 = new Comment("Odlican primer!", new Date(), snippet1, user2);

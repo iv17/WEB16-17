@@ -116,6 +116,40 @@
           }
         }
       })
+      .state('user_snippets', {
+        url: "/user_snippets",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'sidebar@': {
+            templateUrl: 'app/views/sidebar.html',
+            controller: 'LanguagesController'
+          },
+          'content@': {
+            templateUrl: 'app/views/snippets.html',
+            controller: 'UserSnippetsController'
+          }
+        }
+      })
+      .state('not_user_snippets', {
+        url: "/not_user_snippets",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'sidebar@': {
+            templateUrl: 'app/views/sidebar.html',
+            controller: 'LanguagesController'
+          },
+          'content@': {
+            templateUrl: 'app/views/snippets.html',
+            controller: 'NotUserSnippetsController'
+          }
+        }
+      })
       .state('start_create_snippet', {
         url: "/start_create_snippet",
         views: {
@@ -142,7 +176,7 @@
           },
           'content@': {
             templateUrl: 'app/views/snippets.html',
-            controller: 'CreateSnippetController'
+            controller: 'CreateSnippetController'  //new snippets
           }
         }
       })
@@ -155,15 +189,7 @@
           }
         }
       })
-      .state('user_snippets', {
-        url: "/user_snippets",
-        views: {
-          'content@': {
-            templateUrl: 'app/views/user_snippets.html'
-            //controller: 'UserSnippetsController'
-          }
-        }
-      })
+    
       .state('block_user', {
         url: "/block_user/:userId",
         views: {
