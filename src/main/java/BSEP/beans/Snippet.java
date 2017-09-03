@@ -33,7 +33,7 @@ public class Snippet implements Serializable {
 	private String description;
 	
 	@Column(name = "data", unique = false, nullable = true)
-	private byte [] data;
+	private String data;
 	
 	@ManyToOne @JsonIgnore
 	@JoinColumn(name = "language_id", referencedColumnName = "id", nullable = true) 
@@ -69,7 +69,7 @@ public class Snippet implements Serializable {
 	}
 
 
-	public Snippet(String description, byte[] data, Language language, String url, int duration,
+	public Snippet(String description, String data, Language language, String url, int duration,
 			Boolean blocked, Access access, Visibility visibility, User creator) {
 		this.description = description;
 		this.data = data;
@@ -99,11 +99,11 @@ public class Snippet implements Serializable {
 		this.description = description;
 	}
 
-	public byte[] getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(byte[] data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 

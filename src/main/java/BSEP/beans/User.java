@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -68,20 +70,22 @@ public class User implements Serializable {
 	private Boolean blocked;
 	
 	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "creator") @JsonIgnore
-	Set<Snippet> snippets;
+	private Set<Snippet> snippets;
 
 	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "user") @JsonIgnore
-	Set<Comment> comments;
+	private Set<Comment> comments;
 	
 	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "user") @JsonIgnore
-	Set<Rating> ratings;
+	private Set<Rating> ratings;
 
-	@ManyToOne @JsonIgnore
-	@JoinColumn(name = "team_id", referencedColumnName = "id", nullable = true) 
-	private Team team;	
+	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+	@JoinTable(name = "user_team", 
+		joinColumns = {@JoinColumn(name = "id")}, 
+		inverseJoinColumns = {@JoinColumn(name = "team_id")})
+	private Set<Team> teams;	
 	
 	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "teamLeader") @JsonIgnore
-	private Set<Team> teams;
+	private Set<Team> leaderTeams;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private Set<UserAuthority> userAuthorities = new HashSet<UserAuthority>();
@@ -226,12 +230,12 @@ public class User implements Serializable {
 		this.ratings = ratings;
 	}
 
-	public Team getTeam() {
-		return team;
+	public Set<Team> getLeaderTeams() {
+		return leaderTeams;
 	}
 
-	public void setTeam(Team team) {
-		this.team = team;
+	public void setLeaderTeams(Set<Team> leaderTeams) {
+		this.leaderTeams = leaderTeams;
 	}
 
 	public Set<Team> getTeams() {

@@ -1,13 +1,17 @@
 package BSEP.beans;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -21,7 +25,7 @@ public class Team implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false , unique = true)
+	@Column(name = "team_id", nullable = false , unique = true)
 	private int id;
 	
 	@Column(name = "name", unique = false, nullable = true)
@@ -34,15 +38,18 @@ public class Team implements Serializable {
 	@JoinColumn(name = "team_leader", referencedColumnName = "id", nullable = true) 
 	private User teamLeader;
 	
+	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, mappedBy = "teams") @JsonIgnore
+	private Set<User> members;
 	
 	public Team() {
 	
 	}
 
-	public Team(String name, String description, User teamLeader) {
+	public Team(String name, String description, User teamLeader, Set<User> members) {
 		this.name = name;
 		this.description = description;
 		this.teamLeader = teamLeader;
+		this.members = members;
 	}
 
 	public int getId() {
@@ -75,6 +82,14 @@ public class Team implements Serializable {
 
 	public void setTeamLeader(User teamLeader) {
 		this.teamLeader = teamLeader;
+	}
+
+	public Set<User> getMembers() {
+		return members;
+	}
+
+	public void setMembers(Set<User> members) {
+		this.members = members;
 	}
 
 

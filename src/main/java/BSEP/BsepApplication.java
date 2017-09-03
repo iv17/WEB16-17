@@ -157,7 +157,13 @@ public class BsepApplication implements CommandLineRunner {
 		languageRepository.save(language3);
 		Language language4 = new Language("C++");
 		languageRepository.save(language4);
-
+		Language language5 = new Language("JavaScript");
+		languageRepository.save(language5);
+		Language language6 = new Language("HTML");
+		languageRepository.save(language6);
+		Language language7 = new Language("XML");
+		languageRepository.save(language7);
+		
 		Location location1 = new Location(44.8023505, 20.4719586, "Beograd", "Vračar", "Krunska", "11000");
 		locationRepository.save(location1);
 		Location location2 = new Location(44.8192953, 20.4486969, "Beograd", "Beton hala", "Karađorđeva 2-4", "11000");
@@ -182,7 +188,7 @@ public class BsepApplication implements CommandLineRunner {
 		Location location10 = new Location(44.7823568, 20.4166448, "Beograd", "Banovo Brdo", "Požeška 40", "11000");
 		locationRepository.save(location10);
 
-		Image image1 = new Image("...", "...");
+		Image image1 = new Image("elle.jpg", "app/images/elle.jpg");
 		imageRepository.save(image1);
 
 		Role role1 = new Role("REGISTRED_USER");
@@ -246,21 +252,36 @@ public class BsepApplication implements CommandLineRunner {
 		UserAuthority userAuthority10 = new UserAuthority(user10, authority1);
 		userAuthorityRepository.save(userAuthority10);
 
-		Snippet snippet1 = new Snippet("...", "...".getBytes(), language1, "...", 1, false, access1, visibility1,
-				user1);
+		Snippet snippet1 = new Snippet("mapiranje zahteva u controller-u", 
+				"@RequestMapping(\n" + 
+				"			method = RequestMethod.GET\n" + 
+				"			)", 
+				language1, "...", 1, false, access1, visibility1, user1);
 		snippetRepository.save(snippet1);
-		Snippet snippet2 = new Snippet("...", "...".getBytes(), language1, "...", 1, false, access1, visibility1,
-				user1);
+		Snippet snippet2 = new Snippet("pozivanje angulara na html-u", 
+				"<body ng-app=\"bsepApp\">\n" + 
+				"\n" + 
+				"	<div ui-view=\"content\"></div>" +
+				"</body>",
+				language6, "...", 1, false, access1, visibility1, user1);
 		snippetRepository.save(snippet2);
-		Snippet snippet3 = new Snippet("...", "...".getBytes(), language1, "...", 1, false, access1, visibility1,
-				user1);
+		Snippet snippet3 = new Snippet("JavaScript objekat", 
+				"var config = {\n" + 
+				"      theme: \"admin\",\n" + 
+				"      skins: {\n" + 
+				"        \"default\": {\n" + 
+				"          \"primary-color\": \"#3498db\"\n" + 
+				"        }\n" + 
+				"      }\n" + 
+				"    };",
+				language5, "...", 1, false, access1, visibility1, user1);
 		snippetRepository.save(snippet3);
 
-		Comment comment1 = new Comment("...", new Date(), snippet1, user2);
+		Comment comment1 = new Comment("Odlican primer!", new Date(), snippet1, user2);
 		commentRepository.save(comment1);
-		Comment comment2 = new Comment("...", new Date(), snippet1, user3);
+		Comment comment2 = new Comment("Pomoglo!", new Date(), snippet1, user3);
 		commentRepository.save(comment2);
-		Comment comment3 = new Comment("...", new Date(), snippet1, user4);
+		Comment comment3 = new Comment("Hvala!", new Date(), snippet1, user4);
 		commentRepository.save(comment3);
 
 		Message message1 = new Message("aaa", new Date());

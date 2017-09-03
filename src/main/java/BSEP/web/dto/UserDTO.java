@@ -1,21 +1,27 @@
 package BSEP.web.dto;
 
+import java.util.Set;
+
 import BSEP.beans.User;
 
 public class UserDTO {
 
 	private int id;
-	public String username;
-	public String password;
-	private String repeated_password;
+	private String username;
+	private String password;
+	private String repeated_password; // samo za registraciju
 	private String name;
 	private String surname;
 	private String phoneNumber;
-	public String email;
+	private String email;
 	private LocationDTO locationDTO; 
-	private RoleDTO roleDTO;
 	private ImageDTO imageDTO;
+	private RoleDTO roleDTO;
+	private StatusDTO statusDTO;
 	private Boolean blocked;
+	private Set<SnippetDTO> snippetsDTO;
+	private Set<TeamDTO> leaderTeamsDTO;
+	private Set<TeamDTO> teamsDTO;
 	
 	
 	public UserDTO() {
@@ -31,6 +37,12 @@ public class UserDTO {
 		email = user.getEmail();
 		roleDTO = new RoleDTO(user.getRole());
 		blocked = user.getBlocked();
+		if(user.getPhoneNumber() != null) { phoneNumber = user.getPhoneNumber(); } else { phoneNumber = "0"; };
+		if(user.getLocation() != null) { locationDTO = new LocationDTO(user.getLocation()); } else { locationDTO = new LocationDTO(); }
+		if(user.getImage() != null) { imageDTO = new ImageDTO(user.getImage()); } else { imageDTO = new ImageDTO(); }
+		if(user.getStatus() != null) { statusDTO = new StatusDTO(user.getStatus()); } else { statusDTO = new StatusDTO(); }
+		if(user.getBlocked() != null) { blocked = user.getBlocked(); } else { blocked = false; }
+		
 	}
 
 	public int getId() {
@@ -105,6 +117,14 @@ public class UserDTO {
 		this.locationDTO = locationDTO;
 	}
 
+	public ImageDTO getImageDTO() {
+		return imageDTO;
+	}
+
+	public void setImageDTO(ImageDTO imageDTO) {
+		this.imageDTO = imageDTO;
+	}
+
 	public RoleDTO getRoleDTO() {
 		return roleDTO;
 	}
@@ -113,12 +133,12 @@ public class UserDTO {
 		this.roleDTO = roleDTO;
 	}
 
-	public ImageDTO getImageDTO() {
-		return imageDTO;
+	public StatusDTO getStatusDTO() {
+		return statusDTO;
 	}
 
-	public void setImageDTO(ImageDTO imageDTO) {
-		this.imageDTO = imageDTO;
+	public void setStatusDTO(StatusDTO statusDTO) {
+		this.statusDTO = statusDTO;
 	}
 
 	public Boolean getBlocked() {
@@ -129,13 +149,39 @@ public class UserDTO {
 		this.blocked = blocked;
 	}
 
+	public Set<SnippetDTO> getSnippetsDTO() {
+		return snippetsDTO;
+	}
+
+	public void setSnippetsDTO(Set<SnippetDTO> snippetsDTO) {
+		this.snippetsDTO = snippetsDTO;
+	}
+
+	public Set<TeamDTO> getLeaderTeamsDTO() {
+		return leaderTeamsDTO;
+	}
+
+	public void setLeaderTeamsDTO(Set<TeamDTO> leaderTeamsDTO) {
+		this.leaderTeamsDTO = leaderTeamsDTO;
+	}
+
+	public Set<TeamDTO> getTeamsDTO() {
+		return teamsDTO;
+	}
+
+	public void setTeamsDTO(Set<TeamDTO> teamsDTO) {
+		this.teamsDTO = teamsDTO;
+	}
+
 	@Override
 	public String toString() {
 		return "UserDTO [id=" + id + ", username=" + username + ", password=" + password + ", repeated_password="
 				+ repeated_password + ", name=" + name + ", surname=" + surname + ", phoneNumber=" + phoneNumber
-				+ ", email=" + email + ", locationDTO=" + locationDTO + ", roleDTO=" + roleDTO + ", imageDTO="
-				+ imageDTO + ", blocked=" + blocked + "]";
+				+ ", email=" + email + ", locationDTO=" + locationDTO + ", imageDTO=" + imageDTO + ", roleDTO="
+				+ roleDTO + ", statusDTO=" + statusDTO + ", blocked=" + blocked + ", snippetsDTO=" + snippetsDTO + "]";
 	}
+
+	
 	
 	
 

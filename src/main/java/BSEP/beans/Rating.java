@@ -29,6 +29,12 @@ public class Rating implements Serializable {
 	@Column(name = "rate", unique = false, nullable = true)
 	private int rate;
 	
+	@Column(name = "plus", unique = false, nullable = true)
+	private int plus;
+	
+	@Column(name = "minus", unique = false, nullable = true)
+	private int minus;
+	
 	@Column(name = "date", unique = false, nullable = true)
 	private Date date;
 	
@@ -45,12 +51,17 @@ public class Rating implements Serializable {
 		
 	}
 
-	public Rating(int rate, Date date, Comment comment, User user) {
+	public Rating(int id, int rate, int plus, int minus, Date date, Comment comment, User user) {
+		this.id = id;
 		this.rate = rate;
+		this.plus = plus;
+		this.minus = minus;
 		this.date = date;
 		this.comment = comment;
 		this.user = user;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -66,6 +77,22 @@ public class Rating implements Serializable {
 
 	public void setRate(int rate) {
 		this.rate = rate;
+	}
+
+	public int getPlus() {
+		return plus;
+	}
+
+	public void setPlus(int plus) {
+		this.plus = plus;
+	}
+
+	public int getMinus() {
+		return minus;
+	}
+
+	public void setMinus(int minus) {
+		this.minus = minus;
 	}
 
 	public Date getDate() {

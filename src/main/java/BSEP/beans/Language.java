@@ -27,7 +27,7 @@ public class Language implements Serializable {
 	@Column(name = "id", nullable = false , unique = true)
 	private int id;
 	
-	@Column(name = "name", unique = false, nullable = false)
+	@Column(name = "name", unique = true, nullable = false)
 	private String name;
 	
 	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "language") @JsonIgnore

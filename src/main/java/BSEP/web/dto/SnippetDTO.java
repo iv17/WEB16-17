@@ -1,21 +1,22 @@
 package BSEP.web.dto;
 
-import BSEP.beans.Language;
+import java.util.Set;
+
 import BSEP.beans.Snippet;
 
 public class SnippetDTO {
 
 	private int id;
 	private String description;
-	private byte [] data;
-	private Language language;
+	private String data;
+	private LanguageDTO language;
 	private String url;
 	private int duration;
 	private Boolean blocked;
 	private AccessDTO accessDTO;
 	private VisibilityDTO visibilityDTO;
 	private UserDTO creatorDTO;
-	
+	private Set<CommentDTO> comments;
 	
 	public SnippetDTO() {
 		
@@ -25,13 +26,14 @@ public class SnippetDTO {
 		id = snippet.getId();
 		description = snippet.getDescription();
 		data = snippet.getData();
-		language = snippet.getLanguage();
+		language = new LanguageDTO(snippet.getLanguage());
 		url = snippet.getUrl();
 		duration = snippet.getDuration();
 		blocked = snippet.getBlocked();
 		accessDTO = new AccessDTO(snippet.getAccess());
 		visibilityDTO = new VisibilityDTO(snippet.getVisibility());
 		creatorDTO = new UserDTO(snippet.getCreator());
+		
 	}
 	
 	public int getId() {
@@ -50,19 +52,19 @@ public class SnippetDTO {
 		this.description = description;
 	}
 
-	public byte[] getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(byte[] data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 
-	public Language getLanguage() {
+	public LanguageDTO getLanguage() {
 		return language;
 	}
 
-	public void setLanguage(Language language) {
+	public void setLanguage(LanguageDTO language) {
 		this.language = language;
 	}
 
@@ -112,6 +114,14 @@ public class SnippetDTO {
 
 	public void setCreatorDTO(UserDTO creatorDTO) {
 		this.creatorDTO = creatorDTO;
+	}
+
+	public Set<CommentDTO> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<CommentDTO> comments) {
+		this.comments = comments;
 	}
 	
 	

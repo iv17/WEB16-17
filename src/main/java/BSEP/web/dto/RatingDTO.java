@@ -8,6 +8,8 @@ public class RatingDTO {
 
 	private int id;
 	private int rate;
+	private int plus;
+	private int minus;
 	private Date date;
 	private CommentDTO commentDTO;
 	private UserDTO userDTO;
@@ -19,6 +21,8 @@ public class RatingDTO {
 	public RatingDTO(Rating rating) {
 		id = rating.getId();
 		rate = rating.getId();
+		plus = rating.getPlus();
+		minus = rating.getMinus();
 		date = rating.getDate();
 		commentDTO = new CommentDTO(rating.getComment());
 		userDTO = new UserDTO(rating.getUser());
@@ -38,6 +42,22 @@ public class RatingDTO {
 
 	public void setRate(int rate) {
 		this.rate = rate;
+	}
+
+	public int getPlus() {
+		return plus;
+	}
+
+	public void setPlus(int plus) {
+		this.plus = plus;
+	}
+
+	public int getMinus() {
+		return minus;
+	}
+
+	public void setMinus(int minus) {
+		this.minus = minus;
 	}
 
 	public Date getDate() {

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import BSEP.beans.Snippet;
 import BSEP.beans.User;
 import BSEP.service.AccessService;
+import BSEP.service.LanguageService;
 import BSEP.service.SnippetService;
 import BSEP.service.UserService;
 import BSEP.service.VisibilityService;
@@ -30,6 +31,9 @@ public class SnippetController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private LanguageService languageService;
 
 	@Autowired
 	private AccessService accessService;
@@ -82,7 +86,7 @@ public class SnippetController {
 			Snippet snippet = new Snippet();
 			snippet.setDescription(snippetDTO.getDescription());
 			snippet.setData(snippetDTO.getData());
-			snippet.setLanguage(snippetDTO.getLanguage());
+			snippet.setLanguage(languageService.findById(snippetDTO.getLanguage().getId()));
 			snippet.setUrl(snippetDTO.getUrl());
 			snippet.setDuration(snippetDTO.getDuration());
 			snippet.setBlocked(false);
