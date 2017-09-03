@@ -30,7 +30,7 @@
 
 				UserResource.login(user)
 				.then(function(item) {
-
+					$rootScope.loggedUser = item.user;
 					//==========================================
 					$localStorage.token = item.token;
 					//==========================================

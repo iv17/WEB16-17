@@ -38,7 +38,7 @@
         url: "/home",
         views: {
           'content@': {
-            templateUrl: 'app/home.html',
+            templateUrl: 'app/views/snippets.html',
             controller: 'HomeController'
           }
         }
@@ -50,6 +50,14 @@
             controller: 'LoginController'
           }
         }
+      })
+      .state('logout', {
+          url: "/logout",
+          views: {
+            'content@': {
+              controller: 'LogoutController'
+            }
+          }
       })
       .state('register', {
         url: "/register/:name/:lastname/:email/:username/:password/:repeated_password",
@@ -100,11 +108,28 @@
           }
         }
       })
+      .state('user_profile', {
+        url: "/user_profile",
+        views: {
+          'content@': {
+            templateUrl: 'app/views/user_profile.html'
+            //controller: 'UserProfileController'
+          }
+        }
+      })
+      .state('user_snippets', {
+        url: "/user_snippets",
+        views: {
+          'content@': {
+            templateUrl: 'app/views/user_snippets.html'
+            //controller: 'UserSnippetsController'
+          }
+        }
+      })
       .state('block_user', {
         url: "/block_user/:userId",
         views: {
           'content@': {
-
             controller: 'BlockUserController'
           }
         }
