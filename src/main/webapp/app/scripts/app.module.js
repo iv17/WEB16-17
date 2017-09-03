@@ -123,12 +123,26 @@
             templateUrl: 'app/views/navbar.html',
             controller: 'HomeController'
           },
+          'content@': {
+            templateUrl: 'app/views/create_snippet.html',
+            controller: 'StartCreateSnippetController'
+          }
+        }
+      })
+      .state('create_snippet', {
+        url: "/create_snippet/:selectedLanguage/:selectedAccess/:selectedVisibility/:description/:code/:duration",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
           'sidebar@': {
-            templateUrl: 'app/views/create_snippet_sidebar.html',
-            controller: 'CreateSnippetSidebarController'
+            templateUrl: 'app/views/sidebar.html',
+            controller: 'LanguagesController'
           },
           'content@': {
-            templateUrl: 'app/views/create_snippet.html'
+            templateUrl: 'app/views/snippets.html',
+            controller: 'CreateSnippetController'
           }
         }
       })

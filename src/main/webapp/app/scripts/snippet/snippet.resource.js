@@ -13,6 +13,12 @@
 				});
 			};
 
+			retVal.create = function(snippet)	{
+				return Restangular.all("snippets/create").post(snippet).then(function(responses) {
+					return responses;
+				});
+			};
+
 			return retVal;
 		}]);
 

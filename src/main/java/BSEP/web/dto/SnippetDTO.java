@@ -13,10 +13,15 @@ public class SnippetDTO {
 	private String url;
 	private int duration;
 	private Boolean blocked;
-	private AccessDTO accessDTO;
-	private VisibilityDTO visibilityDTO;
-	private UserDTO creatorDTO;
+	private AccessDTO access;
+	private VisibilityDTO visibility;
+	private UserDTO creator;
 	private Set<CommentDTO> comments;
+	
+	
+	private String languageName;
+	private String accessName;
+	private String visibilityName;
 	
 	public SnippetDTO() {
 		
@@ -30,9 +35,9 @@ public class SnippetDTO {
 		url = snippet.getUrl();
 		duration = snippet.getDuration();
 		blocked = snippet.getBlocked();
-		accessDTO = new AccessDTO(snippet.getAccess());
-		visibilityDTO = new VisibilityDTO(snippet.getVisibility());
-		creatorDTO = new UserDTO(snippet.getCreator());
+		access = new AccessDTO(snippet.getAccess());
+		visibility = new VisibilityDTO(snippet.getVisibility());
+		creator = new UserDTO(snippet.getCreator());
 		
 	}
 	
@@ -92,28 +97,28 @@ public class SnippetDTO {
 		this.blocked = blocked;
 	}
 
-	public AccessDTO getAccessDTO() {
-		return accessDTO;
+	public AccessDTO getAccess() {
+		return access;
 	}
 
-	public void setAccessDTO(AccessDTO accessDTO) {
-		this.accessDTO = accessDTO;
+	public void setAccess(AccessDTO access) {
+		this.access = access;
 	}
 
-	public VisibilityDTO getVisibilityDTO() {
-		return visibilityDTO;
+	public VisibilityDTO getVisibility() {
+		return visibility;
 	}
 
-	public void setVisibilityDTO(VisibilityDTO visibilityDTO) {
-		this.visibilityDTO = visibilityDTO;
+	public void setVisibility(VisibilityDTO visibility) {
+		this.visibility = visibility;
 	}
 
-	public UserDTO getCreatorDTO() {
-		return creatorDTO;
+	public UserDTO getCreator() {
+		return creator;
 	}
 
-	public void setCreatorDTO(UserDTO creatorDTO) {
-		this.creatorDTO = creatorDTO;
+	public void setCreator(UserDTO creator) {
+		this.creator = creator;
 	}
 
 	public Set<CommentDTO> getComments() {
@@ -124,5 +129,31 @@ public class SnippetDTO {
 		this.comments = comments;
 	}
 	
+	
+
+	public String getLanguageName() {
+		return languageName;
+	}
+
+	public void setLanguageName(String languageName) {
+		this.languageName = languageName;
+	}
+
+	public String getAccessName() {
+		return accessName;
+	}
+
+	public void setAccessName(String accessName) {
+		this.accessName = accessName;
+	}
+
+	public String getVisibilityName() {
+		return visibilityName;
+	}
+
+	public void setVisibilityName(String visibilityName) {
+		this.visibilityName = visibilityName;
+	}
+
 	
 }

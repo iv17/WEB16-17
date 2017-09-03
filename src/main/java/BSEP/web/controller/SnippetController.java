@@ -71,11 +71,12 @@ public class SnippetController {
 	
 
 	@RequestMapping(
-			value = "/add", // id - id user-a koji kreira snippet
+			value = "/create", // id - id user-a koji kreira snippet
 			method = RequestMethod.POST, 
 			consumes = "application/json"
 			)
-	public ResponseEntity<List<SnippetDTO>> addSnippet(@RequestBody SnippetDTO snippetDTO, @RequestHeader("X-Auth-Token") String token) {
+	public ResponseEntity<List<SnippetDTO>> createSnippet(@RequestBody SnippetDTO snippetDTO, @RequestHeader("X-Auth-Token") String token) {
+		
 		
 		if(userService.findByToken(token) != null) {
 		
@@ -86,12 +87,12 @@ public class SnippetController {
 			Snippet snippet = new Snippet();
 			snippet.setDescription(snippetDTO.getDescription());
 			snippet.setData(snippetDTO.getData());
-			snippet.setLanguage(languageService.findById(snippetDTO.getLanguage().getId()));
-			snippet.setUrl(snippetDTO.getUrl());
+			snippet.setLanguage(languageService.findByName(snippetDTO.getLanguageName()));
+			snippet.setAccess(accessService.findByName(snippetDTO.getAccessName()));
+			snippet.setVisibility(visibilityService.findByName(snippetDTO.getVisibilityName()));
+			//snippet.setUrl(snippetDTO.getUrl());
 			snippet.setDuration(snippetDTO.getDuration());
 			snippet.setBlocked(false);
-			snippet.setAccess(accessService.findById(snippetDTO.getAccessDTO().getId()));
-			snippet.setVisibility(visibilityService.findById(snippetDTO.getVisibilityDTO().getId()));
 			snippet.setCreator(user);
 			
 			snippetService.save(snippet);

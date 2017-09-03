@@ -21,6 +21,10 @@ public class AccessService {
 		return accessRepository.findById(id);
 	}
 		
+	public Access findByName(String accessName) {
+		return accessRepository.findByName(accessName);
+	}
+	
 	public List<Access> findAll() {
 		return accessRepository.findAll();
 	}
@@ -44,6 +48,7 @@ public class AccessService {
 	public void remove(Access access) {
 		accessRepository.delete(access);
 	}
+
 	
 	
 }

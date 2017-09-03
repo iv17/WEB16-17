@@ -21,6 +21,10 @@ public class VisibilityService {
 		return visibilityRepository.findOne(id);
 	}
 	
+	public Visibility findByName(String visibilityName) {
+		return visibilityRepository.findByName(visibilityName);
+	}
+	
 	public List<Visibility> findAll() {
 		return  visibilityRepository.findAll();
 	}
@@ -44,6 +48,7 @@ public class VisibilityService {
 	public void remove(Visibility visibility) {
 		visibilityRepository.delete(visibility);
 	}
-	
+
+
 	
 }

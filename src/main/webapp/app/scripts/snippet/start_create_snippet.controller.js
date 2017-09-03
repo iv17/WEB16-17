@@ -3,7 +3,7 @@
 
 	angular
 		.module('bsepApp')
-		.controller('CreateSnippetSidebarController', ['$scope', '$state', '_', 'LanguageResource', 'AccessResource',
+		.controller('StartCreateSnippetController', ['$scope', '$state', '_', 'LanguageResource', 'AccessResource',
       'VisibilityResource', '$log',
 			function($scope, $state, _, LanguageResource, AccessResource, VisibilityResource, $log) {
 

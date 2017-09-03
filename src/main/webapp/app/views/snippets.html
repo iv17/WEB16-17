@@ -1,48 +1,48 @@
 <div class="st-pusher">
-  <div class="st-content">
-    <div class="st-content-inner" id="content">
-      <div class="container-fluid">
-        <h2>Snippets</h2>
-
-        <div ng-repeat = "snippet in snippets">
-
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="media">
-              <div class="media-body">
-                <div class="pull-right">
-                  <a href="" class="btn btn-primary btn-xs"><i class="fa fa-comment"></i> Create comment</a>
-                </div>
-                <h4 class="media-heading"><a href="#">{{ snippet.description }}</a></h4>
-                <p>
-                  <span class="label label-default"># {{ snippet.url }}</span>
-                  <a href="" class="user-ticket-action "><span class="label label-primary"> {{ snippet.language.name }}</span></a>
-                </p>
-                <div class="expandable expandable-indicator-white expandable-trigger">
-                  <div class="expandable-content">
-                    <p>
-                      {{ snippet.data }}
-                    </p>
-                  </div>
-                </div>
-                <p class="margin-none">
-                  <span class="text-default"><i class="icon-time-clock fw"></i> {{ snippet.duration }} min <i class=" icon-user innerL"></i> Creator: <a href="">{{ snippet.creatorDTO.username }}</a></span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        </div>
-        <ul class="pagination margin-top-none">
-          <li class="disabled"><a href="#">&laquo;</a></li>
-          <li class="active"><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">&raquo;</a></li>
-        </ul>
-      </div>
-    </div>
-    <!-- // END .st-content-inner -->
-  </div>
-  <!-- // END .st-content -->
+	<div class="st-content" id="content">
+		<div class="st-content-inner" >
+			<div class="container-fluid">
+				<h2>Snippets</h2>
+				<div ng-repeat = "snippet in snippets">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="media">
+								<div class="media-body">
+									<div class="pull-right">
+										<a href="" class="btn btn-primary btn-xs"><i class="fa fa-comment"></i> Create comment</a>
+									</div>
+									<h4 class="media-heading"><a href="#">{{ snippet.description }}</a></h4>
+									<p>
+										<span class="label label-default"># {{ snippet.url }}</span>
+										<a href="" class="user-ticket-action "><span class="label label-primary"> {{ snippet.language.name }}</span></a>
+									</p>
+									<div class="expandable expandable-indicator-white expandable-trigger">
+										<div class="expandable-content">
+											<p>
+												{{ snippet.data }}
+											</p>
+										</div>
+									</div>
+									<p class="margin-none">
+										<span class="text-default"><i class="icon-time-clock fw"></i> {{ snippet.duration }} min <i class=" icon-user innerL"></i> Creator: <a href="">{{ snippet.creatorDTO.username }}</a></span>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--
+				<ul class="pagination margin-top-none">
+				  <li class="disabled"><a href="#">&laquo;</a></li>
+				  <li class="active"><a href="#">1</a></li>
+				  <li><a href="#">2</a></li>
+				  <li><a href="#">3</a></li>
+				  <li><a href="#">&raquo;</a></li>
+				</ul>
+				-->
+		</div>
+		<!-- // END .st-content-inner -->
+	</div>
+	<!-- // END .st-content -->
 </div>

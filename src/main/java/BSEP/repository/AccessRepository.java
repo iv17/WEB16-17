@@ -8,4 +8,6 @@ public interface AccessRepository extends JpaRepository<Access, Integer> {
 
 	Access findById(int id);
 
+	Access findByName(String accessName);
+
 }

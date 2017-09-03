@@ -1,3 +1,64 @@
+
+<div class="sidebar left sidebar-size-3 st-effect-3 sidebar-skin-white sidebar-visible-desktop" id=sidebar-tickets>
+  <div class="split-vertical">
+    <div class="sidebar-block equal-padding"></div>
+    <div class="sidebar-block equal-padding"></div>
+    <div class="sidebar-block equal-padding">
+      <a ui-sref = "create_snippet({
+        selectedLanguage: selectedLanguage.name,
+        selectedAccess: selectedAccess.name,
+        selectedVisibility: selectedVisibility.name,
+        description: description,
+        code: code,
+        duration: duration
+      })" class="btn btn-block btn-primary"> <i class="fa fa-pencil"></i> Save </a>
+    </div>
+    <div class="split-vertical-body">
+      <div class="split-vertical-cell">
+        <div data-scrollable>
+          <div class="sidebar-block equal-padding">
+            <div class="input-group">
+              <span class="input-group-btn">
+              <select class="form-control"  ng-model="selectedLanguage" ng-options="item.name for item in languages" data-live-search="true">
+                  <option value="" disabled selected>Select language</option>
+              </select>
+            </span>
+            </div>
+          </div>
+          <div class="sidebar-block equal-padding">
+            <div class="input-group">
+              <span class="input-group-btn">
+              <select class="form-control"  ng-model="selectedAccess" ng-options="item.name for item in accesses" data-live-search="true">
+                  <option value="" disabled selected>Select access</option>
+              </select>
+            </span>
+            </div>
+          </div>
+          <div class="sidebar-block equal-padding">
+            <div class="input-group">
+              <span class="input-group-btn">
+              <select class="form-control"  ng-model="selectedVisibility" ng-options="item.name for item in visibilities" data-live-search="true" >
+                  <option value="" disabled selected>Select visibility</option>
+              </select>
+            </span>
+            </div>
+          </div>
+          <div class="sidebar-block equal-padding">
+            <div class="input-group">
+              <span class="input-group-btn">
+
+                <input class="form-control" ng-model="duration" type="number" name="quantity" min="30" max="240" />
+              </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div class="st-pusher">
   <div class="st-content">
     <div class="st-content-inner" id="content">
@@ -8,7 +69,7 @@
             <h4 class="media-heading margin-v-5">Description:</h4>
             <div data-scrollable>
               <div class="overflow-hidden">
-                <textarea class="form-control" rows="2"></textarea>
+                <textarea class="form-control" ng-model="description" rows="2"></textarea>
               </div>
             </div>
           </div>
@@ -19,7 +80,7 @@
               <h4 class="media-heading margin-v-5">Code:</h4>
               <div data-scrollable>
                 <div class="overflow-hidden">
-                  <textarea class="form-control" rows="18"></textarea>
+                  <textarea class="form-control" ng-model="code" rows="18"></textarea>
                 </div>
               </div>
             </div>

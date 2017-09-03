@@ -6,4 +6,6 @@ import BSEP.beans.Visibility;
 
 public interface VisibilityRepository extends JpaRepository<Visibility, Integer> {
 
+	Visibility findByName(String visibilityName);
+
 }
