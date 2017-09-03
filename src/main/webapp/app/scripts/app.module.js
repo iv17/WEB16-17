@@ -124,7 +124,8 @@
             controller: 'HomeController'
           },
           'sidebar@': {
-            templateUrl: 'app/views/create_snippet_sidebar.html'
+            templateUrl: 'app/views/create_snippet_sidebar.html',
+            controller: 'CreateSnippetSidebarController'
           },
           'content@': {
             templateUrl: 'app/views/create_snippet.html'

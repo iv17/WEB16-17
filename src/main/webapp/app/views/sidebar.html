@@ -7,7 +7,7 @@
     </div>
     <div class="sidebar-block equal-padding">
       <div class="input-group">
-        <input type="text" class="form-control" ng-model="description"placeholder="description..">
+        <input type="text" class="form-control" ng-model="description" placeholder="description..">
         <span class="input-group-btn">
           <a ui-sref = "search_description({description: description})"
            class="btn btn-primary"><i class="fa fa-search"></i></a>
@@ -24,9 +24,11 @@
           </ul>
           <div class="sidebar-block equal-padding">
             <div class="input-group">
-              <span class="input-group-btn">
-              <select class="form-control"  ng-model="selectedLanguage" ng-options="item.name for item in languages" data-live-search="true" >
 
+              <span class="input-group-btn">
+              <select class="form-control"  ng-model="selectedLanguage" ng-options="item.name for item in languages"
+               data-live-search="true" >
+                <option value="" disabled selected>Language</option>
               </select>
             </span>
             </div>
@@ -34,6 +36,5 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
