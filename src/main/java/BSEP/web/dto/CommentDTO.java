@@ -3,6 +3,7 @@ package BSEP.web.dto;
 import java.util.Date;
 
 import BSEP.beans.Comment;
+import BSEP.beans.Rating;
 
 public class CommentDTO {
 
@@ -12,8 +13,15 @@ public class CommentDTO {
 	private UserDTO userDTO;
 	private SnippetDTO snippetDTO;
 	
+	private int plus = 0;
+	private int minus = 0;
+	
 	public CommentDTO() {
 		
+	}
+	
+	public CommentDTO(int id) {
+		this.id = id;
 	}
 	
 	public CommentDTO(Comment comment) {
@@ -22,6 +30,15 @@ public class CommentDTO {
 		date = comment.getDate();
 		userDTO = new UserDTO(comment.getUser());
 		snippetDTO = new SnippetDTO(comment.getSnippet());
+		for (Rating rating : comment.getRatings()) {
+			if(comment.getRatings().size() == 0) {
+				plus = 0;
+				minus = 0;
+			} else {
+				plus += rating.getPlus();
+				minus += rating.getMinus();
+			}
+		}
 	}
 
 	public int getId() {
@@ -62,6 +79,22 @@ public class CommentDTO {
 
 	public void setSnippetDTO(SnippetDTO snippetDTO) {
 		this.snippetDTO = snippetDTO;
+	}
+
+	public int getPlus() {
+		return plus;
+	}
+
+	public void setPlus(int plus) {
+		this.plus = plus;
+	}
+
+	public int getMinus() {
+		return minus;
+	}
+
+	public void setMinus(int minus) {
+		this.minus = minus;
 	}
 	
 	

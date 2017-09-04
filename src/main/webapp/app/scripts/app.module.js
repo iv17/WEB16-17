@@ -206,6 +206,30 @@
           }
         }
       })
+      .state('create_rate_plus', {
+        url: "/create_rate_plus/:commentId/:snippetId",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'content@': {
+            controller: 'CreateRatePlusController'
+          }
+        }
+      })
+      .state('create_rate_minus', {
+        url: "/create_rate_minus/:commentId/:snippetId",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'content@': {
+            controller: 'CreateRateMinusController'
+          }
+        }
+      })
       .state('user_profile', {
         url: "/user_profile",
         views: {
