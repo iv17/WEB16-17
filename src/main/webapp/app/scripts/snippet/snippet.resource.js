@@ -13,6 +13,12 @@
 				});
 			};
 
+			retVal.getSnippet = function(id) {
+				return Restangular.one("snippets", id).get().then(function(response) {
+					return response;
+				});
+			};
+
 			retVal.getUserSnippets = function() {
 				return Restangular.all("snippets/user_snippets").getList().then(function(responses) {
 					return responses;

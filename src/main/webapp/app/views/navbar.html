@@ -1,7 +1,7 @@
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a href="#sidebar-menu" data-toggle="sidebar-menu" data-effect="st-effect-3" class="toggle pull-left visible-xs"><i class="fa fa-bars"></i></a>
+      <a data-toggle="sidebar-menu" data-effect="st-effect-3" class="toggle pull-left visible-xs"><i class="fa fa-bars"></i></a>
       <a ui-sref = "open_chat()" data-toggle="sidebar-menu" class="toggle pull-right"><i class="fa fa-comments"></i></a>
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapse">
       <span class="sr-only">Toggle navigation</span>
@@ -21,7 +21,7 @@
         <!-- // END messages -->
         <!-- user -->
         <li class="dropdown user">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <a ui-sref = "user_profile()" class="dropdown-toggle" data-toggle="dropdown">
           <img src= "{{ loggedUser.imageDTO.file }} " alt="" class="img-circle" /> {{ loggedUser.username }}<span class="caret"></span>
           </a>
           <ul class="dropdown-menu" role="menu">

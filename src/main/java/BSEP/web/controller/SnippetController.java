@@ -1,6 +1,7 @@
 package BSEP.web.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -14,13 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import BSEP.beans.Comment;
 import BSEP.beans.Snippet;
 import BSEP.beans.User;
 import BSEP.service.AccessService;
+import BSEP.service.CommentService;
 import BSEP.service.LanguageService;
 import BSEP.service.SnippetService;
 import BSEP.service.UserService;
 import BSEP.service.VisibilityService;
+import BSEP.web.dto.CommentDTO;
 import BSEP.web.dto.SnippetDTO;
 
 @RestController
@@ -29,6 +33,9 @@ public class SnippetController {
 
 	@Autowired
 	private SnippetService snippetService;
+
+	@Autowired
+	private CommentService commentService;
 
 	@Autowired
 	private UserService userService;
@@ -113,7 +120,7 @@ public class SnippetController {
 	
 
 	@RequestMapping(
-			value = "/create", // id - id user-a koji kreira snippet
+			value = "/create", 
 			method = RequestMethod.POST, 
 			consumes = "application/json"
 			)
@@ -146,6 +153,64 @@ public class SnippetController {
 			return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.CREATED);
 		}
 		return new ResponseEntity<List<SnippetDTO>>(HttpStatus.NOT_FOUND);
+		
+	}
+	
+	@RequestMapping(
+			value = "/create_comment", 
+			method = RequestMethod.POST, 
+			consumes = "application/json"
+			)
+	public ResponseEntity<SnippetDTO> createComment(@RequestBody CommentDTO commentDTO, @PathVariable Integer id,  @RequestHeader("X-Auth-Token") String token) {
+		
+		if(userService.findByToken(token) != null) {
+			User user = userService.findByToken(token);
+			
+			if(user.getBlocked() == false) {	// NE MOZE BLOKIRAN KORISNIK DA KOMENTARISE
+				if(snippetService.findById(id) != null) {
+				
+					Snippet snippet = snippetService.findById(id);
+					if(!snippet.getCreator().equals(user)) { 	// NE MOZE DA KOMENTARISE SVOJ SNIPPET
+						
+						Comment comment = new Comment();
+						comment.setText(commentDTO.getText());
+						comment.setSnippet(snippet);
+						comment.setUser(user);
+						comment.setDate(new Date());
+						
+						commentService.save(comment); 	//sacuvam komentar
+						
+						Set<Comment> snippetComments = snippet.getComments();
+						snippetComments.add(comment);	//dodam komentar medju sve komentare snippeta
+						
+						snippet.setComments(snippetComments);
+						snippetService.save(snippet);	//sacuvam snippet sa novim komentarom
+						
+						/*List<CommentDTO> snippetCommentsDTO = new ArrayList<CommentDTO>();
+						for (Comment comm : snippetComments) {
+							CommentDTO commDTO = new CommentDTO(comm);
+							snippetCommentsDTO.add(commDTO);
+						}*/
+						
+						SnippetDTO snippetDTO = new SnippetDTO(snippet);
+						return new ResponseEntity<SnippetDTO>(snippetDTO, HttpStatus.CREATED);
+						
+						
+					}
+				}
+			}
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		return null;
 		
 	}
 	

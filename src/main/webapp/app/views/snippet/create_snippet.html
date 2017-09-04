@@ -1,8 +1,8 @@
-
+<div>
 <div class="sidebar left sidebar-size-3 st-effect-3 sidebar-skin-white sidebar-visible-desktop" id=sidebar-tickets>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
   <div class="split-vertical">
-    <div class="sidebar-block equal-padding"></div>
-    <div class="sidebar-block equal-padding"></div>
     <div class="sidebar-block equal-padding">
       <a ui-sref = "create_snippet({
         selectedLanguage: selectedLanguage.name,
@@ -11,7 +11,7 @@
         description: description,
         code: code,
         duration: duration
-      })" class="btn btn-block btn-primary"> <i class="fa fa-pencil"></i> Save </a>
+      })" class="btn btn-block btn-primary"> <i class="fa fa-floppy-o"></i> Save </a>
     </div>
     <div class="split-vertical-body">
       <div class="split-vertical-cell">
@@ -45,9 +45,11 @@
           </div>
           <div class="sidebar-block equal-padding">
             <div class="input-group">
+              <label> Choose duration: (in seconds)</label>
+            </div>
+            <div class="input-group">
               <span class="input-group-btn">
-
-                <input class="form-control" ng-model="duration" type="number" name="quantity" min="30" max="240" />
+                <input class="form-control" ng-model="duration" type="number" name="quantity"  min="30" max="240" value="30" step="30" />
               </span>
               </div>
             </div>
@@ -89,4 +91,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

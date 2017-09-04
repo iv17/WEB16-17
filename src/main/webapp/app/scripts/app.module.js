@@ -22,7 +22,7 @@
         url: "/",
         views: {
           'content@': {
-            templateUrl: 'app/views/login.html'
+            templateUrl: 'app/views/user/login.html'
           }
         }
       })
@@ -30,7 +30,7 @@
         url: "/start_register",
         views: {
           'content@': {
-            templateUrl: 'app/views/sign_in.html'
+            templateUrl: 'app/views/user/sign_in.html'
           }
         }
       })
@@ -62,7 +62,7 @@
         url: "/forgot_password",
         views: {
           'content@': {
-            templateUrl: 'app/views/request_to_change_password.html'
+            templateUrl: 'app/views/user/request_to_change_password.html'
           }
         }
       })
@@ -78,7 +78,7 @@
         url: "/proverite_mail",
         views: {
           'content@': {
-            templateUrl: 'app/views/check_mail.html'
+            templateUrl: 'app/views/user/check_mail.html'
           }
         }
       })
@@ -86,7 +86,7 @@
         url: "/start_change_password/:email",
         views: {
           'content@': {
-              templateUrl: 'app/views/change_password.html',
+              templateUrl: 'app/views/user/change_password.html',
               controller: 'StartChangePasswordController'
           }
         }
@@ -107,12 +107,12 @@
             controller: 'HomeController'
           },
           'sidebar@': {
-            templateUrl: 'app/views/sidebar.html',
+            templateUrl: 'app/views/snippet/sidebar.html',
             controller: 'LanguagesController'
           },
           'content@': {
-            templateUrl: 'app/views/snippets.html',
-            controller: 'SnippetsController'
+            templateUrl: 'app/views/snippet/snippets.html',
+            controller: 'SnippetsController'   //PRVO SE PRIKAZU SNIPPET-I DRUGIH KORISNIKA
           }
         }
       })
@@ -124,11 +124,11 @@
             controller: 'HomeController'
           },
           'sidebar@': {
-            templateUrl: 'app/views/sidebar.html',
+            templateUrl: 'app/views/snippet/sidebar.html',
             controller: 'LanguagesController'
           },
           'content@': {
-            templateUrl: 'app/views/snippets.html',
+            templateUrl: 'app/views/snippet/snippets.html',
             controller: 'UserSnippetsController'
           }
         }
@@ -141,11 +141,11 @@
             controller: 'HomeController'
           },
           'sidebar@': {
-            templateUrl: 'app/views/sidebar.html',
+            templateUrl: 'app/views/snippet/sidebar.html',
             controller: 'LanguagesController'
           },
           'content@': {
-            templateUrl: 'app/views/snippets.html',
+            templateUrl: 'app/views/snippet/snippets.html',
             controller: 'NotUserSnippetsController'
           }
         }
@@ -158,7 +158,7 @@
             controller: 'HomeController'
           },
           'content@': {
-            templateUrl: 'app/views/create_snippet.html',
+            templateUrl: 'app/views/snippet/create_snippet.html',
             controller: 'StartCreateSnippetController'
           }
         }
@@ -171,12 +171,25 @@
             controller: 'HomeController'
           },
           'sidebar@': {
-            templateUrl: 'app/views/sidebar.html',
+            templateUrl: 'app/views/snippet/sidebar.html',
             controller: 'LanguagesController'
           },
           'content@': {
-            templateUrl: 'app/views/snippets.html',
+            templateUrl: 'app/views/snippet/snippets.html',
             controller: 'CreateSnippetController'  //new snippets
+          }
+        }
+      })
+      .state('snippet', {
+        url: "/snippet/:snippetId",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'content@': {
+            templateUrl: 'app/views/snippet/snippet.html',
+            controller: 'SnippetController'  //new snippets
           }
         }
       })
@@ -184,12 +197,11 @@
         url: "/user_profile",
         views: {
           'content@': {
-            templateUrl: 'app/views/user_profile.html'
+            templateUrl: 'app/views/user/user_profile.html'
             //controller: 'UserProfileController'
           }
         }
       })
-    
       .state('block_user', {
         url: "/block_user/:userId",
         views: {

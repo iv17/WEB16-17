@@ -32,7 +32,7 @@ public class Snippet implements Serializable {
 	@Column(name = "description", unique = false, nullable = true)
 	private String description;
 	
-	@Column(name = "data", unique = false, nullable = true)
+	@Column(name = "data", unique = false, nullable = true, columnDefinition = "LONGTEXT")
 	private String data;
 	
 	@ManyToOne @JsonIgnore
