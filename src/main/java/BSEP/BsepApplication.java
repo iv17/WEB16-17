@@ -21,6 +21,7 @@ import BSEP.beans.Location;
 import BSEP.beans.Message;
 import BSEP.beans.PrivateConversation;
 import BSEP.beans.PrivateMessage;
+import BSEP.beans.Rating;
 import BSEP.beans.Role;
 import BSEP.beans.Snippet;
 import BSEP.beans.Status;
@@ -149,7 +150,7 @@ public class BsepApplication implements CommandLineRunner {
 		Attachment attachment1 = new Attachment("aaa", "...", "aaa".getBytes(), attachmentType1, access1, visibility1);
 		attachmentRepository.save(attachment1);
 
-		Language language1 = new Language("Java");
+		Language language1 = new Language("UNDEFINED");
 		languageRepository.save(language1);
 		Language language2 = new Language("C#");
 		languageRepository.save(language2);
@@ -163,6 +164,8 @@ public class BsepApplication implements CommandLineRunner {
 		languageRepository.save(language6);
 		Language language7 = new Language("XML");
 		languageRepository.save(language7);
+		Language language8 = new Language("Java");
+		languageRepository.save(language8);
 		
 		Location location1 = new Location(44.8023505, 20.4719586, "Beograd", "Vračar", "Krunska", "11000");
 		locationRepository.save(location1);
@@ -256,7 +259,7 @@ public class BsepApplication implements CommandLineRunner {
 				"@RequestMapping(\n" + 
 				"			method = RequestMethod.GET\n" + 
 				"			)", 
-				language1, "...", 1, false, access1, visibility1, user1);
+				language8, "...", 1, false, access1, visibility1, user1);
 		snippetRepository.save(snippet1);
 		Snippet snippet2 = new Snippet("pozivanje angulara na html-u", 
 				"<body ng-app=\"bsepApp\">\n" + 
@@ -279,8 +282,32 @@ public class BsepApplication implements CommandLineRunner {
 
 		Comment comment1 = new Comment("Odlican primer!", new Date(), snippet1, user2);
 		commentRepository.save(comment1);
+		Rating rating1 = new Rating(1, 0, new Date(), comment1, user3);
+		ratingRepository.save(rating1);
+		Rating rating2 = new Rating(1, 0, new Date(), comment1, user4);
+		ratingRepository.save(rating2);
+		Rating rating3 = new Rating(1, 0, new Date(), comment1, user5);
+		ratingRepository.save(rating3);
+		Rating rating4 = new Rating(1, 0, new Date(), comment1, user6);
+		ratingRepository.save(rating4);
+		Rating rating5 = new Rating(1, 0, new Date(), comment1, user7);
+		ratingRepository.save(rating5);
+		Rating rating6 = new Rating(0, 1, new Date(), comment1, user8);
+		ratingRepository.save(rating6);
+		Rating rating7 = new Rating(0, 1, new Date(), comment1, user9);
+		ratingRepository.save(rating7);
+		
 		Comment comment2 = new Comment("Pomoglo!", new Date(), snippet1, user3);
 		commentRepository.save(comment2);
+		Rating rating8 = new Rating(1, 0, new Date(), comment2, user6);
+		ratingRepository.save(rating8);
+		Rating rating9 = new Rating(1, 0, new Date(), comment2, user7);
+		ratingRepository.save(rating9);
+		Rating rating10 = new Rating(0, 1, new Date(), comment2, user8);
+		ratingRepository.save(rating10);
+		Rating rating11 = new Rating(0, 1, new Date(), comment2, user9);
+		ratingRepository.save(rating11);
+		
 		Comment comment3 = new Comment("Hvala!", new Date(), snippet1, user4);
 		commentRepository.save(comment3);
 

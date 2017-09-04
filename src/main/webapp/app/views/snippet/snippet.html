@@ -101,7 +101,7 @@
 									<input type="text" ng-model="commentText" class="form-control" placeholder="Write message...">
 								</div>
 								<p>&nbsp;</p>
-								<div ng-repeat="comment in comments">
+								<div ng-repeat="comment in comments | orderObjectBy: 'plus' ">
 									<div class="media">
 										<div class="pull-right">
 										<a ui-sref="create_rate_plus({commentId: comment.id, snippetId: snippet.id })">

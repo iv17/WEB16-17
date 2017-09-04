@@ -6,7 +6,7 @@
 					<div class="overflow-hidden">
 						<p>&nbsp;</p>
 						<h4>Snippets</h4>
-						<div ng-repeat = "snippet in snippets">
+						<div ng-repeat = "snippet in snippets | orderBy: 'snippet.description'">
 							<div class="panel panel-default">
 								<div class="panel-body">
 									<div class="media">

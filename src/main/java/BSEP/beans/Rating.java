@@ -51,6 +51,14 @@ public class Rating implements Serializable {
 		
 	}
 
+	public Rating(int plus, int minus, Date date, Comment comment, User user) {
+		this.plus = plus;
+		this.minus = minus;
+		this.date = date;
+		this.comment = comment;
+		this.user = user;
+	}
+	
 	public Rating(int id, int rate, int plus, int minus, Date date, Comment comment, User user) {
 		this.id = id;
 		this.rate = rate;

@@ -131,6 +131,11 @@ public class SnippetController {
 			Snippet snippet = new Snippet();
 			snippet.setDescription(snippetDTO.getDescription());
 			snippet.setData(snippetDTO.getData());
+			System.out.println(snippetDTO.getLanguageName());
+			if(snippetDTO.getLanguageName() == null) {	// OBAVEZNO JE UNDEFINED
+				
+				snippet.setLanguage(languageService.findByName("UNDEFINED"));
+			}
 			snippet.setLanguage(languageService.findByName(snippetDTO.getLanguageName()));
 			snippet.setAccess(accessService.findByName(snippetDTO.getAccessName()));
 			snippet.setVisibility(visibilityService.findByName(snippetDTO.getVisibilityName()));

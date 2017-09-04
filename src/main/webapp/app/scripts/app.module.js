@@ -175,7 +175,7 @@
             controller: 'LanguagesController'
           },
           'content@': {
-            templateUrl: 'app/views/snippet/snippets.html',
+
             controller: 'CreateSnippetController'  //new snippets
           }
         }
