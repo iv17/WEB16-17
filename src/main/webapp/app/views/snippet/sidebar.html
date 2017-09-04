@@ -27,7 +27,7 @@
               <span class="input-group-btn">
               <select class="form-control"  ng-model="selectedLanguage" ng-options="item.name for item in languages"
                data-live-search="true" >
-                <option value="" disabled selected>Language</option>
+                <option value="" disabled selected><a ui-sref="search_language(selectedLanguage: selectedLanguage)">Language</a></option>
               </select>
             </span>
             </div>

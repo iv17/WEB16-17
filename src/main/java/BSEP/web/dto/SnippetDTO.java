@@ -17,16 +17,21 @@ public class SnippetDTO {
 	private VisibilityDTO visibility;
 	private UserDTO creator;
 	private Set<CommentDTO> comments;
-	
-	
+
+
 	private String languageName;
 	private String accessName;
 	private String visibilityName;
-	
+
 	public SnippetDTO() {
-		
+
 	}
 
+	public SnippetDTO(String description) {
+		this.description = description;
+	}
+
+	
 	public SnippetDTO(Snippet snippet) {
 		id = snippet.getId();
 		description = snippet.getDescription();
@@ -41,9 +46,9 @@ public class SnippetDTO {
 		/*for (Comment comment : snippet.getComments()) {
 			comments.add(new CommentDTO(comment));
 		}*/
-		
+
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -131,8 +136,8 @@ public class SnippetDTO {
 	public void setComments(Set<CommentDTO> comments) {
 		this.comments = comments;
 	}
-	
-	
+
+
 
 	public String getLanguageName() {
 		return languageName;
@@ -158,5 +163,5 @@ public class SnippetDTO {
 		this.visibilityName = visibilityName;
 	}
 
-	
+
 }

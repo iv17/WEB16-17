@@ -230,6 +230,23 @@
           }
         }
       })
+      .state('search_description', {
+        url: "/search_description/:description",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'sidebar@': {
+            templateUrl: 'app/views/snippet/sidebar.html',
+            controller: 'LanguagesController'
+          },
+          'content@': {
+            templateUrl: 'app/views/snippet/snippets.html',
+            controller: 'SearchSnippetsByDescriptionController'
+          }
+        }
+      })
       .state('user_profile', {
         url: "/user_profile",
         views: {

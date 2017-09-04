@@ -182,6 +182,26 @@ public class SnippetController {
 		return new ResponseEntity<List<CommentDTO>>(commentsDTO, HttpStatus.OK);
 	}
 
+	@RequestMapping(
+			value = "/search_description",
+			method = RequestMethod.POST
+			)
+	public ResponseEntity<List<SnippetDTO>> searchByDescription(@RequestBody SnippetDTO snippetDTO) {
+		
+		String description = snippetDTO.getDescription();
+		List<Snippet> allSnippets = snippetService.findAll();
+		 
+		List<Snippet> descSnippets = new ArrayList<Snippet>();
+		for (Snippet snippet : allSnippets) {
+			if(snippet.getDescription().contains(description)) {
+				descSnippets.add(snippet);
+			}
+		}
+		
+		List<SnippetDTO> descSnippetsDTO = toDTO(descSnippets);
+		return new ResponseEntity<List<SnippetDTO>>(descSnippetsDTO, HttpStatus.OK);
+		
+	}
 	// POMOCNA FUNKCIJA
 	private List<SnippetDTO> toDTO(List<Snippet> snippets) {
 

@@ -43,6 +43,12 @@
 				});
 			};
 
+			retVal.search_description = function(snippet)	{
+				return Restangular.all("snippets/search_description").post(snippet).then(function(responses) {
+					return responses;
+				});
+			};
+
 			return retVal;
 		}]);
 
