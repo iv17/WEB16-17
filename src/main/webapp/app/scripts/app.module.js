@@ -221,6 +221,22 @@
           }
         }
       })
+      .state('delete_comment', {
+        url: "/delete_comment/:snippetId/:commentId",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'sidebar@': {
+            templateUrl: 'app/views/snippet/sidebar.html',
+            controller: 'LanguagesController'
+          },
+          'content@': {
+            controller: 'DeleteCommentController'
+          }
+        }
+      })
       .state('create_rate_plus', {
         url: "/create_rate_plus/:commentId/:snippetId",
         views: {

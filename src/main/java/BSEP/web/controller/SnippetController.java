@@ -48,14 +48,14 @@ public class SnippetController {
 
 	@Autowired
 	private VisibilityService visibilityService;
-	
+
 	@Autowired
 	private RoleService roleService;
-	
+
 	@Autowired
 	private CommentService commentService;
-	
-	
+
+
 
 	@RequestMapping(
 			method = RequestMethod.GET
@@ -268,42 +268,39 @@ public class SnippetController {
 			method = RequestMethod.POST,
 			consumes = "application/json")
 	public ResponseEntity<List<SnippetDTO>> delete(@RequestBody SnippetDTO snippetDTO, @RequestHeader("X-Auth-Token") String token) {
-		
+
 		if(userService.findByToken(token) == null) {
 			new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
 		}
 
 		User user = userService.findByToken(token);
-		
+
 		if(snippetService.findById(snippetDTO.getId()) == null) {
 			new ResponseEntity<List<SnippetDTO>>(HttpStatus.NOT_FOUND);
 		}
-		
-		Snippet snippet = snippetService.findById(snippetDTO.getId());
-		if(user.getRole().equals(roleService.findByName("REGISTRED_USER"))) {
-			if(user.equals(snippet.getCreator())) {
-				if(snippet.getComments().size() == 0) {
-					
-				} else {
-					Set<Comment> snippetComments = snippet.getComments();
-					for (Comment comment : snippetComments) {
-						commentService.remove(comment);
-					}
-					
-				}
-				snippetService.remove(snippet);
-				
-				List<Snippet> snippets = snippetService.findAll();
-				List<SnippetDTO> snippetsDTO = toDTO(snippets);
 
-				return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.OK);
+		Snippet snippet = snippetService.findById(snippetDTO.getId());
+		if(user.getRole().equals(roleService.findByName("REGISTRED_USER")) && user.equals(snippet.getCreator()) || user.getRole().equals(roleService.findByName("ADMIN"))) {
+			if(snippet.getComments().size() == 0) {
+
 			} else {
-				return new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
-			} 
+				Set<Comment> snippetComments = snippet.getComments();
+				for (Comment comment : snippetComments) {
+					commentService.remove(comment);
+				}
+
+			}
+			snippetService.remove(snippet);
+
+			List<Snippet> snippets = snippetService.findAll();
+			List<SnippetDTO> snippetsDTO = toDTO(snippets);
+
+			return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.OK);
+
 		} else {
 			return new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
 		}
-		
+
 	}
 
 	// POMOCNA FUNKCIJA

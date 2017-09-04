@@ -12,33 +12,36 @@ public class CommentDTO {
 	private Date date;
 	private UserDTO userDTO;
 	private SnippetDTO snippetDTO;
-	
+
 	private int plus = 0;
 	private int minus = 0;
-	
+
 	public CommentDTO() {
-		
+
 	}
-	
+
 	public CommentDTO(int id) {
 		this.id = id;
 	}
-	
+
 	public CommentDTO(Comment comment) {
 		id = comment.getId();
 		text = comment.getText();
 		date = comment.getDate();
 		userDTO = new UserDTO(comment.getUser());
 		snippetDTO = new SnippetDTO(comment.getSnippet());
-		for (Rating rating : comment.getRatings()) {
-			if(comment.getRatings().size() == 0) {
-				plus = 0;
-				minus = 0;
-			} else {
-				plus += rating.getPlus();
-				minus += rating.getMinus();
+		if(comment.getRatings().size() != 0) {
+			for (Rating rating : comment.getRatings()) {
+				if(comment.getRatings().size() == 0) {
+					plus = 0;
+					minus = 0;
+				} else {
+					plus += rating.getPlus();
+					minus += rating.getMinus();
+				}
 			}
 		}
+
 	}
 
 	public int getId() {
@@ -96,6 +99,6 @@ public class CommentDTO {
 	public void setMinus(int minus) {
 		this.minus = minus;
 	}
-	
-	
+
+
 }

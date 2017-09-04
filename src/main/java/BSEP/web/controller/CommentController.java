@@ -18,6 +18,7 @@ import BSEP.beans.Comment;
 import BSEP.beans.Snippet;
 import BSEP.beans.User;
 import BSEP.service.CommentService;
+import BSEP.service.RoleService;
 import BSEP.service.SnippetService;
 import BSEP.service.UserService;
 import BSEP.web.dto.CommentDTO;
@@ -38,6 +39,8 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 
+	@Autowired
+	private RoleService roleService;
 
 	@RequestMapping(
 			value = "/create", 
@@ -68,21 +71,17 @@ public class CommentController {
 					snippetComments.add(comment);	//dodam komentar medju sve komentare snippeta
 
 					snippet.setComments(snippetComments);
-					
+
 
 					SnippetDTO snippetDTO = new SnippetDTO(snippet);
 					
-					if(snippet.getComments().size() == 0) {
-						return new ResponseEntity<CreateCommentResponseDTO>(HttpStatus.NOT_FOUND);
-					}
-
 					Set<Comment> comments = snippet.getComments();
 					List<CommentDTO> commentsDTO = new ArrayList<CommentDTO>();
 					for (Comment comm : comments) {
 						CommentDTO commentDTO = new CommentDTO(comm);
 						commentsDTO.add(commentDTO);
 					}
-					
+
 					CreateCommentResponseDTO createCommentResponseDTO = new CreateCommentResponseDTO(snippetDTO, commentsDTO);
 					return new ResponseEntity<CreateCommentResponseDTO>(createCommentResponseDTO, HttpStatus.CREATED);
 
@@ -99,7 +98,43 @@ public class CommentController {
 
 
 	}
-/*
+
+	@RequestMapping(
+			value = "/delete",
+			method = RequestMethod.POST,
+			consumes = "application/json")
+	public ResponseEntity<CreateCommentResponseDTO> delete(@RequestBody CommentDTO commentDTO, @RequestHeader("X-Auth-Token") String token) {
+
+		if(userService.findByToken(token) == null) {
+			new ResponseEntity<List<CommentDTO>>(HttpStatus.BAD_REQUEST);
+		}
+
+		User user = userService.findByToken(token);
+
+		if(commentService.findById(commentDTO.getId()) == null) {
+			new ResponseEntity<CreateCommentResponseDTO>(HttpStatus.NOT_FOUND);
+		}
+		Comment comment = commentService.findById(commentDTO.getId());
+		Snippet snippet = comment.getSnippet();
+		
+		if(user.getRole().equals(roleService.findByName("REGISTRED_USER")) && user.equals(comment.getUser()) || user.getRole().equals(roleService.findByName("ADMIN"))) {
+
+			commentService.remove(comment);
+
+			List<Comment> comments = commentService.findAll();
+			List<CommentDTO> commentsDTO = toDTO(comments);
+
+			SnippetDTO snippetDTO = new SnippetDTO(snippet);
+			CreateCommentResponseDTO createCommentResponseDTO = new CreateCommentResponseDTO(snippetDTO, commentsDTO);
+			return new ResponseEntity<CreateCommentResponseDTO>(createCommentResponseDTO, HttpStatus.CREATED);
+			
+
+		} else {
+			return new ResponseEntity<CreateCommentResponseDTO>(HttpStatus.BAD_REQUEST);
+		}
+
+	}
+
 	// POMOCNA FUNKCIJA
 	private List<CommentDTO> toDTO(List<Comment> comments) {
 
@@ -111,5 +146,5 @@ public class CommentController {
 		}
 		return commentsDTO;
 	}
-	*/
+
 }

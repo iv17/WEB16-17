@@ -13,6 +13,14 @@
 				});
 			};
 
+			retVal.deleteComment = function(comment)	{
+				return Restangular.all("comments/delete").post(comment).then(function(response) {
+					return response;
+				});
+			};
+
+
+
 			return retVal;
 		}]);
 

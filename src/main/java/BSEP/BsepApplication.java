@@ -280,7 +280,7 @@ public class BsepApplication implements CommandLineRunner {
 				language5, "...", 30, new Date(), false, access1, visibility1, user3);
 		snippetRepository.save(snippet3);
 
-		Comment comment1 = new Comment("Odlican primer!", new Date(), snippet1, user2);
+		Comment comment1 = new Comment("Odlican primer!", new Date(), snippet1, user1);
 		commentRepository.save(comment1);
 		Rating rating1 = new Rating(1, 0, new Date(), comment1, user3);
 		ratingRepository.save(rating1);
