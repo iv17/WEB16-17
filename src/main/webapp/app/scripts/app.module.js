@@ -189,7 +189,20 @@
           },
           'content@': {
             templateUrl: 'app/views/snippet/snippet.html',
-            controller: 'SnippetController'  //new snippets
+            controller: 'SnippetController'
+          }
+        }
+      })
+      .state('create_comment', {
+        url: "/create_comment/:commentText/:snippetId",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'content@': {
+            templateUrl: 'app/views/snippet/snippet.html',
+            controller: 'CreateCommentController'
           }
         }
       })

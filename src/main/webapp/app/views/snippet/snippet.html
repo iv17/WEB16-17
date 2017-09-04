@@ -1,11 +1,16 @@
 <div>
+	<div class="container-fluid split-vertical">
+		<div class="split-vertical-body">
+			<div class="split-vertical-cell">
+				<div data-scrollable>
+					<div class="overflow-hidden">
 	<div class="sidebar left sidebar-size-3 st-effect-3 sidebar-skin-white sidebar-visible-desktop" id=sidebar-tickets>
 		<div class="split-vertical">
-			<p>&nbsp;</p>
-			<p>&nbsp;</p>
+
 			<div class="split-vertical-body">
 				<div class="split-vertical-cell">
 					<div data-scrollable>
+						<div class="overflow-hidden">
 						<div class="sidebar-block equal-padding">
 							<div class="input-group">
 								<label>Snippet properties: </label>
@@ -48,6 +53,7 @@
 							</div>
 						</div>
 					</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -55,7 +61,7 @@
 </div>
 <p>&nbsp;</p>
 <div id="content">
-	<div class="container-fluid split-vertical2">
+	<div class="container-fluid split-vertical">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">Description</h4>
@@ -71,7 +77,8 @@
 								<h4 class="panel-title">Code:</h4>
 							</div>
 							<div class="panel-body">{{ snippet.data }}</div>
-							<p>&nbsp;</p>
+							<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+							<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 						</div>
 					</div>
 				</div>
@@ -81,7 +88,7 @@
 </div>
 <p>&nbsp;</p>
 <div id="content">
-	<div class="container-fluid split-vertical2">
+	<div class="container-fluid split-vertical">
 		<div class="split-vertical-body">
 			<div class="split-vertical-cell">
 				<div data-scrollable>
@@ -89,7 +96,7 @@
 						<div class="panel panel-default">
 							<div class="panel-body">
 								<div class="input-group">
-									<div class="input-group-btn"><a class="btn btn-primary" href="#"> <i class="fa fa-envelope"></i> Send</a>
+									<div class="input-group-btn"><a class="btn btn-primary" ui-sref="create_comment({commentText: commentText, snippetId: snippet.id})"> <i class="fa fa-envelope"></i> Send</a>
 									</div>
 									<input type="text" ng-model="commentText" class="form-control" placeholder="Write message...">
 								</div>
@@ -120,4 +127,11 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>

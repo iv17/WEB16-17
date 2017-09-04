@@ -7,7 +7,12 @@
 
 			var retVal = {};	//JSON objekat koji prosledjujemo controller-u
 
-    
+			retVal.create = function(createCommentRequest)	{
+				return Restangular.all("comments/create").post(createCommentRequest).then(function(response) {
+					return response;
+				});
+			};
+
 			return retVal;
 		}]);
 
