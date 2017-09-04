@@ -21,7 +21,7 @@ public class CommentDTO {
 		text = comment.getText();
 		date = comment.getDate();
 		userDTO = new UserDTO(comment.getUser());
-		//snippetDTO = new SnippetDTO(comment.getSnippet());
+		snippetDTO = new SnippetDTO(comment.getSnippet());
 	}
 
 	public int getId() {

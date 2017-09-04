@@ -13,6 +13,13 @@
 						$scope.snippet = item;
 				});
 
+				SnippetResource.getSnippetComments(id)
+				.then(function(items) {
+						$scope.comments = items;
+						
+				});
+
+
 			}
 		]);
 })();

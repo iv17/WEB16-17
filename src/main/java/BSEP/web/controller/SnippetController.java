@@ -49,14 +49,14 @@ public class SnippetController {
 	@Autowired
 	private VisibilityService visibilityService;
 
-	
-	
+
+
 	@RequestMapping(
 			method = RequestMethod.GET
 			)
 	public ResponseEntity<List<SnippetDTO>> getSnippets() {
 		List<Snippet> snippets = snippetService.findAll();
-		
+
 		List<SnippetDTO> snippetsDTO = toDTO(snippets);
 		return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.OK);
 	}
@@ -67,7 +67,7 @@ public class SnippetController {
 			)
 	public ResponseEntity<List<SnippetDTO>> getUserSnippets(@RequestHeader("X-Auth-Token") String token) {
 		if(userService.findByToken(token) != null) {
-			
+
 			User user = userService.findByToken(token);
 			Set<Snippet> userSnippets = user.getSnippets();
 			List<Snippet> snippets = new ArrayList<>();
@@ -78,16 +78,16 @@ public class SnippetController {
 			return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.OK);
 		}
 		return new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
-		
+
 	}
-	
+
 	@RequestMapping(
 			value = "/not_user_snippets",
 			method = RequestMethod.GET
 			)
 	public ResponseEntity<List<SnippetDTO>> getNotUserSnippets(@RequestHeader("X-Auth-Token") String token) {
 		if(userService.findByToken(token) != null) {
-			
+
 			User user = userService.findByToken(token);
 			List<Snippet> allSnippets = snippetService.findAll();
 			List<Snippet> snippets = new ArrayList<>();
@@ -100,7 +100,7 @@ public class SnippetController {
 			return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.OK);
 		}
 		return new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
-		
+
 	}
 	@RequestMapping(
 			value = "/{id}",
@@ -117,7 +117,7 @@ public class SnippetController {
 
 		return new ResponseEntity<SnippetDTO>(snippetDTO, HttpStatus.OK);
 	}
-	
+
 
 	@RequestMapping(
 			value = "/create", 
@@ -125,10 +125,10 @@ public class SnippetController {
 			consumes = "application/json"
 			)
 	public ResponseEntity<List<SnippetDTO>> createSnippet(@RequestBody SnippetDTO snippetDTO, @RequestHeader("X-Auth-Token") String token) {
-		
-		
+
+
 		if(userService.findByToken(token) != null) {
-		
+
 			User user = userService.findByToken(token);
 			if(user.getBlocked() == true) {
 				return new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
@@ -143,75 +143,94 @@ public class SnippetController {
 			snippet.setDuration(snippetDTO.getDuration());
 			snippet.setBlocked(false);
 			snippet.setCreator(user);
-			
+
 			snippetService.save(snippet);
-			
+
 			SnippetDTO newSnippetDTO = new SnippetDTO(snippet);
 			List<SnippetDTO> snippetsDTO = new ArrayList<SnippetDTO>();
 			snippetsDTO.add(newSnippetDTO);
-			
+
 			return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.CREATED);
 		}
 		return new ResponseEntity<List<SnippetDTO>>(HttpStatus.NOT_FOUND);
-		
+
 	}
-	
+
 	@RequestMapping(
 			value = "/create_comment", 
 			method = RequestMethod.POST, 
 			consumes = "application/json"
 			)
 	public ResponseEntity<SnippetDTO> createComment(@RequestBody CommentDTO commentDTO, @PathVariable Integer id,  @RequestHeader("X-Auth-Token") String token) {
-		
+
 		if(userService.findByToken(token) != null) {
 			User user = userService.findByToken(token);
-			
+
 			if(user.getBlocked() == false) {	// NE MOZE BLOKIRAN KORISNIK DA KOMENTARISE
 				if(snippetService.findById(id) != null) {
-				
+
 					Snippet snippet = snippetService.findById(id);
 					if(!snippet.getCreator().equals(user)) { 	// NE MOZE DA KOMENTARISE SVOJ SNIPPET
-						
+
 						Comment comment = new Comment();
 						comment.setText(commentDTO.getText());
 						comment.setSnippet(snippet);
 						comment.setUser(user);
 						comment.setDate(new Date());
-						
+
 						commentService.save(comment); 	//sacuvam komentar
-						
+
 						Set<Comment> snippetComments = snippet.getComments();
 						snippetComments.add(comment);	//dodam komentar medju sve komentare snippeta
-						
+
 						snippet.setComments(snippetComments);
 						snippetService.save(snippet);	//sacuvam snippet sa novim komentarom
-						
+
 						/*List<CommentDTO> snippetCommentsDTO = new ArrayList<CommentDTO>();
 						for (Comment comm : snippetComments) {
 							CommentDTO commDTO = new CommentDTO(comm);
 							snippetCommentsDTO.add(commDTO);
 						}*/
-						
+
 						SnippetDTO snippetDTO = new SnippetDTO(snippet);
 						return new ResponseEntity<SnippetDTO>(snippetDTO, HttpStatus.CREATED);
-						
-						
+
+
 					}
 				}
 			}
-			
+
+		}
+
+		return null;
+
+	}
+
+	@RequestMapping(
+			value = "/{id}/comments",
+			method = RequestMethod.GET
+			)
+	public ResponseEntity<List<CommentDTO>> getSnippetComments(@PathVariable Integer id) {
+
+		System.out.println("USAO");
+		Snippet snippet = snippetService.findById(id);
+		if (snippet == null) {
+			return new ResponseEntity<List<CommentDTO>>(HttpStatus.NOT_FOUND);
+		}
+		if(snippet.getComments().size() == 0) {
+			return new ResponseEntity<List<CommentDTO>>(HttpStatus.NOT_FOUND);
 		}
 		
+		Set<Comment> comments = snippet.getComments();
+		List<CommentDTO> commentsDTO = new ArrayList<CommentDTO>();
+		for (Comment comment : comments) {
+			System.out.println(comment.getText());
+			CommentDTO commentDTO = new CommentDTO(comment);
+			commentsDTO.add(commentDTO);
+		}
 		
-		
-		
-		
-		
-		
-		
-		
-		return null;
-		
+
+		return new ResponseEntity<List<CommentDTO>>(commentsDTO, HttpStatus.OK);
 	}
 	
 	// POMOCNA FUNKCIJA

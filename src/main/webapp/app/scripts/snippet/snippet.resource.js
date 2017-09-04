@@ -37,6 +37,12 @@
 				});
 			};
 
+			retVal.getSnippetComments = function(id) {
+				return Restangular.one("snippets", id).getList("comments").then(function(responses) {
+					return responses;
+				});
+			};
+
 			return retVal;
 		}]);
 
