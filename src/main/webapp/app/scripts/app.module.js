@@ -192,6 +192,22 @@
           }
         }
       })
+      .state('delete_snippet', {
+        url: "/delete_snippet/:snippetId",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'sidebar@': {
+            templateUrl: 'app/views/snippet/sidebar.html',
+            controller: 'LanguagesController'
+          },
+          'content@': {
+            controller: 'DeleteSnippetController'
+          }
+        }
+      })
       .state('create_comment', {
         url: "/create_comment/:commentText/:snippetId",
         views: {

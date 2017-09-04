@@ -31,6 +31,10 @@ public class SnippetDTO {
 
 	}
 
+	public SnippetDTO(int id) {
+		this.id = id;
+	}
+	
 	public SnippetDTO(Date date) {
 		this.date = date;
 	}

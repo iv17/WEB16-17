@@ -96,7 +96,10 @@ public class UserController {
 		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/registration", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(
+			value = "/registration",
+			method = RequestMethod.POST,
+			consumes = "application/json")
 	public ResponseEntity<UserDTO> registration(@RequestBody UserDTO userDTO) {
 
 		 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -357,6 +360,8 @@ public class UserController {
 		return new ResponseEntity<List<UserDTO>>(usersDTO, HttpStatus.OK);
 		
 	}
+	
+	
 	// POMOCNA FUNKCIJA
 	private List<UserDTO> toDTO(List<User> users) {
 

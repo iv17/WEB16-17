@@ -20,7 +20,9 @@ import BSEP.beans.Comment;
 import BSEP.beans.Snippet;
 import BSEP.beans.User;
 import BSEP.service.AccessService;
+import BSEP.service.CommentService;
 import BSEP.service.LanguageService;
+import BSEP.service.RoleService;
 import BSEP.service.SnippetService;
 import BSEP.service.UserService;
 import BSEP.service.VisibilityService;
@@ -46,6 +48,14 @@ public class SnippetController {
 
 	@Autowired
 	private VisibilityService visibilityService;
+	
+	@Autowired
+	private RoleService roleService;
+	
+	@Autowired
+	private CommentService commentService;
+	
+	
 
 	@RequestMapping(
 			method = RequestMethod.GET
@@ -134,7 +144,7 @@ public class SnippetController {
 			snippet.setData(snippetDTO.getData());
 			System.out.println(snippetDTO.getLanguageName());
 			if(snippetDTO.getLanguageName() == null) {	// OBAVEZNO JE UNDEFINED
-				
+
 				snippet.setLanguage(languageService.findByName("UNDEFINED"));
 			}
 			snippet.setLanguage(languageService.findByName(snippetDTO.getLanguageName()));
@@ -189,23 +199,23 @@ public class SnippetController {
 			method = RequestMethod.POST
 			)
 	public ResponseEntity<List<SnippetDTO>> searchByDescription(@RequestBody SnippetDTO snippetDTO) {
-		
+
 		String description = snippetDTO.getDescription();
 		List<Snippet> allSnippets = snippetService.findAll();
-		 
+
 		List<Snippet> descSnippets = new ArrayList<Snippet>();
 		for (Snippet snippet : allSnippets) {
 			if(snippet.getDescription().contains(description)) {
 				descSnippets.add(snippet);
 			}
 		}
-		
+
 		List<SnippetDTO> descSnippetsDTO = toDTO(descSnippets);
 		return new ResponseEntity<List<SnippetDTO>>(descSnippetsDTO, HttpStatus.OK);
-		
+
 	}
-	
-	
+
+
 	@RequestMapping(
 			value = "/search_language",
 			method = RequestMethod.POST
@@ -217,19 +227,19 @@ public class SnippetController {
 		}
 		String languageName = languageDTO.getName();
 		List<Snippet> allSnippets = snippetService.findAll();
-		 
+
 		List<Snippet> languageSnippets = new ArrayList<Snippet>();
 		for (Snippet snippet : allSnippets) {
 			if(snippet.getLanguage().getName().equals(languageName)) {
 				languageSnippets.add(snippet);
 			}
 		}
-		
+
 		List<SnippetDTO> languageSnippetsDTO = toDTO(languageSnippets);
 		return new ResponseEntity<List<SnippetDTO>>(languageSnippetsDTO, HttpStatus.OK);
-		
+
 	}
-	
+
 	@RequestMapping(
 			value = "/search_date",
 			method = RequestMethod.POST
@@ -238,21 +248,64 @@ public class SnippetController {
 
 		String date = snippetDTO.getDateString();
 		List<Snippet> allSnippets = snippetService.findAll();
-		 
+
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-		
+
 		List<Snippet> dateSnippets = new ArrayList<Snippet>();
 		for (Snippet snippet : allSnippets) { 	//2017-09-04 17:32:14.0
 			if(sdf.format(snippet.getDate()).equals(date)) {
 				dateSnippets.add(snippet);
 			}
 		}
-		
+
 		List<SnippetDTO> dateSnippetsDTO = toDTO(dateSnippets);
 		return new ResponseEntity<List<SnippetDTO>>(dateSnippetsDTO, HttpStatus.OK);
+
+	}
+
+	@RequestMapping(
+			value = "/delete",
+			method = RequestMethod.POST,
+			consumes = "application/json")
+	public ResponseEntity<List<SnippetDTO>> delete(@RequestBody SnippetDTO snippetDTO, @RequestHeader("X-Auth-Token") String token) {
+		
+		if(userService.findByToken(token) == null) {
+			new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
+		}
+
+		User user = userService.findByToken(token);
+		
+		if(snippetService.findById(snippetDTO.getId()) == null) {
+			new ResponseEntity<List<SnippetDTO>>(HttpStatus.NOT_FOUND);
+		}
+		
+		Snippet snippet = snippetService.findById(snippetDTO.getId());
+		if(user.getRole().equals(roleService.findByName("REGISTRED_USER"))) {
+			if(user.equals(snippet.getCreator())) {
+				if(snippet.getComments().size() == 0) {
+					
+				} else {
+					Set<Comment> snippetComments = snippet.getComments();
+					for (Comment comment : snippetComments) {
+						commentService.remove(comment);
+					}
+					
+				}
+				snippetService.remove(snippet);
+				
+				List<Snippet> snippets = snippetService.findAll();
+				List<SnippetDTO> snippetsDTO = toDTO(snippets);
+
+				return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
+			} 
+		} else {
+			return new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
+		}
 		
 	}
-	
+
 	// POMOCNA FUNKCIJA
 	private List<SnippetDTO> toDTO(List<Snippet> snippets) {
 

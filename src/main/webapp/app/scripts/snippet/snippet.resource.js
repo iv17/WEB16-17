@@ -61,6 +61,12 @@
 				});
 			};
 
+			retVal.deleteSnippet = function(user) {
+				return Restangular.all("snippets/delete").post(user).then(function(response) {
+					return response;
+				});
+			};
+
 			return retVal;
 		}]);
 
