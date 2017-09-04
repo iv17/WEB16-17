@@ -11,6 +11,9 @@ public class LanguageDTO {
 		
 	}
 
+	public LanguageDTO(String name) {
+		this.name = name;
+	}
 	public LanguageDTO(Language language) {
 		id  = language.getId();
 		name = language.getName();

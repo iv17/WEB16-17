@@ -49,6 +49,18 @@
 				});
 			};
 
+			retVal.search_language = function(language)	{
+				return Restangular.all("snippets/search_language").post(language).then(function(responses) {
+					return responses;
+				});
+			};
+
+			retVal.search_date = function(snippet)	{
+				return Restangular.all("snippets/search_date").post(snippet).then(function(responses) {
+					return responses;
+				});
+			};
+
 			return retVal;
 		}]);
 

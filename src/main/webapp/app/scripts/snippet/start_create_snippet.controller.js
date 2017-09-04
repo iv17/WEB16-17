@@ -17,7 +17,6 @@
         				languagesNames.push(languages[i].name);
     					}
 						$scope.languagesNames = languagesNames;
-
 				});
         AccessResource.getAccesses()
         .then(function(items) {

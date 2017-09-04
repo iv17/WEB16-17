@@ -24,11 +24,22 @@
           </ul>
           <div class="sidebar-block equal-padding">
             <div class="input-group">
+              <select class="form-control" ng-model="selectedLanguage" ng-options="item for item in languagesNames"
+              data-live-search="true" >
+              <option value="" disabled selected>
+              </option>
+            </select>
               <span class="input-group-btn">
-              <select class="form-control"  ng-model="selectedLanguage" ng-options="item.name for item in languages"
-               data-live-search="true" >
-                <option value="" disabled selected><a ui-sref="search_language(selectedLanguage: selectedLanguage)">Language</a></option>
-              </select>
+              <a ui-sref="search_language({selectedLanguage: selectedLanguage})" class="btn btn-primary">Search</a>
+            </span>
+            </div>
+          </div>
+          <div class="sidebar-block equal-padding">
+            <div class="input-group">
+              <input id="datepicker" type="text" class="form-control" ng-model="date" class="form-control datepicker">
+
+              <span class="input-group-btn">
+              <a ui-sref="search_date({date: date})" class="btn btn-primary">Search</a>
             </span>
             </div>
           </div>

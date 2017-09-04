@@ -1,6 +1,8 @@
 package BSEP.web.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -23,6 +25,7 @@ import BSEP.service.SnippetService;
 import BSEP.service.UserService;
 import BSEP.service.VisibilityService;
 import BSEP.web.dto.CommentDTO;
+import BSEP.web.dto.LanguageDTO;
 import BSEP.web.dto.SnippetDTO;
 
 @RestController
@@ -43,8 +46,6 @@ public class SnippetController {
 
 	@Autowired
 	private VisibilityService visibilityService;
-
-
 
 	@RequestMapping(
 			method = RequestMethod.GET
@@ -141,6 +142,7 @@ public class SnippetController {
 			snippet.setVisibility(visibilityService.findByName(snippetDTO.getVisibilityName()));
 			//snippet.setUrl(snippetDTO.getUrl());
 			snippet.setDuration(snippetDTO.getDuration());
+			snippet.setDate(new Date());
 			snippet.setBlocked(false);
 			snippet.setCreator(user);
 
@@ -202,6 +204,53 @@ public class SnippetController {
 		return new ResponseEntity<List<SnippetDTO>>(descSnippetsDTO, HttpStatus.OK);
 		
 	}
+	@RequestMapping(
+			value = "/search_language",
+			method = RequestMethod.POST
+			)
+	public ResponseEntity<List<SnippetDTO>> searchByLanguage(@RequestBody LanguageDTO languageDTO) {
+
+		if(languageService.findByName(languageDTO.getName()) == null) {
+			return new ResponseEntity<List<SnippetDTO>>(HttpStatus.NOT_FOUND);
+		}
+		String languageName = languageDTO.getName();
+		List<Snippet> allSnippets = snippetService.findAll();
+		 
+		List<Snippet> languageSnippets = new ArrayList<Snippet>();
+		for (Snippet snippet : allSnippets) {
+			if(snippet.getLanguage().getName().equals(languageName)) {
+				languageSnippets.add(snippet);
+			}
+		}
+		
+		List<SnippetDTO> languageSnippetsDTO = toDTO(languageSnippets);
+		return new ResponseEntity<List<SnippetDTO>>(languageSnippetsDTO, HttpStatus.OK);
+		
+	}
+	
+	@RequestMapping(
+			value = "/search_date",
+			method = RequestMethod.POST
+			)
+	public ResponseEntity<List<SnippetDTO>> searchByDate(@RequestBody SnippetDTO snippetDTO) {
+
+		String date = snippetDTO.getDateString();
+		List<Snippet> allSnippets = snippetService.findAll();
+		 
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		
+		List<Snippet> dateSnippets = new ArrayList<Snippet>();
+		for (Snippet snippet : allSnippets) { 	//2017-09-04 17:32:14.0
+			if(sdf.format(snippet.getDate()).equals(date)) {
+				dateSnippets.add(snippet);
+			}
+		}
+		
+		List<SnippetDTO> dateSnippetsDTO = toDTO(dateSnippets);
+		return new ResponseEntity<List<SnippetDTO>>(dateSnippetsDTO, HttpStatus.OK);
+		
+	}
+	
 	// POMOCNA FUNKCIJA
 	private List<SnippetDTO> toDTO(List<Snippet> snippets) {
 

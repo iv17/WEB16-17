@@ -1,6 +1,7 @@
 package BSEP.beans;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -45,6 +46,9 @@ public class Snippet implements Serializable {
 	@Column(name = "duration", unique = false, nullable = true)
 	private int duration;
 	
+	@Column(name = "date", unique = false, nullable = true)
+	private Date date;
+	
 	@Column(name = "blocked", unique = false, nullable = true)
 	private Boolean blocked;
 	
@@ -70,12 +74,13 @@ public class Snippet implements Serializable {
 
 
 	public Snippet(String description, String data, Language language, String url, int duration,
-			Boolean blocked, Access access, Visibility visibility, User creator) {
+			Date date, Boolean blocked, Access access, Visibility visibility, User creator) {
 		this.description = description;
 		this.data = data;
 		this.language = language;
 		this.url = url;
 		this.duration = duration;
+		this.date = date;
 		this.blocked = blocked;
 		this.access = access;
 		this.visibility = visibility;
@@ -129,6 +134,14 @@ public class Snippet implements Serializable {
 
 	public void setDuration(int duration) {
 		this.duration = duration;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public Boolean getBlocked() {

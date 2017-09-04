@@ -1,5 +1,6 @@
 package BSEP.web.dto;
 
+import java.util.Date;
 import java.util.Set;
 
 import BSEP.beans.Snippet;
@@ -12,6 +13,7 @@ public class SnippetDTO {
 	private LanguageDTO language;
 	private String url;
 	private int duration;
+	private Date date;
 	private Boolean blocked;
 	private AccessDTO access;
 	private VisibilityDTO visibility;
@@ -23,10 +25,16 @@ public class SnippetDTO {
 	private String accessName;
 	private String visibilityName;
 
+	private String dateString;
+	
 	public SnippetDTO() {
 
 	}
 
+	public SnippetDTO(Date date) {
+		this.date = date;
+	}
+	
 	public SnippetDTO(String description) {
 		this.description = description;
 	}
@@ -39,6 +47,7 @@ public class SnippetDTO {
 		language = new LanguageDTO(snippet.getLanguage());
 		url = snippet.getUrl();
 		duration = snippet.getDuration();
+		date = snippet.getDate();
 		blocked = snippet.getBlocked();
 		access = new AccessDTO(snippet.getAccess());
 		visibility = new VisibilityDTO(snippet.getVisibility());
@@ -95,6 +104,14 @@ public class SnippetDTO {
 
 	public void setDuration(int duration) {
 		this.duration = duration;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public Boolean getBlocked() {
@@ -161,6 +178,14 @@ public class SnippetDTO {
 
 	public void setVisibilityName(String visibilityName) {
 		this.visibilityName = visibilityName;
+	}
+
+	public String getDateString() {
+		return dateString;
+	}
+
+	public void setDateString(String dateString) {
+		this.dateString = dateString;
 	}
 
 

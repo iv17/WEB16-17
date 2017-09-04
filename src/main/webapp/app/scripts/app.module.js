@@ -247,6 +247,40 @@
           }
         }
       })
+      .state('search_language', {
+        url: "/search_language/:selectedLanguage",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'sidebar@': {
+            templateUrl: 'app/views/snippet/sidebar.html',
+            controller: 'LanguagesController'
+          },
+          'content@': {
+            templateUrl: 'app/views/snippet/snippets.html',
+            controller: 'SearchSnippetsByLanguageController'
+          }
+        }
+      })
+      .state('search_date', {
+        url: "/search_date/:date",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'sidebar@': {
+            templateUrl: 'app/views/snippet/sidebar.html',
+            controller: 'LanguagesController'
+          },
+          'content@': {
+            templateUrl: 'app/views/snippet/snippets.html',
+            controller: 'SearchSnippetsByDateController'
+          }
+        }
+      })
       .state('user_profile', {
         url: "/user_profile",
         views: {
