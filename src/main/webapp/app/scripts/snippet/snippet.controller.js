@@ -22,6 +22,7 @@
 
 			}
 		])
+		<!-- //justinklemm.com/angularjs-filter-ordering-objects-ngrepeat/-->
 		.filter('orderObjectBy', function() {
   	return function(items, field, reverse) {
     var filtered = [];

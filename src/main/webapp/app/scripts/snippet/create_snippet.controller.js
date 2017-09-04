@@ -9,14 +9,8 @@
 				toastr, $localStorage) {
 
 				var selectedLanguage = $stateParams.selectedLanguage;
-				$log.log(selectedLanguage);
-				if($stateParams.selectedLanguage == null) {
-					for (var i = 0; i < $scope.languagesNames.length; i++) {
-						if($scope.languagesNames[i] === "UNDEFINED") {
-							$log.log($scope.languagesNames[i]);
-							selectedLanguage = $scope.languagesNames[i];
-						}
-					}
+				if($stateParams.selectedLanguage.value == null) {
+					selectedLanguage = "UNDEFINED";
 				}
 				var selectedAccess = $stateParams.selectedAccess;
 				var selectedVisibility = $stateParams.selectedVisibility;

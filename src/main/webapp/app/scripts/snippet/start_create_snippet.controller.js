@@ -15,7 +15,6 @@
 						var languagesNames = [];
 						for(var i=0; i< languages.length; i++) {
         				languagesNames.push(languages[i].name);
-
     					}
 						$scope.languagesNames = languagesNames;
 
@@ -28,12 +27,6 @@
         .then(function(items) {
 						$scope.visibilities = items;
 				});
-				$scope.getIndexFromValue = function(value) {
-				    for(var i=0; i<$scope.languagesNames.length; i++) {
-        				if($scope.languagesNames[i] === value)
-             				return i;
-    					}
-				};
 
 			}
 		]);
