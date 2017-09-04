@@ -175,8 +175,7 @@
             controller: 'LanguagesController'
           },
           'content@': {
-
-            controller: 'CreateSnippetController'  //new snippets
+            controller: 'CreateSnippetController'
           }
         }
       })
@@ -278,6 +277,32 @@
           'content@': {
             templateUrl: 'app/views/snippet/snippets.html',
             controller: 'SearchSnippetsByDateController'
+          }
+        }
+      })
+      .state('languages', {
+        url: "/languages",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'content@': {
+            templateUrl: 'app/views/admin/languages.html',
+            controller: 'LanguagesController'
+          }
+        }
+      })
+      .state('add_language', {
+        url: "/add_language/:name",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'content@': {
+            templateUrl: 'app/views/admin/languages.html',
+            controller: 'AddLanguageController'
           }
         }
       })

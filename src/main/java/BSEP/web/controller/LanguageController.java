@@ -47,23 +47,24 @@ public class LanguageController {
 			value = "/add",
 			method = RequestMethod.POST,
 			consumes = "application/json")
-	public ResponseEntity<LanguageDTO> addNewLanguage(@RequestBody LanguageDTO languageDTO, @RequestHeader("X-Auth-Token") String token) {
+	public ResponseEntity<List<LanguageDTO>> addNewLanguage(@RequestBody LanguageDTO languageDTO, @RequestHeader("X-Auth-Token") String token) {
 		
 		if(userService.findByToken(token) == null) {
-			return new ResponseEntity<LanguageDTO>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<List<LanguageDTO>>(HttpStatus.BAD_REQUEST);
 		} else {
 			User user = userService.findByToken(token);
-			if(!user.getRole().equals(roleService.findByName("ADMIN"))) {
-				return new ResponseEntity<LanguageDTO>(HttpStatus.BAD_REQUEST);
+			if(!user.getRole().equals(roleService.findByName("REGISTRED_USER"))) {//prebaci na ADMIN
+				return new ResponseEntity<List<LanguageDTO>>(HttpStatus.BAD_REQUEST);
 			} else {
 				if(languageService.findByName(languageDTO.getName()) == null) {
 					Language newLanguage = new Language(languageDTO.getName());
 					languageService.save(newLanguage);
 					
-					LanguageDTO newLanguageDTO = new LanguageDTO(newLanguage);
-					return new ResponseEntity<LanguageDTO>(newLanguageDTO, HttpStatus.OK);
+					List<Language> languages = languageService.findAll();
+					List<LanguageDTO> languagesDTO = toDTO(languages);
+					return new ResponseEntity<List<LanguageDTO>>(languagesDTO, HttpStatus.OK);
 				} else {
-					return new ResponseEntity<LanguageDTO>(HttpStatus.BAD_REQUEST);
+					return new ResponseEntity<List<LanguageDTO>>(HttpStatus.BAD_REQUEST);
 				}
 			}
 		}
