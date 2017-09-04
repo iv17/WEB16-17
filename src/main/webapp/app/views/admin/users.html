@@ -1,0 +1,63 @@
+<div>
+	<div class="sidebar left sidebar-size-3 st-effect-3 sidebar-skin-white sidebar-visible-desktop" id=sidebar-tickets>
+	  <div class="split-vertical">
+	    <p>&nbsp;</p>
+	    <p>&nbsp;</p>
+	    <div class="sidebar-block equal-padding">
+	      <div class="input-group">
+	        <input type="text" class="form-control" ng-model="username" placeholder="Username...">
+	        <span class="input-group-btn">
+	          <a ui-sref = "search_username({username: username})"
+	           class="btn btn-primary">Search</a>
+	        </span>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+<div id="content">
+	<div class="container-fluid split-vertical">
+		<div class="split-vertical-body">
+			<div class="split-vertical-cell">
+				<div data-scrollable>
+					<div class="overflow-hidden">
+						<p>&nbsp;</p>
+						<h4>Users</h4>
+            <div class="panel panel-default">
+              <table data-toggle="data-table" class="table" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+										<th>Surname</th>
+										<th>Username</th>
+										<th>Email</th>
+										<th>Phone number</th>
+										<th>Role</th>
+										<th>Blocked</th>
+										<th>Block user</th>
+                  </tr>
+                </thead>
+                <tbody ng-repeat="user in users">
+                  <tr>
+                    <td>{{ user.name }}</td>
+										<td>{{ user.surname }}</td>
+										<td>{{ user.username }}</td>
+										<td>{{ user.email }}</td>
+										<td>{{ user.phone_number }}</td>
+										<td>{{ user.roleDTO.name }}</td>
+										<td>{{ user.blocked }}</td>
+										<td class="text-right">
+											<a ui-sref="block_user({userId: user.id})" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="Block">
+												<i class="fa fa-times"></i></a>
+										</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

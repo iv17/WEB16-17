@@ -306,20 +306,50 @@
           }
         }
       })
-      .state('user_profile', {
-        url: "/user_profile",
+      .state('users', {
+        url: "/users",
         views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
           'content@': {
-            templateUrl: 'app/views/user/user_profile.html'
-            //controller: 'UserProfileController'
+            templateUrl: 'app/views/admin/users.html',
+            controller: 'UsersController'
+          }
+        }
+      })
+      .state('search_username', {
+        url: "/search_username/:username",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'content@': {
+            templateUrl: 'app/views/admin/users.html',
+            controller:  'SearchUserByUsernameController'
           }
         }
       })
       .state('block_user', {
         url: "/block_user/:userId",
         views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
           'content@': {
             controller: 'BlockUserController'
+          }
+        }
+      })
+      .state('user_profile', {
+        url: "/user_profile",
+        views: {
+          'content@': {
+            templateUrl: 'app/views/user/user_profile.html'
+            //controller: 'UserProfileController'
           }
         }
       });

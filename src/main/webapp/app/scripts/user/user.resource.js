@@ -67,6 +67,11 @@
 				});
 			};
 
+			retVal.search_username = function(user)	{
+				return Restangular.all("users/search_username").post(user).then(function(response) {
+					return response;
+				});
+			};
 			return retVal;
 		}]);
 

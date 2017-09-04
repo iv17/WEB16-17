@@ -18,7 +18,7 @@
 					$log.log(item);
 					$scope.users = item;
 
-					$window.location.href = '/#/home';
+					$window.location.href = '/#/users';
 					toastr.success('Uspesno ste blokirali korisnika!');
 				})
 				.catch(function(error){

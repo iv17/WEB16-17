@@ -66,11 +66,13 @@ public class UserController {
 	@RequestMapping(
 			method = RequestMethod.GET
 			)
-	public ResponseEntity<List<UserDTO>> getUsers() {
+	public ResponseEntity<List<UserDTO>> getUsers(@RequestHeader("X-Auth-Token") String token) {
+		User loggedUser = userService.findByToken(token);
+		
 		List<User> users = userService.findAll();
 		List<User> usersBezAdmina = new ArrayList<User>();
 		for (User user : users) {
-			if(!user.getRole().equals(roleService.findByName("ADMIN"))){
+			if(!user.getRole().equals(roleService.findByName("ADMIN")) || !user.equals(loggedUser)){
 				usersBezAdmina.add(user);
 			}
 		}
@@ -252,11 +254,13 @@ public class UserController {
 			value = "/not_blocked_users", 
 			method = RequestMethod.GET
 			)
-	public ResponseEntity<List<UserDTO>> getNotBlockedUsers() {
+	public ResponseEntity<List<UserDTO>> getNotBlockedUsers(@RequestHeader("X-Auth-Token") String token) {
+		User loggedUser = userService.findByToken(token);
+		
 		List<User> users = userService.findAll();
 		List<User> notBlocked = new ArrayList<User>();
 		for (User u : users) {
-			if(!u.getBlocked()) {
+			if(!u.getBlocked() || !u.equals(loggedUser)) {
 				notBlocked.add(u);
 			}
 		}
@@ -276,7 +280,7 @@ public class UserController {
 		
 		User admin = userService.findByToken(token);
 		
-		if(admin.getRole() == roleService.findByName("ADMIN")) {
+		if(admin.getRole() == roleService.findByName("REGISTRED_USER")) {//VRATI NA ADMIN
 
 			User user = userService.findById(userDTO.getId());
 			if(user != null && !user.getBlocked().equals(true)) {
@@ -329,6 +333,30 @@ public class UserController {
 	}
 
 
+	@RequestMapping(
+			value = "/search_username",
+			method = RequestMethod.POST
+			)
+	public ResponseEntity<List<UserDTO>> searchByUsername(@RequestBody UserDTO userDTO, @RequestHeader("X-Auth-Token") String token) {
+		
+		//VRACA LISTU DA NE PRAVIM NOVI PRIKAZ	
+		
+		//User loggedUser = userService.findByToken(token);
+		
+		String username = userDTO.getUsername();
+		 
+		if(userService.findByUsername(userDTO.getUsername()) == null) {
+			return new ResponseEntity<List<UserDTO>>(HttpStatus.NOT_FOUND);
+		}
+		User user = userService.findByUsername(username);
+		
+		UserDTO newUserDTO = new UserDTO(user);
+		
+		List<UserDTO> usersDTO = new ArrayList<UserDTO>();
+		usersDTO.add(newUserDTO);
+		return new ResponseEntity<List<UserDTO>>(usersDTO, HttpStatus.OK);
+		
+	}
 	// POMOCNA FUNKCIJA
 	private List<UserDTO> toDTO(List<User> users) {
 
