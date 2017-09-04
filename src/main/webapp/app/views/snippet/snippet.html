@@ -1,84 +1,123 @@
 <div>
-<div class="sidebar left sidebar-size-3 st-effect-3 sidebar-skin-white sidebar-visible-desktop" id=sidebar-tickets>
-  <div class="split-vertical">
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <div class="split-vertical-body">
-      <div class="split-vertical-cell">
-        <div data-scrollable>
-          <div class="sidebar-block equal-padding">
-            <div class="input-group">
-              <label>Snippet properties: </label>
-            </div>
-          </div>
-          <div class="sidebar-block equal-padding">
-            <div class="input-group"><label>Snippet language: </label>
-            </div>
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="{{ snippet.language.name }}" disabled>
-            </div>
-          </div>
-          <div class="sidebar-block equal-padding">
-            <div class="input-group"><label>Snippet access: </label>
-            </div>
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="{{ snippet.access.name }}" disable>
-              </div>
-          </div>
-          <div class="sidebar-block equal-padding">
-            <div class="input-group"><label>Snippet visibility: </label>
-            </div>
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="{{ snippet.visibility.name }}" disable>
-              </div>
-          </div>
-          <div class="sidebar-block equal-padding">
-            <div class="input-group"><label>Snippet duration: </label>
-            </div>
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="{{ snippet.duration }} sec" disable>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<p>&nbsp;</p>
-<div id="content">
-	<div class="container-fluid split-vertical">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">Description</h4>
-			</div>
-			<div class="panel-body">
-        {{ snippet.description }}
-			</div>
-      <div ng-repeat="c in comments">
-        <div class="panel-body">
-          {{ c.text }}
-  			</div>
-      </div>
-		</div>
-
-		<div class="split-vertical-body">
-			<div class="split-vertical-cell">
-				<div data-scrollable>
-					<div class="overflow-hidden">
-            <div class="panel panel-default">
-        			<div class="panel-heading">
-        				<h4 class="panel-title">Code: </h4>
-        			</div>
-        			<div class="panel-body">
-                {{ snippet.data }}
-        			</div>
-						<p>&nbsp;</p>
-						<p>Bottom of scrollable content</p>
+	<div class="sidebar left sidebar-size-3 st-effect-3 sidebar-skin-white sidebar-visible-desktop" id=sidebar-tickets>
+		<div class="split-vertical">
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
+			<div class="split-vertical-body">
+				<div class="split-vertical-cell">
+					<div data-scrollable>
+						<div class="sidebar-block equal-padding">
+							<div class="input-group">
+								<label>Snippet properties: </label>
+							</div>
+						</div>
+						<div class="sidebar-block equal-padding">
+							<div class="input-group">
+								<label>Snippet language: </label>
+							</div>
+							<div class="input-group">
+								<input type="text" class="form-control"
+									placeholder="{{ snippet.language.name }}" disabled>
+							</div>
+						</div>
+						<div class="sidebar-block equal-padding">
+							<div class="input-group">
+								<label>Snippet access: </label>
+							</div>
+							<div class="input-group">
+								<input type="text" class="form-control"
+									placeholder="{{ snippet.access.name }}" disable>
+							</div>
+						</div>
+						<div class="sidebar-block equal-padding">
+							<div class="input-group">
+								<label>Snippet visibility: </label>
+							</div>
+							<div class="input-group">
+								<input type="text" class="form-control"
+									placeholder="{{ snippet.visibility.name }}" disable>
+							</div>
+						</div>
+						<div class="sidebar-block equal-padding">
+							<div class="input-group">
+								<label>Snippet duration: </label>
+							</div>
+							<div class="input-group">
+								<input type="text" class="form-control"
+									placeholder="{{ snippet.duration }} sec" disable>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<p>&nbsp;</p>
+<div id="content">
+	<div class="container-fluid split-vertical2">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">Description</h4>
+			</div>
+			<div class="panel-body">{{ snippet.description }}</div>
+		</div>
+		<div class="split-vertical-body">
+			<div class="split-vertical-cell">
+				<div data-scrollable>
+					<div class="overflow-hidden">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">Code:</h4>
+							</div>
+							<div class="panel-body">{{ snippet.data }}</div>
+							<p>&nbsp;</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<p>&nbsp;</p>
+<div id="content">
+	<div class="container-fluid split-vertical2">
+		<div class="split-vertical-body">
+			<div class="split-vertical-cell">
+				<div data-scrollable>
+					<div class="overflow-hidden">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="input-group">
+									<div class="input-group-btn"><a class="btn btn-primary" href="#"> <i class="fa fa-envelope"></i> Send</a>
+									</div>
+									<input type="text" ng-model="commentText" class="form-control" placeholder="Write message...">
+								</div>
+								<p>&nbsp;</p>
+								<div ng-repeat="comment in comments">
+									<div class="media">
+										<div class="media-left">
+											<a href=""> <img src= "{{ comment.userDTO.imageDTO.file }} " width="60" class="img-rounded media-object"></a>
+										</div>
+										<div class="media-body">
+											<div class="panel panel-default">
+												<div class="panel-heading panel-heading-white">
+													<div class="pull-right">
+														<small class="text-muted">{{ comment.date | date: "short"}}</small>
+													</div>
+													<a href="#">{{ comment.userDTO.username}}.</a>
+												</div>
+												<div class="panel-body">{{ comment.text }}</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<p>&nbsp;</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

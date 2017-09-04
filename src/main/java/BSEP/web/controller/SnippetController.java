@@ -170,33 +170,32 @@ public class SnippetController {
 				if(snippetService.findById(id) != null) {
 
 					Snippet snippet = snippetService.findById(id);
-					if(!snippet.getCreator().equals(user)) { 	// NE MOZE DA KOMENTARISE SVOJ SNIPPET
 
-						Comment comment = new Comment();
-						comment.setText(commentDTO.getText());
-						comment.setSnippet(snippet);
-						comment.setUser(user);
-						comment.setDate(new Date());
+					Comment comment = new Comment();
+					comment.setText(commentDTO.getText());
+					comment.setSnippet(snippet);
+					comment.setUser(user);
+					comment.setDate(new Date());
 
-						commentService.save(comment); 	//sacuvam komentar
+					commentService.save(comment); 	//sacuvam komentar
 
-						Set<Comment> snippetComments = snippet.getComments();
-						snippetComments.add(comment);	//dodam komentar medju sve komentare snippeta
+					Set<Comment> snippetComments = snippet.getComments();
+					snippetComments.add(comment);	//dodam komentar medju sve komentare snippeta
 
-						snippet.setComments(snippetComments);
-						snippetService.save(snippet);	//sacuvam snippet sa novim komentarom
+					snippet.setComments(snippetComments);
+					snippetService.save(snippet);	//sacuvam snippet sa novim komentarom
 
-						/*List<CommentDTO> snippetCommentsDTO = new ArrayList<CommentDTO>();
+					/*List<CommentDTO> snippetCommentsDTO = new ArrayList<CommentDTO>();
 						for (Comment comm : snippetComments) {
 							CommentDTO commDTO = new CommentDTO(comm);
 							snippetCommentsDTO.add(commDTO);
 						}*/
 
-						SnippetDTO snippetDTO = new SnippetDTO(snippet);
-						return new ResponseEntity<SnippetDTO>(snippetDTO, HttpStatus.CREATED);
+					SnippetDTO snippetDTO = new SnippetDTO(snippet);
+					return new ResponseEntity<SnippetDTO>(snippetDTO, HttpStatus.CREATED);
 
 
-					}
+
 				}
 			}
 
@@ -212,7 +211,6 @@ public class SnippetController {
 			)
 	public ResponseEntity<List<CommentDTO>> getSnippetComments(@PathVariable Integer id) {
 
-		System.out.println("USAO");
 		Snippet snippet = snippetService.findById(id);
 		if (snippet == null) {
 			return new ResponseEntity<List<CommentDTO>>(HttpStatus.NOT_FOUND);
@@ -220,19 +218,18 @@ public class SnippetController {
 		if(snippet.getComments().size() == 0) {
 			return new ResponseEntity<List<CommentDTO>>(HttpStatus.NOT_FOUND);
 		}
-		
+
 		Set<Comment> comments = snippet.getComments();
 		List<CommentDTO> commentsDTO = new ArrayList<CommentDTO>();
 		for (Comment comment : comments) {
-			System.out.println(comment.getText());
 			CommentDTO commentDTO = new CommentDTO(comment);
 			commentsDTO.add(commentDTO);
 		}
-		
+
 
 		return new ResponseEntity<List<CommentDTO>>(commentsDTO, HttpStatus.OK);
 	}
-	
+
 	// POMOCNA FUNKCIJA
 	private List<SnippetDTO> toDTO(List<Snippet> snippets) {
 

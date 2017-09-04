@@ -22,7 +22,7 @@
         <!-- user -->
         <li class="dropdown user">
           <a ui-sref = "user_profile()" class="dropdown-toggle" data-toggle="dropdown">
-          <img src= "{{ loggedUser.imageDTO.file }} " alt="" class="img-circle" /> {{ loggedUser.username }}<span class="caret"></span>
+          <img src= "{{ loggedUser.imageDTO.file }} " alt="" class="img-rounded media-object" /> {{ loggedUser.username }} <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" role="menu">
             <li><a ui-sref = "user_profile()"><i class="fa fa-user"></i>Profile</a></li>
