@@ -61,12 +61,23 @@
 				});
 			};
 
-			retVal.deleteSnippet = function(user) {
-				return Restangular.all("snippets/delete").post(user).then(function(response) {
+			retVal.deleteSnippet = function(snippet) {
+				return Restangular.all("snippets/delete").post(snippet).then(function(response) {
 					return response;
 				});
 			};
 
+			retVal.blockSnippet = function(snippet) {
+				return Restangular.all("snippets/block_snippet").post(snippet).then(function(response) {
+					return response;
+				});
+			};
+
+			retVal.unblockSnippet = function(snippet) {
+				return Restangular.all("snippets/unblock_snippet").post(snippet).then(function(response) {
+					return response;
+				});
+			};
 			return retVal;
 		}]);
 

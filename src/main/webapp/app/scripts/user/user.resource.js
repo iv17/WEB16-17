@@ -72,6 +72,13 @@
 					return response;
 				});
 			};
+
+			retVal.image_upload = function(image)	{
+				return Restangular.all("users/image_upload").post(image).then(function(response) {
+					return response;
+				});
+			};
+
 			return retVal;
 		}]);
 

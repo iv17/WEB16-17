@@ -208,6 +208,38 @@
           }
         }
       })
+      .state('block_snippet', {
+        url: "/block_snippet/:snippetId",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'sidebar@': {
+            templateUrl: 'app/views/snippet/sidebar.html',
+            controller: 'LanguagesController'
+          },
+          'content@': {
+            controller: 'BlockSnippetController'
+          }
+        }
+      })
+      .state('unblock_snippet', {
+        url: "/unblock_snippet/:snippetId",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'sidebar@': {
+            templateUrl: 'app/views/snippet/sidebar.html',
+            controller: 'LanguagesController'
+          },
+          'content@': {
+            controller: 'UnblockSnippetController'
+          }
+        }
+      })
       .state('create_comment', {
         url: "/create_comment/:commentText/:snippetId",
         views: {
@@ -379,19 +411,35 @@
       .state('user_profile', {
         url: "/user_profile",
         views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
           'content@': {
             templateUrl: 'app/views/user/user_profile.html'
-            //controller: 'UserProfileController'
+          }
+        }
+      })
+      .state('image_upload', {
+        url: "/image_upload/:file",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'content@': {
+            templateUrl: 'app/views/user/user_profile.html',
+            controller: 'ImageUploadController'
           }
         }
       });
+
 
     }])
       // run se izvrsava pre svega ostalog
     .run(['Restangular', '$log', '$localStorage',
     function(Restangular, $log, $localStorage) {
       Restangular.setBaseUrl("api");
-    //  $log.log($window.localStorage.token);
 
       Restangular.addFullRequestInterceptor(
         function (element, operation, route, url, headers, params, httpConfig) {

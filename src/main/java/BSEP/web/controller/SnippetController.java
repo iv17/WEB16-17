@@ -263,6 +263,7 @@ public class SnippetController {
 
 	}
 
+	
 	@RequestMapping(
 			value = "/delete",
 			method = RequestMethod.POST,
@@ -303,6 +304,71 @@ public class SnippetController {
 
 	}
 
+	@RequestMapping(
+			value = "/block_snippet",
+			method = RequestMethod.POST
+			)
+	public ResponseEntity<List<SnippetDTO>> blockSnippet(@RequestBody SnippetDTO snippetDTO, @RequestHeader("X-Auth-Token") String token) {
+		if(userService.findByToken(token) == null) {
+			new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
+		}
+
+		User user = userService.findByToken(token);
+		if(!user.getRole().equals(roleService.findByName("REGISTRED_USER"))) {	//ADMIN
+			new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
+		}
+
+		if(snippetService.findById(snippetDTO.getId()) == null) {
+			new ResponseEntity<List<SnippetDTO>>(HttpStatus.NOT_FOUND);
+		}
+
+		Snippet snippet = snippetService.findById(snippetDTO.getId());
+		if(snippet.getBlocked() == true) {
+			new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
+		}
+		snippet.setBlocked(true); //KAO BLOKIRAM GA I ONDA KAD KOMENTARISEM PROVERAVAM DA LI JE BLOCKED
+		snippetService.save(snippet);
+		
+		List<Snippet> snippets = snippetService.findAll();
+		List<SnippetDTO> snippetDTOs = toDTO(snippets);
+		
+		return new ResponseEntity<List<SnippetDTO>>(snippetDTOs, HttpStatus.OK);
+	
+	}
+	
+	@RequestMapping(
+			value = "/unblock_snippet",
+			method = RequestMethod.POST
+			)
+	public ResponseEntity<List<SnippetDTO>> unblockSnippet(@RequestBody SnippetDTO snippetDTO, @RequestHeader("X-Auth-Token") String token) {
+		if(userService.findByToken(token) == null) {
+			new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
+		}
+
+		User user = userService.findByToken(token);
+		if(!user.getRole().equals(roleService.findByName("REGISTRED_USER"))) {	//ADMIN
+			new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
+		}
+
+		if(snippetService.findById(snippetDTO.getId()) == null) {
+			new ResponseEntity<List<SnippetDTO>>(HttpStatus.NOT_FOUND);
+		}
+
+		Snippet snippet = snippetService.findById(snippetDTO.getId());
+		if(snippet.getBlocked() == false) {
+			new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
+		}
+		snippet.setBlocked(false); //KAO BLOKIRAM GA I ONDA KAD KOMENTARISEM PROVERAVAM DA LI JE BLOCKED
+		snippetService.save(snippet);
+		
+		List<Snippet> snippets = snippetService.findAll();
+		List<SnippetDTO> snippetDTOs = toDTO(snippets);
+		
+		return new ResponseEntity<List<SnippetDTO>>(snippetDTOs, HttpStatus.OK);
+	
+	}
+	
+	
 	// POMOCNA FUNKCIJA
 	private List<SnippetDTO> toDTO(List<Snippet> snippets) {
 

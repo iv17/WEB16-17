@@ -34,6 +34,7 @@ import BSEP.beans.Snippet;
 import BSEP.beans.User;
 import BSEP.security.MailAuthenticator;
 import BSEP.security.TokenUtils;
+import BSEP.service.ImageService;
 import BSEP.service.RoleService;
 import BSEP.service.UserService;
 import BSEP.web.dto.LoginResponseDTO;
@@ -49,6 +50,10 @@ public class UserController {
 
 	@Autowired
 	private RoleService roleService;
+
+	@Autowired
+	private  ImageService imageService;
+
 
 
 	//====================Security====================
@@ -68,7 +73,7 @@ public class UserController {
 			)
 	public ResponseEntity<List<UserDTO>> getUsers(@RequestHeader("X-Auth-Token") String token) {
 		User loggedUser = userService.findByToken(token);
-		
+
 		List<User> users = userService.findAll();
 		List<User> usersBezAdmina = new ArrayList<User>();
 		for (User user : users) {
@@ -102,7 +107,7 @@ public class UserController {
 			consumes = "application/json")
 	public ResponseEntity<UserDTO> registration(@RequestBody UserDTO userDTO) {
 
-		 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 		User user = new User();
 
@@ -118,7 +123,7 @@ public class UserController {
 				user.setEmail(userDTO.getEmail());
 				user.setUsername(userDTO.getUsername());
 				user.setPassword(encoder.encode(userDTO.getPassword()));
-				
+
 				user.setRole(roleService.findByName("REGISTRED_USER"));
 				user.setBlocked(false);
 				UserDTO newUserDTO = new UserDTO(user);
@@ -149,13 +154,13 @@ public class UserController {
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		UserDetails details = userDetailsService.loadUserByUsername(userDTO.getUsername());
-		
+
 		String userToken = tokenUtils.generateToken(details);
-		
+
 		User user = userService.findByToken(userToken);
-		
+
 		LoginResponseDTO loginResponseDTO = new LoginResponseDTO(new UserDTO(user), userToken);
-		
+
 		return new ResponseEntity<LoginResponseDTO>(loginResponseDTO, HttpStatus.OK);
 
 	}
@@ -259,7 +264,7 @@ public class UserController {
 			)
 	public ResponseEntity<List<UserDTO>> getNotBlockedUsers(@RequestHeader("X-Auth-Token") String token) {
 		User loggedUser = userService.findByToken(token);
-		
+
 		List<User> users = userService.findAll();
 		List<User> notBlocked = new ArrayList<User>();
 		for (User u : users) {
@@ -272,7 +277,7 @@ public class UserController {
 		return new ResponseEntity<List<UserDTO>>(usersDTO, HttpStatus.OK);
 	}
 
-	
+
 	@RequestMapping(
 			value = "/block_user", // id - id admina koji ce blokirati user-a
 			method = RequestMethod.POST, 
@@ -280,9 +285,9 @@ public class UserController {
 			)
 	public ResponseEntity<List<UserDTO>> blockUser(@RequestBody UserDTO userDTO, @RequestHeader("X-Auth-Token") String token) {
 
-		
+
 		User admin = userService.findByToken(token);
-		
+
 		if(admin.getRole() == roleService.findByName("REGISTRED_USER")) {//VRATI NA ADMIN
 
 			User user = userService.findById(userDTO.getId());
@@ -320,7 +325,7 @@ public class UserController {
 		if(userService.findByToken(token) != null) {
 
 			User user = userService.findByToken(token);
-			
+
 			Set<Snippet> snippetsSet = user.getSnippets();
 			List<SnippetDTO> snippetsDTO = new ArrayList<SnippetDTO>();
 			for (Snippet snippet : snippetsSet) {
@@ -341,27 +346,64 @@ public class UserController {
 			method = RequestMethod.POST
 			)
 	public ResponseEntity<List<UserDTO>> searchByUsername(@RequestBody UserDTO userDTO, @RequestHeader("X-Auth-Token") String token) {
-		
+
 		//VRACA LISTU DA NE PRAVIM NOVI PRIKAZ	
-		
+
 		//User loggedUser = userService.findByToken(token);
-		
+
 		String username = userDTO.getUsername();
-		 
+
 		if(userService.findByUsername(userDTO.getUsername()) == null) {
 			return new ResponseEntity<List<UserDTO>>(HttpStatus.NOT_FOUND);
 		}
 		User user = userService.findByUsername(username);
-		
+
 		UserDTO newUserDTO = new UserDTO(user);
-		
+
 		List<UserDTO> usersDTO = new ArrayList<UserDTO>();
 		usersDTO.add(newUserDTO);
 		return new ResponseEntity<List<UserDTO>>(usersDTO, HttpStatus.OK);
-		
+
 	}
+
+	/*
+	@RequestMapping(
+			value = "/image_upload",
+			method = RequestMethod.POST)
+	public ResponseEntity<UserDTO> uploadImage(@RequestBody MultipartFile uploadfile,  @RequestHeader("X-Auth-Token") String token) {
+
+		User loggedUser = userService.findByToken(token);
+
+		//URL url = this.getClass().getResource("/");
+		//System.out.println(url);
+		byte[] bytes;
+		try {
+			System.out.println(uploadfile.getOriginalFilename());
+			bytes = uploadfile.getBytes();
+			Path path = Paths.get("static/" + uploadfile.getOriginalFilename());
+			
+			Files.write(path, bytes);	
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		String imagePath = "/images/" + uploadfile.getOriginalFilename();
+		System.out.println(imagePath);
+		
+		Image image = imageService.findByFile(imagePath);
+		
+		
+		loggedUser.setImage(image);
+		userService.save(loggedUser);
+		
+		UserDTO userDTO = new UserDTO(loggedUser);
+		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
 	
-	
+	}
+
+	*/
 	// POMOCNA FUNKCIJA
 	private List<UserDTO> toDTO(List<User> users) {
 

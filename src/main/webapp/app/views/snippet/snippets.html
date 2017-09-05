@@ -11,6 +11,13 @@
 								<div class="panel-body">
 									<div class="media">
 										<div class="media-body">
+											<div class="pull-right" ng-hide = "snippet.blocked">
+												<a ui-sref="block_snippet({snippetId: snippet.id })" class="btn btn-warning btn-xs"><i class="fa fa-lock "></i> Block snippet</a>
+											</div>
+											<div class="pull-right" ng-show = "snippet.blocked">
+												<a ui-sref="unblock_snippet({snippetId: snippet.id })" class="btn btn-warning btn-xs"><i class=" fa fa-unlock-alt"></i> Unblock snippet </a>
+											</div>
+											<p>&nbsp;</p>
 											<div class="pull-right">
 												<a ui-sref="delete_snippet({snippetId: snippet.id })" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete snippet</a>
 											</div>

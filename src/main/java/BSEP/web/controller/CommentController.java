@@ -58,7 +58,9 @@ public class CommentController {
 				if(snippetService.findById(id) != null) {
 
 					Snippet snippet = snippetService.findById(id);
-
+					if(snippet.getBlocked() == true) {
+						return new ResponseEntity<CreateCommentResponseDTO>(HttpStatus.BAD_REQUEST);
+					}
 					Comment comment = new Comment();
 					comment.setText(text);
 					comment.setSnippet(snippet);

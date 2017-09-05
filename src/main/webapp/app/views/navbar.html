@@ -19,13 +19,8 @@
         <!-- user -->
         <li class="dropdown user">
           <a ui-sref = "user_profile()" class="dropdown-toggle" data-toggle="dropdown">
-          <img src= "{{ loggedUser.imageDTO.file }} " alt="" class="img-rounded media-object" /> {{ loggedUser.username }} <span class="caret"></span>
+          <img ng-src= "{{ loggedUser.imageDTO.file }} " alt="" class="img-rounded media-object" /> {{ loggedUser.username }} <span class="caret"></span>
           </a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a ui-sref = "user_profile()"><i class="fa fa-user"></i>Profile</a></li>
-            <li><a ui-sref = "user_snippets()"><i class="fa fa-wrench"></i>My snippets</a></li>
-            <li><a ui-sref = "logout()"><i class="fa fa-sign-out"></i>Logout</a></li>
-          </ul>
         </li>
         <!-- // END user -->
       </ul>

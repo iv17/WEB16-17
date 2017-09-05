@@ -9,6 +9,8 @@ import BSEP.beans.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
+	User findById(int id);
+	
 	User findByUsernameAndPassword(String username, String password);
 	User findByEmailAndPassword(String email, String password);
 

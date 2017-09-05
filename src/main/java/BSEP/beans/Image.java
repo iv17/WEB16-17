@@ -30,7 +30,7 @@ public class Image implements Serializable {
 	@Column(name = "name", unique = false, nullable = true)
 	private String name;
 	
-	@Column(name = "file", unique = false, nullable = true)
+	@Column(name = "file", unique = false, nullable = true, columnDefinition = "LONGTEXT")
 	private String file;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "image") @JsonIgnore
