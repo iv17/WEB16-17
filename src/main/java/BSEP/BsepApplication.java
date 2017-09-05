@@ -191,8 +191,12 @@ public class BsepApplication implements CommandLineRunner {
 		Location location10 = new Location(44.7823568, 20.4166448, "Beograd", "Banovo Brdo", "Požeška 40", "11000");
 		locationRepository.save(location10);
 
-		Image image1 = new Image("elle.jpg", "app/images/elle.jpg");
+		Image image1 = new Image("aaa.jpg", "app/images/aaa.jpg".getBytes(), "image/jpeg");
 		imageRepository.save(image1);
+		Image image2 = new Image("abc.jpg", "app/images/abc.jpg".getBytes(), "image/jpeg");
+		imageRepository.save(image2);
+		Image image3 = new Image("elle.jpg", "app/images/elle.jpg".getBytes(), "image/jpeg");
+		imageRepository.save(image3);
 
 		Role role1 = new Role("REGISTRED_USER");
 		roleRepository.save(role1);

@@ -420,6 +420,19 @@
           }
         }
       })
+      .state('image_download', {
+        url: "/image_download/:file",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'content@': {
+            templateUrl: 'app/views/user/user_profile.html',
+            controller: 'ImageDownloadController'
+          }
+        }
+      })
       .state('image_upload', {
         url: "/image_upload/:file",
         views: {

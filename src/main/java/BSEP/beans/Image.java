@@ -31,8 +31,11 @@ public class Image implements Serializable {
 	private String name;
 	
 	@Column(name = "file", unique = false, nullable = true, columnDefinition = "LONGTEXT")
-	private String file;
+	private byte [] file;
 	
+	@Column(name = "mimeType", unique = false, nullable = true)
+	private String mimeType;
+
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "image") @JsonIgnore
 	Set<User> users;
 
@@ -41,11 +44,16 @@ public class Image implements Serializable {
 		
 	}
 
-	public Image(String name, String file) {
+	public Image(String name, byte [] file) {
 		this.name = name;
 		this.file = file;
 	}
 
+	public Image(String name, byte [] file, String mimeType) {
+		this.name = name;
+		this.file = file;
+		this.mimeType = mimeType;
+	}
 	public int getId() {
 		return id;
 	}
@@ -62,12 +70,20 @@ public class Image implements Serializable {
 		this.name = name;
 	}
 
-	public String getFile() {
+	public byte[] getFile() {
 		return file;
 	}
 
-	public void setFile(String file) {
+	public void setFile(byte[] file) {
 		this.file = file;
+	}
+
+	public String getMimeType() {
+		return mimeType;
+	}
+
+	public void setMimeType(String mimeType) {
+		this.mimeType = mimeType;
 	}
 
 	public Set<User> getUsers() {
@@ -76,6 +92,11 @@ public class Image implements Serializable {
 
 	public void setUsers(Set<User> users) {
 		this.users = users;
+	}
+
+	@Override
+	public String toString() {
+		return "Image [name=" + name + ", file=" + new String(file) + ", mimeType=" + mimeType + "]";
 	}
 	
 	

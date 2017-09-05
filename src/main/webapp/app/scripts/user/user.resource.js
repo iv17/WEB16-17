@@ -73,8 +73,14 @@
 				});
 			};
 
+			retVal.image_download = function(name) {
+					return Restangular.one("users/download").get({name:name}).then(function(entries) {
+							return entries;
+					});
+			};
+
 			retVal.image_upload = function(image)	{
-				return Restangular.all("users/image_upload").post(image).then(function(response) {
+				return Restangular.all("users/upload").post(image).then(function(response) {
 					return response;
 				});
 			};

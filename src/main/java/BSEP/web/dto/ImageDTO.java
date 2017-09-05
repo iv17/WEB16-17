@@ -6,8 +6,9 @@ public class ImageDTO {
 
 	private int id;	
 	private String name;
-	private String file;
+	private byte[] file;
 	
+	private String fileString;
 	
 	public ImageDTO() {
 		
@@ -17,6 +18,7 @@ public class ImageDTO {
 		id = image.getId();
 		name = image.getName();
 		file = image.getFile();
+		fileString = new String(file);
 	}
 	
 	public int getId() {
@@ -35,12 +37,20 @@ public class ImageDTO {
 		this.name = name;
 	}
 	
-	public String getFile() {
+	public byte[] getFile() {
 		return file;
 	}
 	
-	public void setFile(String file) {
+	public void setFile(byte[] file) {
 		this.file = file;
+	}
+
+	public String getFileString() {
+		return fileString;
+	}
+
+	public void setFileString(String fileString) {
+		this.fileString = fileString;
 	}
 	
 	

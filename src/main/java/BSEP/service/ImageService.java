@@ -24,6 +24,11 @@ public class ImageService {
 	public Image findById(int id) {
 		return imageRepository.findById(id);
 	}
+	
+	public Image findByName(String name) {
+		return imageRepository.findByName(name);
+	}
+	
 	public Image findByFile(String file) {
 		return imageRepository.findByFile(file);
 	}

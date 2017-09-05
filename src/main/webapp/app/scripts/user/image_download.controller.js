@@ -3,15 +3,18 @@
 
 	angular
 		.module('bsepApp')
-		.controller('ImageUploadController', ['$scope', '$rootScope', '$state', '_', 'UserResource',
+		.controller('ImageDownloadController', ['$scope', '$rootScope', '$state', '_', 'UserResource',
 		 '$stateParams', '$log', '$window','toastr',  '$localStorage',
 			function($scope, $rootScope, $state, _, UserResource, $stateParams, $log, $window,
 				toastr, $localStorage) {
 
+				var name = $stateParams.file;
 
-				UserResource.image_upload(file)
+				$log.log(name);
+
+				UserResource.image_download(name)
 				.then(function(item) {
-          $rootScope.loggedUser = item;
+          $log.log(item);
 					toastr.success('');
 				})
 				.catch(function(error){

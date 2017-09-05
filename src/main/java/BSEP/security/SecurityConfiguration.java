@@ -63,6 +63,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.and()
 			.authorizeRequests()
 				.antMatchers("/").permitAll()
+				.antMatchers("/api/users/login").permitAll() 
+				.antMatchers("/api/users/registration").permitAll() 
+				
 				.and().csrf().disable();//OBAVEZNO
 
 		httpSecurity.addFilterBefore(authenticationTokenFilterBean(),
