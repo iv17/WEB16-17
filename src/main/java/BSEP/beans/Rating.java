@@ -16,24 +16,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "rating")
-public class Rating implements Serializable {
+public class Rating implements Serializable{
 
-	
-	private static final long serialVersionUID = 5716771512325287770L;
+	private static final long serialVersionUID = -9030407310231894333L;
+
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false , unique = true)
 	private int id;
 	
-	@Column(name = "rate", unique = false, nullable = true)
-	private int rate;
+	@Column(name = "plus_rate", unique = false, nullable = true)
+	private int plus_rate;
 	
-	@Column(name = "plus", unique = false, nullable = true)
-	private int plus;
-	
-	@Column(name = "minus", unique = false, nullable = true)
-	private int minus;
+	@Column(name = "minus_rate", unique = false, nullable = true)
+	private int minus_rate;
 	
 	@Column(name = "date", unique = false, nullable = true)
 	private Date date;
@@ -45,30 +42,19 @@ public class Rating implements Serializable {
 	@ManyToOne @JsonIgnore
 	@JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true) 
 	private User user;
-
+	
 	
 	public Rating() {
 		
 	}
 
-	public Rating(int plus, int minus, Date date, Comment comment, User user) {
-		this.plus = plus;
-		this.minus = minus;
+	public Rating(int plus_rate, int minus_rate, Date date, Comment comment, User user) {
+		this.plus_rate = plus_rate;
+		this.minus_rate = minus_rate;
 		this.date = date;
 		this.comment = comment;
 		this.user = user;
 	}
-	
-	public Rating(int id, int rate, int plus, int minus, Date date, Comment comment, User user) {
-		this.id = id;
-		this.rate = rate;
-		this.plus = plus;
-		this.minus = minus;
-		this.date = date;
-		this.comment = comment;
-		this.user = user;
-	}
-
 
 
 	public int getId() {
@@ -79,28 +65,20 @@ public class Rating implements Serializable {
 		this.id = id;
 	}
 
-	public int getRate() {
-		return rate;
+	public int getPlus_rate() {
+		return plus_rate;
 	}
 
-	public void setRate(int rate) {
-		this.rate = rate;
+	public void setPlus_rate(int plus_rate) {
+		this.plus_rate = plus_rate;
 	}
 
-	public int getPlus() {
-		return plus;
+	public int getMinus_rate() {
+		return minus_rate;
 	}
 
-	public void setPlus(int plus) {
-		this.plus = plus;
-	}
-
-	public int getMinus() {
-		return minus;
-	}
-
-	public void setMinus(int minus) {
-		this.minus = minus;
+	public void setMinus_rate(int minus_rate) {
+		this.minus_rate = minus_rate;
 	}
 
 	public Date getDate() {
@@ -126,6 +104,6 @@ public class Rating implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	
 }

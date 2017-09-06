@@ -66,7 +66,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/api/users/login").permitAll() 
 				.antMatchers("/api/users/registration").permitAll() 
 				
+				.antMatchers("/h2/**").permitAll()	//h2
 				.and().csrf().disable();//OBAVEZNO
+		
+		httpSecurity.headers().frameOptions().disable();	//h2
 
 		httpSecurity.addFilterBefore(authenticationTokenFilterBean(),
 				UsernamePasswordAuthenticationFilter.class);

@@ -21,8 +21,8 @@ public class RatingDTO {
 	public RatingDTO(Rating rating) {
 		id = rating.getId();
 		rate = rating.getId();
-		plus = rating.getPlus();
-		minus = rating.getMinus();
+		plus = rating.getPlus_rate();
+		minus = rating.getMinus_rate();
 		date = rating.getDate();
 		commentDTO = new CommentDTO(rating.getComment());
 		userDTO = new UserDTO(rating.getUser());

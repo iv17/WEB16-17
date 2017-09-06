@@ -131,7 +131,8 @@ public class UserController {
 				user.setUsername(userDTO.getUsername());
 				user.setPassword(encoder.encode(userDTO.getPassword()));
 
-				user.setRole(roleService.findByName("REGISTRED_USER"));
+				//user.setRole(roleService.findByName("REGISTRED_USER"));
+				
 				user.setBlocked(false);
 				UserDTO newUserDTO = new UserDTO(user);
 

@@ -1,8 +1,6 @@
 package BSEP;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,9 +16,6 @@ import BSEP.beans.Comment;
 import BSEP.beans.Image;
 import BSEP.beans.Language;
 import BSEP.beans.Location;
-import BSEP.beans.Message;
-import BSEP.beans.PrivateConversation;
-import BSEP.beans.PrivateMessage;
 import BSEP.beans.Rating;
 import BSEP.beans.Role;
 import BSEP.beans.Snippet;
@@ -28,6 +23,7 @@ import BSEP.beans.Status;
 import BSEP.beans.User;
 import BSEP.beans.UserAuthority;
 import BSEP.beans.Visibility;
+
 import BSEP.repository.AccessRepository;
 import BSEP.repository.AttachmentRepository;
 import BSEP.repository.AttachmentTypeRepository;
@@ -50,7 +46,7 @@ import BSEP.repository.VisibilityRepository;
 
 @SpringBootApplication
 public class BsepApplication implements CommandLineRunner {
-
+	
 	@Autowired
 	AccessRepository accessRepository;
 
@@ -99,11 +95,7 @@ public class BsepApplication implements CommandLineRunner {
 	@Autowired
 	TeamRepository teamRepository;
 
-	/*
-	 * @Autowired TeamConversation teamConversation;
-	 * 
-	 * @Autowired TeamMessageRepository teamMessageRepository;
-	 */
+	
 	@Autowired
 	UserRepository userRepository;
 
@@ -120,7 +112,7 @@ public class BsepApplication implements CommandLineRunner {
 		
 		System.out.println("\n\n\n\t\t\t\t\t***BSEP***");
 	}
-
+	
 	@Override
 	public void run(String... arg0) throws Exception {
 
@@ -284,8 +276,17 @@ public class BsepApplication implements CommandLineRunner {
 				language5, "...", 30, new Date(), false, access1, visibility1, user3);
 		snippetRepository.save(snippet3);
 
+		
 		Comment comment1 = new Comment("Odlican primer!", new Date(), snippet1, user1);
 		commentRepository.save(comment1);
+	
+		Comment comment2 = new Comment("Pomoglo!", new Date(), snippet1, user3);
+		commentRepository.save(comment2);
+	
+		Comment comment3 = new Comment("Hvala!", new Date(), snippet1, user4);
+		commentRepository.save(comment3);
+
+		
 		Rating rating1 = new Rating(1, 0, new Date(), comment1, user3);
 		ratingRepository.save(rating1);
 		Rating rating2 = new Rating(1, 0, new Date(), comment1, user4);
@@ -301,8 +302,7 @@ public class BsepApplication implements CommandLineRunner {
 		Rating rating7 = new Rating(0, 1, new Date(), comment1, user9);
 		ratingRepository.save(rating7);
 		
-		Comment comment2 = new Comment("Pomoglo!", new Date(), snippet1, user3);
-		commentRepository.save(comment2);
+		
 		Rating rating8 = new Rating(1, 0, new Date(), comment2, user6);
 		ratingRepository.save(rating8);
 		Rating rating9 = new Rating(1, 0, new Date(), comment2, user7);
@@ -312,34 +312,8 @@ public class BsepApplication implements CommandLineRunner {
 		Rating rating11 = new Rating(0, 1, new Date(), comment2, user9);
 		ratingRepository.save(rating11);
 		
-		Comment comment3 = new Comment("Hvala!", new Date(), snippet1, user4);
-		commentRepository.save(comment3);
-
-		Message message1 = new Message("aaa", new Date());
-		Message message2 = new Message("bbb", new Date());
-		Message message3 = new Message("ccc", new Date());
-		Message message4 = new Message("ddd", new Date());
-		PrivateMessage privateMessage1 = new PrivateMessage(message1, user1, user2);
-		privateMessageRepository.save(privateMessage1);
-		PrivateMessage privateMessage2 = new PrivateMessage(message2, user2, user1);
-		privateMessageRepository.save(privateMessage2);
-		PrivateMessage privateMessage3 = new PrivateMessage(message3, user1, user2);
-		privateMessageRepository.save(privateMessage3);
-		PrivateMessage privateMessage4 = new PrivateMessage(message4, user2, user1);
-		privateMessageRepository.save(privateMessage4);
-
-		Set<PrivateMessage> privateMessages1 = new HashSet<>();
-		privateMessages1.add(privateMessage1);
-		privateMessages1.add(privateMessage2);
-		privateMessages1.add(privateMessage3);
-		privateMessages1.add(privateMessage4);
-		PrivateConversation privateConversation1 = new PrivateConversation(user1, user2);
-		privateConversationRepository.save(privateConversation1);
-
-		Set<User> members1 = new HashSet<>();
-		members1.add(user2);
-		members1.add(user3);
-		members1.add(user4);
-
+		
+		
 	}
+
 }

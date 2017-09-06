@@ -12,5 +12,6 @@ public class WelcomeController {
 			method = RequestMethod.GET)
 	public String welcome() {
 		return "app/index.html";
+		
 	}
 }

@@ -36,8 +36,8 @@ public class CommentDTO {
 					plus = 0;
 					minus = 0;
 				} else {
-					plus += rating.getPlus();
-					minus += rating.getMinus();
+					plus += rating.getPlus_rate();
+					minus += rating.getMinus_rate();
 				}
 			}
 		}

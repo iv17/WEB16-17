@@ -18,9 +18,11 @@ import BSEP.beans.Comment;
 import BSEP.beans.Rating;
 import BSEP.beans.Snippet;
 import BSEP.beans.User;
+
 import BSEP.service.CommentService;
 import BSEP.service.RatingService;
 import BSEP.service.UserService;
+
 import BSEP.web.dto.CommentDTO;
 import BSEP.web.dto.CreateCommentResponseDTO;
 import BSEP.web.dto.SnippetDTO;
@@ -68,7 +70,7 @@ public class RatingController {
 		}
 
 		Rating rating = new Rating();
-		rating.setMinus(1);
+		rating.setMinus_rate(1);
 		rating.setUser(user);
 		rating.setComment(comment);
 		rating.setDate(new Date());
@@ -102,8 +104,8 @@ public class RatingController {
 
 			} else {
 				for (Rating rat : comm.getRatings()) {
-					minus += rat.getMinus();
-					plus += rat.getPlus();
+					minus += rat.getMinus_rate();
+					plus += rat.getPlus_rate();
 				}
 				commDTO.setMinus(minus);
 				commDTO.setPlus(plus);
@@ -146,7 +148,7 @@ public class RatingController {
 		}
 
 		Rating rating = new Rating();
-		rating.setPlus(1);
+		rating.setPlus_rate(1);
 		rating.setUser(user);
 		rating.setComment(comment);
 		rating.setDate(new Date());
@@ -180,8 +182,8 @@ public class RatingController {
 
 			} else {
 				for (Rating rat : comm.getRatings()) {
-					minus += rat.getMinus();
-					plus += rat.getPlus();
+					minus += rat.getMinus_rate();
+					plus += rat.getPlus_rate();
 				}
 				commDTO.setMinus(minus);
 				commDTO.setPlus(plus);

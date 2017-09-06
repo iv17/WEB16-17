@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import BSEP.beans.Rating;
+
 import BSEP.repository.RatingRepository;
 
 @Service
