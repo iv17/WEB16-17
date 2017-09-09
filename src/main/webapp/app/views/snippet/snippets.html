@@ -11,14 +11,14 @@
 								<div class="panel-body">
 									<div class="media">
 										<div class="media-body">
-											<div class="pull-right" ng-hide = "snippet.blocked">
+											<div class="pull-right" ng-show = "!snippet.blocked && loggedUser.roleDTO.name == 'ADMIN' ">
 												<a ui-sref="block_snippet({snippetId: snippet.id })" class="btn btn-warning btn-xs"><i class="fa fa-lock "></i> Block snippet</a>
 											</div>
-											<div class="pull-right" ng-show = "snippet.blocked">
+											<div class="pull-right" ng-show = "snippet.blocked && loggedUser.roleDTO.name == 'ADMIN' ">
 												<a ui-sref="unblock_snippet({snippetId: snippet.id })" class="btn btn-warning btn-xs"><i class=" fa fa-unlock-alt"></i> Unblock snippet </a>
 											</div>
 											<p>&nbsp;</p>
-											<div class="pull-right">
+											<div class="pull-right" ng-show="loggedUser">
 												<a ui-sref="delete_snippet({snippetId: snippet.id })" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete snippet</a>
 											</div>
 											<h4 class="media-heading"><a ui-sref="snippet({snippetId: snippet.id })">{{ snippet.description }}</a></h4>
@@ -43,7 +43,6 @@
 								</div>
 							</div>
 						</div>
-						<p>Bottom of scrollable content</p>
 					</div>
 				</div>
 			</div>

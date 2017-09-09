@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import BSEP.beans.Comment;
 import BSEP.beans.Snippet;
 import BSEP.beans.User;
+
 import BSEP.service.CommentService;
 import BSEP.service.RoleService;
 import BSEP.service.SnippetService;
 import BSEP.service.UserService;
+
 import BSEP.web.dto.CommentDTO;
 import BSEP.web.dto.CreateCommentRequestDTO;
 import BSEP.web.dto.CreateCommentResponseDTO;
@@ -95,7 +97,42 @@ public class CommentController {
 			}
 
 		} else {
-			return new ResponseEntity<CreateCommentResponseDTO>(HttpStatus.BAD_REQUEST);
+			
+			if(snippetService.findById(id) != null) {
+
+				Snippet snippet = snippetService.findById(id);
+				if(snippet.getBlocked() == true) {
+					return new ResponseEntity<CreateCommentResponseDTO>(HttpStatus.BAD_REQUEST);
+				}
+				Comment comment = new Comment();
+				comment.setText(text);
+				comment.setSnippet(snippet);
+				comment.setUser(null);
+				comment.setDate(new Date());
+
+				commentService.save(comment); 	//sacuvam komentar
+
+				Set<Comment> snippetComments = snippet.getComments();
+				snippetComments.add(comment);	//dodam komentar medju sve komentare snippeta
+
+				snippet.setComments(snippetComments);
+
+
+				SnippetDTO snippetDTO = new SnippetDTO(snippet);
+				
+				Set<Comment> comments = snippet.getComments();
+				List<CommentDTO> commentsDTO = new ArrayList<CommentDTO>();
+				for (Comment comm : comments) {
+					CommentDTO commentDTO = new CommentDTO(comm);
+					commentsDTO.add(commentDTO);
+				}
+
+				CreateCommentResponseDTO createCommentResponseDTO = new CreateCommentResponseDTO(snippetDTO, commentsDTO);
+				return new ResponseEntity<CreateCommentResponseDTO>(createCommentResponseDTO, HttpStatus.CREATED);
+
+			} else {
+				return new ResponseEntity<CreateCommentResponseDTO>(HttpStatus.NOT_FOUND);
+			}
 		}
 
 

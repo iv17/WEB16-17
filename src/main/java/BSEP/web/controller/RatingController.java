@@ -21,6 +21,7 @@ import BSEP.beans.User;
 
 import BSEP.service.CommentService;
 import BSEP.service.RatingService;
+import BSEP.service.RoleService;
 import BSEP.service.UserService;
 
 import BSEP.web.dto.CommentDTO;
@@ -40,7 +41,11 @@ public class RatingController {
 
 	@Autowired
 	private RatingService ratingService;
+	
+	@Autowired
+	private RoleService roleService;
 
+	@SuppressWarnings("unlikely-arg-type")
 	@RequestMapping(
 			value = "/add_minus", 
 			method = RequestMethod.POST, 
@@ -53,6 +58,9 @@ public class RatingController {
 		} 
 		User user = userService.findByToken(token);
 
+		if(!user.getRole().getName().equals(roleService.findByName("ADMIN")) || !user.getRole().getName().equals(roleService.findByName("REGISTRED_USER"))) {
+			return new ResponseEntity<CreateCommentResponseDTO>(HttpStatus.BAD_REQUEST);
+		}
 		if(user.getBlocked() == true) {	// NE MOZE BLOKIRAN KORISNIK DA OCENJUJE
 			return new ResponseEntity<CreateCommentResponseDTO>(HttpStatus.BAD_REQUEST);
 		}
@@ -119,6 +127,7 @@ public class RatingController {
 	}
 
 	
+	@SuppressWarnings("unlikely-arg-type")
 	@RequestMapping(
 			value = "/add_plus", 
 			method = RequestMethod.POST, 
@@ -131,6 +140,10 @@ public class RatingController {
 		} 
 		User user = userService.findByToken(token);
 
+		if(!user.getRole().getName().equals(roleService.findByName("ADMIN")) || !user.getRole().getName().equals(roleService.findByName("REGISTRED_USER"))) {
+			return new ResponseEntity<CreateCommentResponseDTO>(HttpStatus.BAD_REQUEST);
+		}
+		
 		if(user.getBlocked() == true) {	// NE MOZE BLOKIRAN KORISNIK DA OCENJUJE
 			return new ResponseEntity<CreateCommentResponseDTO>(HttpStatus.BAD_REQUEST);
 		}

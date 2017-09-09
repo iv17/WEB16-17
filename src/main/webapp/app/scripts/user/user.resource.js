@@ -73,8 +73,8 @@
 				});
 			};
 
-			retVal.image_download = function(name) {
-					return Restangular.one("users/download").get({name:name}).then(function(entries) {
+			retVal.image_download = function(file) {
+					return Restangular.one("users/download").get({file:file}).then(function(entries) {
 							return entries;
 					});
 			};
@@ -84,6 +84,12 @@
 					return response;
 				});
 			};
+			/*
+			retVal.image_upload2 = function() {
+				return Restangular.one('users/upload')
+					.withHttpConfig({transformRequest: angular.identity})
+					.customPOST(fd, '', undefined, {'Content-Type': undefined})
+			};*/
 
 			return retVal;
 		}]);

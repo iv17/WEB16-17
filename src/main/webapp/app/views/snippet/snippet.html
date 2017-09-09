@@ -112,10 +112,10 @@
 													<p>&nbsp;</p>
 													<div ng-repeat="comment in comments | orderObjectBy: 'plus' ">
 														<div class="media">
-															<div class="pull-right">
+															<div class="pull-right" ng-show="loggedUser">
 																<a ui-sref="delete_comment({snippetId: snippet.id, commentId: comment.id })" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete comment</a>
 															</div>
-															<div class="pull-right">
+															<div class="pull-right" ng-show="loggedUser">
 																<a ui-sref="create_rate_plus({commentId: comment.id, snippetId: snippet.id })">
 																<span class="label label-success"><i class="fa fa-plus"></i></span>
 																<span class="label label-success">{{ comment.plus }}</span>
@@ -155,5 +155,4 @@
 			</div>
 		</div>
 	</div>
-</div>
 </div>

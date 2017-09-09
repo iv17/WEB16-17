@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import BSEP.beans.Comment;
 import BSEP.beans.Snippet;
 import BSEP.beans.User;
+
 import BSEP.service.AccessService;
 import BSEP.service.CommentService;
 import BSEP.service.LanguageService;
@@ -26,6 +27,7 @@ import BSEP.service.RoleService;
 import BSEP.service.SnippetService;
 import BSEP.service.UserService;
 import BSEP.service.VisibilityService;
+
 import BSEP.web.dto.CommentDTO;
 import BSEP.web.dto.LanguageDTO;
 import BSEP.web.dto.SnippetDTO;
@@ -142,7 +144,6 @@ public class SnippetController {
 			Snippet snippet = new Snippet();
 			snippet.setDescription(snippetDTO.getDescription());
 			snippet.setData(snippetDTO.getData());
-			System.out.println(snippetDTO.getLanguageName());
 			if(snippetDTO.getLanguageName() == null) {	// OBAVEZNO JE UNDEFINED
 
 				snippet.setLanguage(languageService.findByName("UNDEFINED"));
@@ -163,8 +164,32 @@ public class SnippetController {
 			snippetsDTO.add(newSnippetDTO);
 
 			return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.CREATED);
+		} else {
+			Snippet snippet = new Snippet();
+			snippet.setDescription(snippetDTO.getDescription());
+			snippet.setData(snippetDTO.getData());
+			if(snippetDTO.getLanguageName() == null) {	// OBAVEZNO JE UNDEFINED
+
+				snippet.setLanguage(languageService.findByName("UNDEFINED"));
+			}
+			snippet.setLanguage(languageService.findByName(snippetDTO.getLanguageName()));
+			snippet.setAccess(accessService.findByName(snippetDTO.getAccessName()));
+			snippet.setVisibility(visibilityService.findByName(snippetDTO.getVisibilityName()));
+			//snippet.setUrl(snippetDTO.getUrl());
+			snippet.setDuration(snippetDTO.getDuration());
+			snippet.setDate(new Date());
+			snippet.setBlocked(false);
+			snippet.setCreator(null);
+
+			snippetService.save(snippet);
+
+			SnippetDTO newSnippetDTO = new SnippetDTO(snippet);
+			List<SnippetDTO> snippetsDTO = new ArrayList<SnippetDTO>();
+			snippetsDTO.add(newSnippetDTO);
+
+			return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.CREATED);
 		}
-		return new ResponseEntity<List<SnippetDTO>>(HttpStatus.NOT_FOUND);
+		
 
 	}
 
@@ -180,7 +205,7 @@ public class SnippetController {
 			return new ResponseEntity<List<CommentDTO>>(HttpStatus.NOT_FOUND);
 		}
 		if(snippet.getComments().size() == 0) {
-			return new ResponseEntity<List<CommentDTO>>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<List<CommentDTO>>(new ArrayList<CommentDTO>(), HttpStatus.OK);
 		}
 
 		Set<Comment> comments = snippet.getComments();
@@ -314,7 +339,7 @@ public class SnippetController {
 		}
 
 		User user = userService.findByToken(token);
-		if(!user.getRole().equals(roleService.findByName("REGISTRED_USER"))) {	//ADMIN
+		if(!user.getRole().equals(roleService.findByName("ADMIN"))) {	//ADMIN
 			new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
 		}
 
@@ -346,7 +371,7 @@ public class SnippetController {
 		}
 
 		User user = userService.findByToken(token);
-		if(!user.getRole().equals(roleService.findByName("REGISTRED_USER"))) {	//ADMIN
+		if(!user.getRole().equals(roleService.findByName("ADMIN"))) {	//ADMIN
 			new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
 		}
 

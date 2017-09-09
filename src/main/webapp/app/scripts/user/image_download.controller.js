@@ -8,11 +8,11 @@
 			function($scope, $rootScope, $state, _, UserResource, $stateParams, $log, $window,
 				toastr, $localStorage) {
 
-				var name = $stateParams.file;
+				var file = $stateParams.file;
 
-				$log.log(name);
+				$log.log(file);
 
-				UserResource.image_download(name)
+				UserResource.image_download(file)
 				.then(function(item) {
           $log.log(item);
 					toastr.success('');

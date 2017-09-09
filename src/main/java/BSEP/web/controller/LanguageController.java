@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import BSEP.beans.Language;
 import BSEP.beans.User;
+
 import BSEP.service.LanguageService;
 import BSEP.service.RoleService;
 import BSEP.service.UserService;
+
 import BSEP.web.dto.LanguageDTO;
 
 @RestController
@@ -53,7 +55,7 @@ public class LanguageController {
 			return new ResponseEntity<List<LanguageDTO>>(HttpStatus.BAD_REQUEST);
 		} else {
 			User user = userService.findByToken(token);
-			if(!user.getRole().equals(roleService.findByName("REGISTRED_USER"))) {//prebaci na ADMIN
+			if(!user.getRole().equals(roleService.findByName("ADMIN"))) {//prebaci na ADMIN
 				return new ResponseEntity<List<LanguageDTO>>(HttpStatus.BAD_REQUEST);
 			} else {
 				if(languageService.findByName(languageDTO.getName()) == null) {

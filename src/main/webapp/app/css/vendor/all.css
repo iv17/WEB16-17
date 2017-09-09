@@ -1,11 +1,11 @@
 /*! =======================================================
-                      VERSION  4.0.7              
+                      VERSION  4.0.7
 ========================================================= */
 /*! =========================================================
  * bootstrap-slider.js
  *
- * Maintainers: 
- *		Kyle Kemp 
+ * Maintainers:
+ *		Kyle Kemp
  *			- Twitter: @seiyria
  *			- Github:  seiyria
  *		Rohit Kalkur
@@ -7625,7 +7625,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .daterangepicker.openscenter:before {
   position: absolute;
   top: -7px;
-  left: 0;  
+  left: 0;
   right: 0;
   width: 0;
   margin-left: auto;
@@ -7641,8 +7641,8 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .daterangepicker.openscenter:after {
   position: absolute;
   top: -6px;
-  left: 0;  
-  right: 0;  
+  left: 0;
+  right: 0;
   width: 0;
   margin-left: auto;
   margin-right: auto;
@@ -7783,7 +7783,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 }
 
 .daterangepicker_end_input {
-  float: left; 
+  float: left;
   padding-left: 11px
 }
 
@@ -12433,7 +12433,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .morris-hover{position:absolute;z-index:1000}.morris-hover.morris-default-style{border-radius:10px;padding:6px;color:#666;background:rgba(255,255,255,0.8);border:solid 2px rgba(230,230,230,0.8);font-family:sans-serif;font-size:12px;text-align:center}.morris-hover.morris-default-style .morris-hover-row-label{font-weight:bold;margin:0.25em 0}
 .morris-hover.morris-default-style .morris-hover-point{white-space:nowrap;margin:0.1em 0}
 
-/* 
+/*
  *  Owl Carousel - Animate Plugin
  */
 .owl-carousel .animated {
@@ -12472,7 +12472,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   }
 }
 
-/* 
+/*
  * 	Owl Carousel - Auto Height Plugin
  */
 .owl-height {
@@ -12483,7 +12483,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   transition: height 500ms ease-in-out;
 }
 
-/* 
+/*
  *  Core Owl Carousel CSS File
  */
 .owl-carousel {
@@ -12578,7 +12578,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   display: block;
 }
 
-/* 
+/*
  * 	Owl Carousel - Lazy Load Plugin
  */
 .owl-carousel .owl-item .owl-lazy {
@@ -12593,7 +12593,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   transform-style: preserve-3d;
 }
 
-/* 
+/*
  * 	Owl Carousel - Video Plugin
  */
 .owl-carousel .owl-video-wrapper {

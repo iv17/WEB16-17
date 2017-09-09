@@ -39,11 +39,14 @@ import BSEP.beans.Image;
 import BSEP.beans.Role;
 import BSEP.beans.Snippet;
 import BSEP.beans.User;
+
 import BSEP.security.MailAuthenticator;
 import BSEP.security.TokenUtils;
+
 import BSEP.service.ImageService;
 import BSEP.service.RoleService;
 import BSEP.service.UserService;
+
 import BSEP.web.dto.LoginResponseDTO;
 import BSEP.web.dto.SnippetDTO;
 import BSEP.web.dto.UserDTO;
@@ -296,7 +299,7 @@ public class UserController {
 
 		User admin = userService.findByToken(token);
 
-		if(admin.getRole() == roleService.findByName("REGISTRED_USER")) {//VRATI NA ADMIN
+		if(admin.getRole() == roleService.findByName("ADMIN")) {//VRATI NA ADMIN
 
 			User user = userService.findById(userDTO.getId());
 			if(user != null && !user.getBlocked().equals(true)) {
@@ -418,9 +421,9 @@ public class UserController {
 			value = "/download",
 			method = RequestMethod.GET
 			)
-	public ResponseEntity downloadFile(@RequestParam("name") String name)  {
+	public ResponseEntity downloadFile(@RequestParam("file") String file)  {
 		
-		Image image = imageService.findByName(name);//MORAJU BITI U BAZI SACUVANE
+		Image image = imageService.findByFile(file);//MORAJU BITI U BAZI SACUVANE
 		
 		if(image == null) {
 			return new ResponseEntity<>("{}", HttpStatus.NOT_FOUND);

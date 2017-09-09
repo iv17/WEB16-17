@@ -19,7 +19,7 @@
         <div data-scrollable>
           <ul class="sidebar-menu sm-bordered">
             <li ng-class="{active : activeMenu === item}"><a ui-sref = "not_user_snippets()"><i class="fa fa-code"></i> <span>Snippets</span></a></li>
-            <li><a ng-click="setActive(item)" ui-sref = "user_snippets()"><i class="fa fa-code"></i> <span>My snippets</span></a></li>
+            <li ng-show="loggedUser"><a ng-click="setActive(item)" ui-sref = "user_snippets()"><i class="fa fa-code"></i> <span>My snippets</span></a></li>
             <li><a ng-click="setActive(item)" ui-sref = "user_new_snippets()"><i class="fa fa-code"></i> <span>New snippets</span></a></li>
           </ul>
           <div class="sidebar-block equal-padding">
