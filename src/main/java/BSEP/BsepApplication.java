@@ -257,14 +257,14 @@ public class BsepApplication implements CommandLineRunner {
 				"@RequestMapping(\n" + 
 				"			method = RequestMethod.GET\n" + 
 				"			)", 
-				language8, "...", 30, new Date(), false, access1, visibility1, user1);
+				language8, "...", 0, new Date(), false, access1, visibility1, user1);
 		snippetRepository.save(snippet1);
 		Snippet snippet2 = new Snippet("pozivanje angulara na html-u", 
 				"<body ng-app=\"bsepApp\">\n" + 
 				"\n" + 
 				"	<div ui-view=\"content\"></div>" +
 				"</body>",
-				language6, "...", 30, new Date(),  false, access1, visibility1, user2);
+				language6, "...", 0, new Date(),  false, access1, visibility1, user2);
 		snippetRepository.save(snippet2);
 		Snippet snippet3 = new Snippet("JavaScript objekat", 
 				"var config = {\n" + 
@@ -275,7 +275,7 @@ public class BsepApplication implements CommandLineRunner {
 				"        }\n" + 
 				"      }\n" + 
 				"    };",
-				language5, "...", 30, new Date(), false, access1, visibility1, user3);
+				language5, "...", 0, new Date(), false, access1, visibility1, user3);
 		snippetRepository.save(snippet3);
 
 		

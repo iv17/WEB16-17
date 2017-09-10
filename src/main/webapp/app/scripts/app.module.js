@@ -163,6 +163,22 @@
           }
         }
       })
+      .state('create_snippet', {
+        url: "/create_snippet/:selectedLanguage/:selectedAccess/:selectedVisibility/:description/:code/:duration",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'sidebar@': {
+            templateUrl: 'app/views/snippet/sidebar.html',
+            controller: 'LanguagesController'
+          },
+          'content@': {
+            controller: 'CreateSnippetController'
+          }
+        }
+      })
       .state('create_snippet_not_reg', {
         url: "/create_snippet_not_reg/:selectedLanguage/:selectedAccess/:selectedVisibility/:description/:code/:duration",
         views: {

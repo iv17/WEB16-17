@@ -64,10 +64,27 @@ public class SnippetController {
 			)
 	public ResponseEntity<List<SnippetDTO>> getSnippets() {
 		List<Snippet> snippets = snippetService.findAll();
-
-		List<SnippetDTO> snippetsDTO = toDTO(snippets);
+		List<Snippet> snippetsDur = snippetService.findAll();
+		for (Snippet snippet : snippets) {
+			if(snippet.getDuration() != 0) {
+				long upisan = snippet.getDate().getTime(); 
+				System.out.println(upisan);
+				long sada = new Date().getTime();
+				System.out.println(sada);
+				long razlika = (sada - upisan)/1000;
+				System.out.println("[PROTEKLO VREME = " + razlika + " sec]");
+				System.out.println("[TRAJANJE = " + snippet.getDuration() + " sec]");
+				if(razlika >= snippet.getDuration()) { 
+					snippetsDur.remove(snippet);
+					System.out.println("[SNIPET JE UKLONJEN]");
+				}
+			}
+		}
+		List<SnippetDTO> snippetsDTO = toDTO(snippetsDur);
 		return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.OK);
 	}
+	
+	
 
 	@RequestMapping(
 			value = "/user_snippets",
@@ -79,10 +96,30 @@ public class SnippetController {
 			User user = userService.findByToken(token);
 			Set<Snippet> userSnippets = user.getSnippets();
 			List<Snippet> snippets = new ArrayList<>();
+			
+			List<Snippet> snippetsDur = new ArrayList<>();
 			for (Snippet snippet : userSnippets) {
 				snippets.add(snippet);
+				snippetsDur.add(snippet);
 			}
-			List<SnippetDTO> snippetsDTO = toDTO(snippets);
+			
+			
+			for (Snippet snippet : snippets) {
+				if(snippet.getDuration() != 0) {
+					long upisan = snippet.getDate().getTime(); 
+					long sada = new Date().getTime(); 
+					long razlika = (sada - upisan)/1000;
+					System.out.println("[PROTEKLO VREME = " + razlika + " sec]");
+					System.out.println("[TRAJANJE = " + snippet.getDuration() + " sec]");
+					if(razlika >= snippet.getDuration()) { 
+						snippetsDur.remove(snippet);
+						System.out.println("[SNIPET JE UKLONJEN]");
+					}
+				}
+			}
+			
+			
+			List<SnippetDTO> snippetsDTO = toDTO(snippetsDur);
 			return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.OK);
 		}
 		return new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
@@ -99,12 +136,30 @@ public class SnippetController {
 			User user = userService.findByToken(token);
 			List<Snippet> allSnippets = snippetService.findAll();
 			List<Snippet> snippets = new ArrayList<>();
+			List<Snippet> snippetsDur = new ArrayList<>();
 			for (Snippet snippet : allSnippets) {
 				if(!snippet.getCreator().equals(user)) {
 					snippets.add(snippet);
+					snippetsDur.add(snippet);
 				}
 			}
-			List<SnippetDTO> snippetsDTO = toDTO(snippets);
+			
+			
+			for (Snippet snippet : snippets) {
+				if(snippet.getDuration() != 0) {
+					long upisan = snippet.getDate().getTime(); //vrati milsec pa *60 za sec
+					long sada = new Date().getTime(); 
+					long razlika = (sada - upisan)/1000;
+					System.out.println("[PROTEKLO VREME = " + razlika + " sec]");
+					System.out.println("[TRAJANJE = " + snippet.getDuration() + " sec]");
+					if(razlika >= snippet.getDuration()) { 
+						snippetsDur.remove(snippet);
+						System.out.println("[SNIPET JE UKLONJEN]");
+					}
+				}
+			}
+			
+			List<SnippetDTO> snippetsDTO = toDTO(snippetsDur);
 			return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.OK);
 		}
 		return new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
@@ -152,12 +207,15 @@ public class SnippetController {
 			snippet.setAccess(accessService.findByName(snippetDTO.getAccessName()));
 			snippet.setVisibility(visibilityService.findByName(snippetDTO.getVisibilityName()));
 			//snippet.setUrl(snippetDTO.getUrl());
+			
 			snippet.setDuration(snippetDTO.getDuration());
 			snippet.setDate(new Date());
 			snippet.setBlocked(false);
 			snippet.setCreator(user);
-
-			snippetService.save(snippet);
+			
+				snippetService.save(snippet);
+			
+			
 
 			SnippetDTO newSnippetDTO = new SnippetDTO(snippet);
 			List<SnippetDTO> snippetsDTO = new ArrayList<SnippetDTO>();
@@ -413,4 +471,6 @@ public class SnippetController {
 		}
 		return snippetsDTO;
 	}
+	
+	
 }
