@@ -1,21 +1,43 @@
-(function() {
-	'use strict';
+(function () {
+    'use strict';
 
-	angular
-		.module('bsepApp')
-		.controller('LocationController', ['$scope', '$rootScope', '$state', '_', 'UserResource',
-		 '$stateParams', '$log', '$window','toastr',  '$localStorage', 
-			function($scope, $rootScope, $state, _, UserResource, $stateParams, $log, $window,
-				toastr, $localStorage) {
+    angular
+        .module('bsepApp')
+        .controller('LocationController', LocationController);
 
-				var latt = $rootScope.loggedUser.locationDTO.lat;
-				$log.log(latt);
-				var lngg = $rootScope.loggedUser.locationDTO.lng;
-				$log.log(lngg);
+    LocationController.$inject = ['$scope', '$rootScope', '$state', '_', 'UserResource',
+		 '$stateParams', '$log', '$window','toastr',  '$localStorage', '$timeout', '$document'];
 
-				 $scope.map = { center: { latitude: latt, longitude: lngg }, zoom: 8 };
-			}
-		]);
+    function LocationController($scope, $rootScope, $state, _, UserResource,
+		 $stateParams, $log, $window,toastr,  $localStorage, $timeout, $document) {
 
+				var lat = $rootScope.loggedUser.locationDTO.lat;
+				var lng = $rootScope.loggedUser.locationDTO.lng;
 
+            var position = {
+                lat: lat,
+                lng: lng
+            };
+            $scope.position = position;
+						$log.log(position);
+
+            var mapProp= {
+        				center:new google.maps.LatLng($scope.position.lat, $scope.position.long),
+        				zoom:5,
+        		};
+        		var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+            $log.log(map);
+            $scope.map = map;
+
+            function myMap() {
+              var mapProp= {
+                  center:new google.maps.LatLng($scope.position.lat, $scope.position.long),
+                  zoom:5,
+              };
+              var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+              
+
+            }
+
+    }
 })();

@@ -11,6 +11,7 @@
       'ui.bootstrap',
       'lodash',
       'ngStorage'
+
     ])
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'RestangularProvider',
 

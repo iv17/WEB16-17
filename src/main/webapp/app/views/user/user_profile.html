@@ -10,33 +10,44 @@
 									<div data-scrollable>
 										<div class="overflow-hidden">
 											<div class="width-250 width-auto-xs">
-											<div class="panel panel-default widget-user-1 text-center">
-												<div class="avatar">
-													<img ng-src= "{{ loggedUser.imageDTO.fileString }} "  width="100" height="100" alt="" class="img-rounded">
-													<h3>{{ loggedUser.name }} {{ loggedUser.surname }}</h3>
+												<div class="panel panel-default widget-user-1 text-center">
+													<div class="avatar">
+														<img ng-src= "{{ loggedUser.imageDTO.fileString }} "  width="100" height="100" alt="" class="img-rounded">
+														<h3>{{ loggedUser.name }} {{ loggedUser.surname }}</h3>
+													</div>
 												</div>
-											</div>
-											<div class="panel panel-default">
-												<div class="text-center">
-													<p>&nbsp;</p>
-									       	<input type="file" id="file" name="file" class="form-control" ng-model="file">
-													<p>&nbsp;</p>
-									        <a ui-sref="image_download({file: file})" class="btn btn-success">Upload image (Step 1)</a>
-													<p>&nbsp;</p>
-									      </div>
-											</div>
+												<!--
+												<div class="panel panel-default">
+													<div class="text-center">
+														<p>&nbsp;</p>
+														<input type="file" id="file" name="file" class="form-control" ng-model="file">
+														<p>&nbsp;</p>
+														<a ui-sref="image_download({file: file})" class="btn btn-success">Upload image (Step 1)</a>
+														<p>&nbsp;</p>
+													</div>
+												</div>
+											-->
+												<!-- Contact -->
+												<div class="panel panel-default">
+													<div class="panel-heading">About</div>
+													<ul class="icon-list icon-list-block">
+														<li><i class="fa fa-user fa-fw"></i>{{ loggedUser.name }}</li>
+														<li><i class="fa fa-user fa-fw"></i>{{ loggedUser.surname }}</li>
+														<li><i class="fa fa-envelope fa-fw"></i>{{ loggedUser.email }}</li>
+														<li><i class="fa fa-phone fa-fw"></i>{{ loggedUser.phoneNumber }}</li>
+														<li><i class="fa fa-user fa-fw"></i>{{ loggedUser.roleDTO.name }}</li>
+													</ul>
+												</div>
 
-											<!-- Contact -->
-											<div class="panel panel-default">
-												<div class="panel-heading">About</div>
-												<ul class="icon-list icon-list-block">
-													<li><i class="fa fa-user fa-fw"></i>{{ loggedUser.name }}</li>
-													<li><i class="fa fa-user fa-fw"></i>{{ loggedUser.surname }}</li>
-													<li><i class="fa fa-envelope fa-fw"></i>{{ loggedUser.email }}</li>
-													<li><i class="fa fa-phone fa-fw"></i>{{ loggedUser.phone }}</li>
-													<li><i class="fa fa-user fa-fw"></i>{{ loggedUser.roleDTO.name }}</li>
-												</ul>
-											</div>
+												<div class="panel panel-default">
+													<div class="panel-heading">Location</div>
+													<ul class="icon-list icon-list-block">
+														<li><i class="fa fa-map-marker"></i>{{ loggedUser.locationDTO.street }} {{ loggedUser.locationDTO.number }}</li>
+														<li><i class="fa fa-map-marker"></i>{{ loggedUser.locationDTO.city }}</li>
+														<li><i class="fa fa-map-marker"></i>{{ loggedUser.locationDTO.country }}</li>
+													</ul>
+												</div>
+
 											</div>
 										</div>
 									</div>
@@ -44,13 +55,27 @@
 							</div>
 						</div>
 					</div>
-
 					<div class="st-pusher" id="content">
 						<div class="st-content">
 							<div class="st-content-inner">
 								<div class="container-fluid">
-									<div class="media media-grid media-clearfix-xs">
-									
+									<div class="media media-grid media-clearfix-xs" >
+										<div id="googleMap" style="width:100%;height:600px;"></div>
+
+<script>
+function myMap() {
+
+	var myCenter = new google.maps.LatLng(44.8023505,20.4719586);
+	var mapCanvas = document.getElementById("googleMap");
+  var mapOptions = {center: myCenter, zoom: 15};
+  var map = new google.maps.Map(mapCanvas, mapOptions);
+  var marker = new google.maps.Marker({position:myCenter});
+  marker.setMap(map);
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDe5ph0UzgDiKYggmCV6UYwzeqQpoCYf2g&callback=myMap"></script>
+
 									</div>
 								</div>
 							</div>
@@ -60,4 +85,6 @@
 			</div>
 		</div>
 	</div>
+
+
 </div>
