@@ -111,6 +111,12 @@ public class Comment implements Serializable {
 	public void setRatings(Set<Rating> ratings) {
 		this.ratings = ratings;
 	}
+
+	@Override
+	public String toString() {
+		return "Comment [id=" + id + ", text=" + text + ", date=" + date + ", user=" + user.getUsername() + ", snippet=" + snippet.getDescription()
+				+ "]";
+	}
 		
 	
 }

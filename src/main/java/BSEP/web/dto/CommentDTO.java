@@ -28,9 +28,11 @@ public class CommentDTO {
 		id = comment.getId();
 		text = comment.getText();
 		date = comment.getDate();
-		userDTO = new UserDTO(comment.getUser());
+		if(comment.getUser() != null) {
+			userDTO = new UserDTO(comment.getUser());
+		}
 		snippetDTO = new SnippetDTO(comment.getSnippet());
-		if(comment.getRatings().size() != 0) {
+		if(comment.getRatings() != null) {
 			for (Rating rating : comment.getRatings()) {
 				if(comment.getRatings().size() == 0) {
 					plus = 0;

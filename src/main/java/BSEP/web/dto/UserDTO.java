@@ -35,7 +35,7 @@ public class UserDTO {
 		name = user.getName();
 		surname = user.getSurname();
 		email = user.getEmail();
-		//roleDTO = new RoleDTO(user.getRole());
+		if(user.getRole() != null) { roleDTO = new RoleDTO(user.getRole()); }
 		blocked = user.getBlocked();
 		if(user.getPhoneNumber() != null) { phoneNumber = user.getPhoneNumber(); } else { phoneNumber = "0"; };
 		if(user.getLocation() != null) { locationDTO = new LocationDTO(user.getLocation()); } else { locationDTO = new LocationDTO(); }

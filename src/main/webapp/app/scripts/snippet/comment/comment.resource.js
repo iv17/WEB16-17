@@ -13,6 +13,12 @@
 				});
 			};
 
+			retVal.create_not_reg = function(createCommentRequest)	{
+				return Restangular.all("comments/create_not_reg").post(createCommentRequest).then(function(response) {
+					return response;
+				});
+			};
+
 			retVal.deleteComment = function(comment)	{
 				return Restangular.all("comments/delete").post(comment).then(function(response) {
 					return response;

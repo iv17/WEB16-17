@@ -37,6 +37,12 @@
 				});
 			};
 
+			retVal.create_not_reg = function(snippet)	{
+				return Restangular.all("snippets/create_not_reg").post(snippet).then(function(responses) {
+					return responses;
+				});
+			};
+
 			retVal.getSnippetComments = function(id) {
 				return Restangular.one("snippets", id).getList("comments").then(function(responses) {
 					return responses;

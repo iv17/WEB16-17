@@ -30,10 +30,12 @@
 
 				UserResource.login(user)
 				.then(function(item) {
-					$scope.loggedUser = item.user;
+					$rootScope.loggedUser = item.user;
 					//==========================================
 					$localStorage.token = item.token;
 					//==========================================
+
+					$log.log($rootScope.loggedUser.roleDTO.name);
 
 					$window.location.href = '/#/home';
 					toastr.success('Ulogovali ste se kao: ' + item.user.username);

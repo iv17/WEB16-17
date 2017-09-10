@@ -3,29 +3,26 @@
 
 	angular
 		.module('bsepApp')
-		.controller('DeleteCommentController', ['$scope', '$rootScope', '$state', '_', 'CommentResource',
+		.controller('CreateCommentNotRegController', ['$scope', '$rootScope', '$state', '_', 'CommentResource',
 		 '$stateParams', '$log', '$window','toastr',  '$localStorage',
 			function($scope, $rootScope, $state, _, CommentResource, $stateParams, $log, $window,
 				toastr, $localStorage) {
 
 				var snippetId = $stateParams.snippetId;
-	      var commentId = $stateParams.commentId;
+				var commentText = $stateParams.commentText;
 
-        var comment = {
-          commentId: commentId,
-					snippetId: snippetId
-        };
+				var createCommentRequest = {   // I NA SPRINGU OVAKAV OBJEKAT ZA PREUZIMANJE PARAMETARA
+          snippetId: snippetId,
+					text: commentText
+				};
 
-				CommentResource.deleteComment(comment)
+				CommentResource.create_not_reg(createCommentRequest)
 				.then(function(items) {
           $scope.snippet = items.snippet;
 					$scope.comments = items.comments;
-
-          $window.location.href = '/#/snippet/' + snippetId;
-					toastr.success('Obrisali ste komentar!');
+					toastr.success('Dodali ste novi komentar!');
 				})
 				.catch(function(error){
-          $window.location.href = '/#/snippet/' + snippetId;
 						toastr.error("Greska!");
 				});
 

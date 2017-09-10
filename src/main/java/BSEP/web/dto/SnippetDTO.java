@@ -55,7 +55,10 @@ public class SnippetDTO {
 		blocked = snippet.getBlocked();
 		access = new AccessDTO(snippet.getAccess());
 		visibility = new VisibilityDTO(snippet.getVisibility());
-		creator = new UserDTO(snippet.getCreator());
+		if(snippet.getCreator() != null) {
+			creator = new UserDTO(snippet.getCreator());
+		}
+		
 		/*for (Comment comment : snippet.getComments()) {
 			comments.add(new CommentDTO(comment));
 		}*/

@@ -36,7 +36,8 @@
 												</div>
 											</div>
 											<p class="margin-none">
-												<span class="text-default"><i class="icon-time-clock fw"></i> {{ snippet.duration }} min <i class=" icon-user innerL"></i> Creator: <a href="">{{ snippet.creator.username }}</a></span>
+												<span ng-show="snippet.creator.username != null" class="text-default"><i class="icon-time-clock fw"></i> {{ snippet.duration }} sec <i class=" icon-user innerL"></i> Creator: <a href="">{{ snippet.creator.username }}</a></span>
+												<span ng-show="snippet.creator.username == null" class="text-default"><i class="icon-time-clock fw"></i> {{ snippet.duration }} sec <i class=" icon-user innerL"></i> Creator: <a href="">GOST</a></span>
 											</p>
 										</div>
 									</div>

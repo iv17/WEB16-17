@@ -51,6 +51,13 @@
 															placeholder="{{ snippet.duration }} sec" disable>
 													</div>
 												</div>
+												<div class="sidebar-block equal-padding">
+				                  <ul class="sidebar-menu sm-bordered">
+				                    <li ng-class="{active : activeMenu === item}"><a ui-sref = "home()"><i class="fa fa-code"></i> <span>Snippets</span></a></li>
+				                    <li ng-show="loggedUser"><a ng-click="setActive(item)" ui-sref = "user_snippets()"><i class="fa fa-code"></i> <span>My snippets</span></a></li>
+				                    <li><a ng-click="setActive(item)" ui-sref = "user_new_snippets()"><i class="fa fa-code"></i> <span>New snippets</span></a></li>
+				                  </ul>
+				                </div>
 											</div>
 										</div>
 									</div>
@@ -105,8 +112,8 @@
 											<div class="panel panel-default">
 												<div class="panel-body">
 													<div class="input-group">
-														<div class="input-group-btn"><a class="btn btn-primary" ui-sref="create_comment({commentText: commentText, snippetId: snippet.id})"> <i class="fa fa-envelope"></i> Send</a>
-														</div>
+														<div ng-show="loggedUser" class="input-group-btn"><a class="btn btn-primary" ui-sref="create_comment({commentText: commentText, snippetId: snippet.id})"> <i class="fa fa-comment"></i> Comment</a></div>
+														<div ng-show="!loggedUser" class="input-group-btn"><a class="btn btn-primary" ui-sref="create_comment_not_reg({commentText: commentText, snippetId: snippet.id})"> <i class="fa fa-comment"></i> Comment</a></div>
 														<input type="text" ng-model="commentText" class="form-control" placeholder="Write message...">
 													</div>
 													<p>&nbsp;</p>
@@ -125,8 +132,11 @@
 																<span class="label label-danger"> {{ comment.minus }}</span>
 																</a>
 															</div>
-															<div class="media-left">
-																<a href=""> <img src= "{{ comment.userDTO.imageDTO.fileString }} " width="60" class="img-rounded media-object"></a>
+															<div class="media-left" ng-show="comment.userDTO != null">
+																<a href=""> <img ng-src= "{{ comment.userDTO.imageDTO.fileString }} " width="60" class="img-rounded media-object"></a>
+															</div>
+															<div class="media-left" ng-show="comment.userDTO == null">
+																<a href=""> <img ng-src= "app/images/user.png " width="60" class="img-rounded media-object"></a>
 															</div>
 															<div class="media-body">
 																<div class="panel panel-default">
@@ -134,7 +144,8 @@
 																		<div class="pull-right">
 																			<small class="text-muted">{{ comment.date | date: "short"}}</small>
 																		</div>
-																		<a href="#">{{ comment.userDTO.username}}.</a>
+																		<a ng-show="comment.userDTO.username != null" href="#">{{ comment.userDTO.username}}</a>
+																		<a ng-show="comment.userDTO.username == null" href="#">GOST</a>
 																	</div>
 																	<div class="panel-body">{{ comment.text }}</div>
 																</div>

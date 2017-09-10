@@ -133,11 +133,11 @@ public class SnippetController {
 			consumes = "application/json"
 			)
 	public ResponseEntity<List<SnippetDTO>> createSnippet(@RequestBody SnippetDTO snippetDTO, @RequestHeader("X-Auth-Token") String token) {
-
-
+	
 		if(userService.findByToken(token) != null) {
 
 			User user = userService.findByToken(token);
+			System.out.println(user.getUsername());
 			if(user.getBlocked() == true) {
 				return new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
 			}
@@ -164,7 +164,18 @@ public class SnippetController {
 			snippetsDTO.add(newSnippetDTO);
 
 			return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.CREATED);
-		} else {
+		}
+		return new ResponseEntity<List<SnippetDTO>>(HttpStatus.BAD_REQUEST);
+
+	}
+
+	@RequestMapping(
+			value = "/create_not_reg", 
+			method = RequestMethod.POST, 
+			consumes = "application/json"
+			)
+	public ResponseEntity<List<SnippetDTO>> createSnippetNotReg(@RequestBody SnippetDTO snippetDTO) {
+	
 			Snippet snippet = new Snippet();
 			snippet.setDescription(snippetDTO.getDescription());
 			snippet.setData(snippetDTO.getData());
@@ -188,11 +199,8 @@ public class SnippetController {
 			snippetsDTO.add(newSnippetDTO);
 
 			return new ResponseEntity<List<SnippetDTO>>(snippetsDTO, HttpStatus.CREATED);
-		}
 		
-
 	}
-
 
 	@RequestMapping(
 			value = "/{id}/comments",

@@ -26,6 +26,7 @@ import BSEP.service.UserService;
 import BSEP.web.dto.CommentDTO;
 import BSEP.web.dto.CreateCommentRequestDTO;
 import BSEP.web.dto.CreateCommentResponseDTO;
+import BSEP.web.dto.DeleteCommentDTO;
 import BSEP.web.dto.SnippetDTO;
 
 @RestController
@@ -60,8 +61,13 @@ public class CommentController {
 				if(snippetService.findById(id) != null) {
 
 					Snippet snippet = snippetService.findById(id);
+					List<CommentDTO> cDTO = new ArrayList<CommentDTO>();
+					for (Comment c : snippet.getComments()) {
+						cDTO.add(new CommentDTO(c));
+					}
 					if(snippet.getBlocked() == true) {
-						return new ResponseEntity<CreateCommentResponseDTO>(HttpStatus.BAD_REQUEST);
+						CreateCommentResponseDTO createCommentResponseDTO = new CreateCommentResponseDTO(new SnippetDTO(snippet), cDTO);
+						return new ResponseEntity<CreateCommentResponseDTO>(createCommentResponseDTO, HttpStatus.BAD_REQUEST);
 					}
 					Comment comment = new Comment();
 					comment.setText(text);
@@ -75,10 +81,10 @@ public class CommentController {
 					snippetComments.add(comment);	//dodam komentar medju sve komentare snippeta
 
 					snippet.setComments(snippetComments);
-
+					snippetService.save(snippet);
 
 					SnippetDTO snippetDTO = new SnippetDTO(snippet);
-					
+
 					Set<Comment> comments = snippet.getComments();
 					List<CommentDTO> commentsDTO = new ArrayList<CommentDTO>();
 					for (Comment comm : comments) {
@@ -96,53 +102,64 @@ public class CommentController {
 				return new ResponseEntity<CreateCommentResponseDTO>(HttpStatus.BAD_REQUEST);
 			}
 
-		} else {
-			
-			if(snippetService.findById(id) != null) {
-
-				Snippet snippet = snippetService.findById(id);
-				if(snippet.getBlocked() == true) {
-					return new ResponseEntity<CreateCommentResponseDTO>(HttpStatus.BAD_REQUEST);
-				}
-				Comment comment = new Comment();
-				comment.setText(text);
-				comment.setSnippet(snippet);
-				comment.setUser(null);
-				comment.setDate(new Date());
-
-				commentService.save(comment); 	//sacuvam komentar
-
-				Set<Comment> snippetComments = snippet.getComments();
-				snippetComments.add(comment);	//dodam komentar medju sve komentare snippeta
-
-				snippet.setComments(snippetComments);
-
-
-				SnippetDTO snippetDTO = new SnippetDTO(snippet);
-				
-				Set<Comment> comments = snippet.getComments();
-				List<CommentDTO> commentsDTO = new ArrayList<CommentDTO>();
-				for (Comment comm : comments) {
-					CommentDTO commentDTO = new CommentDTO(comm);
-					commentsDTO.add(commentDTO);
-				}
-
-				CreateCommentResponseDTO createCommentResponseDTO = new CreateCommentResponseDTO(snippetDTO, commentsDTO);
-				return new ResponseEntity<CreateCommentResponseDTO>(createCommentResponseDTO, HttpStatus.CREATED);
-
-			} else {
-				return new ResponseEntity<CreateCommentResponseDTO>(HttpStatus.NOT_FOUND);
-			}
 		}
-
+		return new ResponseEntity<CreateCommentResponseDTO>(HttpStatus.BAD_REQUEST);
 
 	}
 
 	@RequestMapping(
+			value = "/create_not_reg", 
+			method = RequestMethod.POST, 
+			consumes = "application/json"
+			)
+	public ResponseEntity<CreateCommentResponseDTO> createCommentNotReg(@RequestBody CreateCommentRequestDTO createCommentRequest) {
+
+		int id = createCommentRequest.getSnippetId();
+		String text = createCommentRequest.getText();
+
+
+		Snippet snippet = snippetService.findById(id);
+		List<CommentDTO> cDTO = new ArrayList<CommentDTO>();
+		for (Comment c : snippet.getComments()) {
+			cDTO.add(new CommentDTO(c));
+		}
+		if(snippet.getBlocked() == true) {
+			CreateCommentResponseDTO createCommentResponseDTO = new CreateCommentResponseDTO(new SnippetDTO(snippet), cDTO);
+			return new ResponseEntity<CreateCommentResponseDTO>(createCommentResponseDTO, HttpStatus.BAD_REQUEST);
+		}
+		Comment comment = new Comment();
+		comment.setText(text);
+		comment.setSnippet(snippet);
+		comment.setUser(null);
+		comment.setDate(new Date());
+
+		commentService.save(comment); 	//sacuvam komentar
+
+		Set<Comment> snippetComments = snippet.getComments();
+		snippetComments.add(comment);	//dodam komentar medju sve komentare snippeta
+
+		snippet.setComments(snippetComments);
+		snippetService.save(snippet);
+
+		SnippetDTO snippetDTO = new SnippetDTO(snippet);
+
+		Set<Comment> comments = snippet.getComments();
+		List<CommentDTO> commentsDTO = new ArrayList<CommentDTO>();
+		for (Comment comm : comments) {
+			CommentDTO commentDTO = new CommentDTO(comm);
+			commentsDTO.add(commentDTO);
+		}
+
+		CreateCommentResponseDTO createCommentResponseDTO = new CreateCommentResponseDTO(snippetDTO, commentsDTO);
+		return new ResponseEntity<CreateCommentResponseDTO>(createCommentResponseDTO, HttpStatus.CREATED);
+
+
+	}
+	@RequestMapping(
 			value = "/delete",
 			method = RequestMethod.POST,
 			consumes = "application/json")
-	public ResponseEntity<CreateCommentResponseDTO> delete(@RequestBody CommentDTO commentDTO, @RequestHeader("X-Auth-Token") String token) {
+	public ResponseEntity<CreateCommentResponseDTO> delete(@RequestBody DeleteCommentDTO deleteCommentDTO, @RequestHeader("X-Auth-Token") String token) {
 
 		if(userService.findByToken(token) == null) {
 			new ResponseEntity<List<CommentDTO>>(HttpStatus.BAD_REQUEST);
@@ -150,14 +167,16 @@ public class CommentController {
 
 		User user = userService.findByToken(token);
 
-		if(commentService.findById(commentDTO.getId()) == null) {
+		if(commentService.findById(deleteCommentDTO.getCommentId()) == null) {
 			new ResponseEntity<CreateCommentResponseDTO>(HttpStatus.NOT_FOUND);
 		}
-		Comment comment = commentService.findById(commentDTO.getId());
-		Snippet snippet = comment.getSnippet();
-		
-		if(user.getRole().equals(roleService.findByName("REGISTRED_USER")) && user.equals(comment.getUser()) || user.getRole().equals(roleService.findByName("ADMIN"))) {
+		Comment comment = commentService.findById(deleteCommentDTO.getCommentId());
+		System.out.println(comment.toString());
+		Snippet snippet = snippetService.findById(deleteCommentDTO.getSnippetId());
 
+		if(user.getRole().equals(roleService.findByName("REGISTRED_USER")) && user.equals(comment.getUser())) {
+
+			System.out.println("BRISEM SVOJ KOMENTAR");
 			commentService.remove(comment);
 
 			List<Comment> comments = commentService.findAll();
@@ -166,9 +185,24 @@ public class CommentController {
 			SnippetDTO snippetDTO = new SnippetDTO(snippet);
 			CreateCommentResponseDTO createCommentResponseDTO = new CreateCommentResponseDTO(snippetDTO, commentsDTO);
 			return new ResponseEntity<CreateCommentResponseDTO>(createCommentResponseDTO, HttpStatus.CREATED);
-			
 
-		} else {
+
+		}
+		if(user.getRole().equals(roleService.findByName("ADMIN"))) {
+
+			System.out.println("BRISEM KOMENTAR KAO ADMIN");
+			commentService.remove(comment);
+
+			List<Comment> comments = commentService.findAll();
+			List<CommentDTO> commentsDTO = toDTO(comments);
+
+			SnippetDTO snippetDTO = new SnippetDTO(snippet);
+			CreateCommentResponseDTO createCommentResponseDTO = new CreateCommentResponseDTO(snippetDTO, commentsDTO);
+			return new ResponseEntity<CreateCommentResponseDTO>(createCommentResponseDTO, HttpStatus.CREATED);
+
+
+		}
+		else {
 			return new ResponseEntity<CreateCommentResponseDTO>(HttpStatus.BAD_REQUEST);
 		}
 

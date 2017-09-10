@@ -5,7 +5,7 @@
       <a ui-sref = "open_chat()" class="toggle pull-right"><i class="fa fa-comments"></i></a>
       <a ng-show="loggedUser.roleDTO.name == 'ADMIN'" ui-sref = "languages()" class="toggle pull-right"><i class="fa fa-language"></i></a>
       <a ng-show="loggedUser.roleDTO.name == 'ADMIN'" ui-sref = "users()" class="toggle pull-right"><i class="fa fa-user"></i></a>
-
+      <a ui-sref = "home()" class="toggle pull-right"><i class="fa fa-file"></i></a>
       <a class="navbar-brand hidden-xs navbar-brand-primary"> <i class="fa fa-file-code-o"></i> Snipp</a>
     </div>
     <div class="navbar-collapse collapse" id="collapse">
@@ -17,6 +17,7 @@
 
         <!-- // END messages -->
         <!-- user -->
+        <a ng-show="loggedUser" ui-sref = "logout()" class="toggle pull-right"><i class="fa fa-fw fa-unlock-alt"></i></a>
         <li ng-show="loggedUser" class="dropdown user">
           <a ui-sref = "user_profile()" class="dropdown-toggle" data-toggle="dropdown">
           <img ng-src= "{{ loggedUser.imageDTO.fileString }} " alt="" class="img-rounded media-object" /> {{ loggedUser.username }} <span class="caret"></span>

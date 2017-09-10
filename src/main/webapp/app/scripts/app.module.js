@@ -163,8 +163,8 @@
           }
         }
       })
-      .state('create_snippet', {
-        url: "/create_snippet/:selectedLanguage/:selectedAccess/:selectedVisibility/:description/:code/:duration",
+      .state('create_snippet_not_reg', {
+        url: "/create_snippet_not_reg/:selectedLanguage/:selectedAccess/:selectedVisibility/:description/:code/:duration",
         views: {
           'navbar@': {
             templateUrl: 'app/views/navbar.html',
@@ -175,7 +175,7 @@
             controller: 'LanguagesController'
           },
           'content@': {
-            controller: 'CreateSnippetController'
+            controller: 'CreateSnippetNotRegController'
           }
         }
       })
@@ -250,6 +250,19 @@
           'content@': {
             templateUrl: 'app/views/snippet/snippet.html',
             controller: 'CreateCommentController'
+          }
+        }
+      })
+      .state('create_comment_not_reg', {
+        url: "/create_comment_not_reg/:commentText/:snippetId",
+        views: {
+          'navbar@': {
+            templateUrl: 'app/views/navbar.html',
+            controller: 'HomeController'
+          },
+          'content@': {
+            templateUrl: 'app/views/snippet/snippet.html',
+            controller: 'CreateCommentNotRegController'
           }
         }
       })
@@ -417,6 +430,8 @@
           },
           'content@': {
             templateUrl: 'app/views/user/user_profile.html'
+            //controller: 'LocationController'
+
           }
         }
       })

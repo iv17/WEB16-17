@@ -183,12 +183,14 @@ public class BsepApplication implements CommandLineRunner {
 		Location location10 = new Location(44.7823568, 20.4166448, "Beograd", "Banovo Brdo", "Požeška 40", "11000");
 		locationRepository.save(location10);
 
-		Image image1 = new Image("aaa.jpg", "app/images/aaa.jpg".getBytes(), "image/jpeg");
+		Image image1 = new Image("guy-1.jpg", "app/images/guy-1.jpg".getBytes(), "image/jpeg");
 		imageRepository.save(image1);
-		Image image2 = new Image("abc.jpg", "app/images/abc.jpg".getBytes(), "image/jpeg");
+		Image image2 = new Image("guy-2.jpg", "app/images/guy-2.jpg".getBytes(), "image/jpeg");
 		imageRepository.save(image2);
-		Image image3 = new Image("elle.jpg", "app/images/elle.jpg".getBytes(), "image/jpeg");
+		Image image3 = new Image("woman-1.jpg", "app/images/woman-1.jpg".getBytes(), "image/jpeg");
 		imageRepository.save(image3);
+		Image image4 = new Image("woman-2.jpg", "app/images/woman-2.jpg".getBytes(), "image/jpeg");
+		imageRepository.save(image4);
 
 		Role role1 = new Role("REGISTRED_USER");
 		roleRepository.save(role1);
@@ -215,28 +217,28 @@ public class BsepApplication implements CommandLineRunner {
 		
 		
 		User user1 = new User("iv17", encoder.encode("nikola99"), "Ivana", "Savin", "068476018", "ivana.unitedforce@gmail.com",
-				location1, image1, role1, status1, false);
+				location1, image3, role1, status1, false);
 		userRepository.save(user1);
 		UserAuthority userAuthority1 = new UserAuthority(user1, authority2);
 		userAuthorityRepository.save(userAuthority1);
 		
 		User user2 = new User("matthew", encoder.encode("123"), "Matthew", "McConaughey", "065-456-789", "iva17.igodina@gmail.com",
-				location1, image1, role1, status1, false);
+				location1, image2, role1, status1, false);
 		userRepository.save(user2);
 		User user3 = new User("bradley", encoder.encode("123"), "Bradley", "Cooper", "065-789-123", "iva17.iigodina@gmail.com",
-				location1, image1, role1, status1, false);
+				location1, image3, role1, status1, false);
 		userRepository.save(user3);
 		User user4 = new User("leonardo", encoder.encode("123"), "Leonardo", "DiCaprio", "063-123-456", "iva17.iiigodina@gmail.com",
 				location1, image1, role1, status1, false);
 		userRepository.save(user4);
 		User user5 = new User("blake", encoder.encode("123"), "Blake", "Lively", "063-456-789", "blake.lively@gmail.com", location1,
-				image1, role1, status1, false);
+				image1, role4, status1, false);
 		userRepository.save(user5);
 		User user6 = new User("ryan", encoder.encode("123"), "Ryan", "Reynolds", "063-789-123", "ryan.reynolds@gmail.com", location1,
 				image1, role1, status1, false);
 		userRepository.save(user6);
 		User user7 = new User("jessica", encoder.encode("123"), "Jessica", "Alba", "062-123-456", "jessica.alba@gmail.com", location1,
-				image1, role1, status1, false);
+				image1, role4, status1, false);
 		userRepository.save(user7);
 		User user8 = new User("eva", encoder.encode("123"), "Eva", "Mendes", "062-456-789", "eva.mendes@gmail.com", location1, image1,
 				role1, status1, false);
@@ -245,7 +247,7 @@ public class BsepApplication implements CommandLineRunner {
 				image1, role4, status1, false);
 		userRepository.save(user9);
 		User user10 = new User("natalie", encoder.encode("123"), "Natalie", "Portman", "062-456-789", "natalie.portman@gmail.com",
-				location1, image1, role4, status1, false);
+				location1, image3, role4, status1, false);
 		userRepository.save(user10);
 		
 		UserAuthority userAuthority10 = new UserAuthority(user10, authority1);
@@ -279,13 +281,17 @@ public class BsepApplication implements CommandLineRunner {
 		
 		Comment comment1 = new Comment("Odlican primer!", new Date(), snippet1, user1);
 		commentRepository.save(comment1);
-	
 		Comment comment2 = new Comment("Pomoglo!", new Date(), snippet1, user3);
 		commentRepository.save(comment2);
-	
 		Comment comment3 = new Comment("Hvala!", new Date(), snippet1, user4);
 		commentRepository.save(comment3);
-
+		Comment comment4 = new Comment("Komentar br. 4!", new Date(), snippet2, user5);
+		commentRepository.save(comment4);
+		Comment comment5 = new Comment("Neki tamo komentar!", new Date(), snippet2, user6);
+		commentRepository.save(comment5);
+		Comment comment6 = new Comment("Hvala!", new Date(), snippet3, user7);
+		commentRepository.save(comment6);
+		
 		
 		Rating rating1 = new Rating(1, 0, new Date(), comment1, user3);
 		ratingRepository.save(rating1);
@@ -311,6 +317,15 @@ public class BsepApplication implements CommandLineRunner {
 		ratingRepository.save(rating10);
 		Rating rating11 = new Rating(0, 1, new Date(), comment2, user9);
 		ratingRepository.save(rating11);
+		
+		Rating rating12 = new Rating(1, 0, new Date(), comment3, user6);
+		ratingRepository.save(rating12);
+		Rating rating13 = new Rating(1, 0, new Date(), comment3, user7);
+		ratingRepository.save(rating13);
+		Rating rating14 = new Rating(0, 1, new Date(), comment4, user8);
+		ratingRepository.save(rating14);
+		Rating rating15 = new Rating(0, 1, new Date(), comment5, user9);
+		ratingRepository.save(rating15);
 		
 		
 		
